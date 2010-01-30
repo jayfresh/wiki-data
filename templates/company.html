@@ -161,32 +161,6 @@
 				</table>
 			</div>
 		</div>
-		{%- if usersign.name != "GUEST" %}
-		{% set fields = commonVars.fields %}
-		<div class='record'>
-			<div class='private tab'>
-				<h3>Private Fields</h3>				
-			</div>
-			<div class='entitycontent'>
-				<table>
-					<tbody>
-						{%- for field, label in fields -%}
-						{%- if tiddler.fields[field] and field not in open_fields %}
-						<tr>
-							<td class='labelwidth'>
-								<label>{{label}}:</label>
-							</td>
-							<td>
-								<span>{{tiddler.fields[field]}}</span>
-							</td>
-						</tr>
-						{% endif -%}
-						{%- endfor -%}
-					</tbody>
-				</table>
-			</div>
-		</div>
-		{% endif -%}
 
 		<!--<div class='record'>
 			<div class='tab '>

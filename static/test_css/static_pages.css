@@ -30,6 +30,17 @@
 	color: #000000;
 }
 
+#static ul {
+	padding-bottom: 10px;
+	padding-left: 30px;
+	line-height: 133%;
+	list-style: lower-roman;
+}
+
+#static ol {
+	padding-left: 30px;
+}
+
 #static .miniwrap {
 	width: 600px;
 	background-color: #76BEBE;
