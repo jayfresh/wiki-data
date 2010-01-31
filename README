@@ -1,0 +1,8 @@
+
+This branch explores how to package the wiki-data in a way 
+that makes it easier to deploy and maintain. The first step is 
+to get it in line with the norm of TiddlyWeb packaging as
+implemented in packages such as tiddlywebplugins.hoster and
+tiddlywebplugs.tiddlydocs.
+
+- cdent
