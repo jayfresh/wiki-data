@@ -14,9 +14,6 @@ config = {
         'secret': 'the bees are in the what',
         'system_plugins': [
             'tiddlywebplugins.wikidata',
-            'tiddlywebplugins.wikidata.wikidataSerializer',
-            'tiddlywebplugins.wikidata.challengeSerializer',
-            'tiddlywebplugins.wikidata.requestSerializer',
             'tiddlywebplugins.methodhack',
             'tiddlywebplugins.pathinfohack',
             'tiddlywebplugins.status',

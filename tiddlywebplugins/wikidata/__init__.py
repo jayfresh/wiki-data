@@ -1,5 +1,10 @@
 import logging
 
+
+import tiddlywebplugins.wikidata.wikidataSerializer
+import tiddlywebplugins.wikidata.challengeSerializer
+import tiddlywebplugins.wikidata.requestSerializer
+
 from tiddlywebplugins.wikidata import templating
 from tiddlywebplugins.wikidata.emailAvox import emailAvox
 from tiddlywebplugins.wikidata.recordFields import getFields
@@ -105,8 +110,10 @@ def verify(environ, start_response):
     return []
 
 def init(config):
-    config['selector'].add('/pages/{template_file:segment}', GET=template_route)
-    config['selector'].add('/test/{template_file:segment}',GET=test_template_route)
+    config['selector'].add('/pages/{template_file:segment}',
+            GET=template_route)
+    config['selector'].add('/test/{template_file:segment}',
+            GET=test_template_route)
     config['selector'].add('/index.html', GET=index)
     config['selector'].add('/verify', POST=verify)
     config['selector'].add('/lib/fields.js', GET=get_fields_js)
@@ -118,3 +125,6 @@ def init(config):
     remove_handler(config['selector'], '/bags')
     remove_handler(config['selector'], '/bags/{bag_name}')
     remove_handler(config['selector'], '/bags/{bag_name}/tiddlers')
+    tiddlywebplugins.wikidata.wikidataSerializer.init(config)
+    tiddlywebplugins.wikidata.challengeSerializer.init(config)
+    tiddlywebplugins.wikidata.requestSerializer.init(config)
