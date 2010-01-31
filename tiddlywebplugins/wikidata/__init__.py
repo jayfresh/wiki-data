@@ -125,6 +125,21 @@ def init(config):
     remove_handler(config['selector'], '/bags')
     remove_handler(config['selector'], '/bags/{bag_name}')
     remove_handler(config['selector'], '/bags/{bag_name}/tiddlers')
-    tiddlywebplugins.wikidata.wikidataSerializer.init(config)
-    tiddlywebplugins.wikidata.challengeSerializer.init(config)
-    tiddlywebplugins.wikidata.requestSerializer.init(config)
+
+    EXTENSION_TYPES = { 'challenge': 'text/x-challenge-html',
+            'request': 'text/x-request-html',
+            'wd': 'text/html' }
+    SERIALIZERS = {
+        'text/x-challenge-html': [
+            'tiddlywebplugins.wikidata.challengeSerializer',
+            'text/html; charset=UTF-8'],
+        'text/x-request-html': [
+            'tiddlywebplugins.wikidata.requestSerializer',
+            'text/html; charset=UTF-8'],
+        'text/html': ['tiddlywebplugins.wikidata.wikidataSerializer',
+            'text/html; charset=UTF-8'],
+        'default': ['tiddlywebplugins.wikidata.wikidataSerializer',
+            'text/html; charset=UTF-8'] }
+
+    config['extension_types'].update(EXTENSION_TYPES)
+    config['serializers'].update(SERIALIZERS)
