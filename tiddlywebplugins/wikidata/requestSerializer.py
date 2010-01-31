@@ -9,7 +9,9 @@ from tiddlywebplugins.wikidata.recordFields import getFields
 
 EXTENSION_TYPES = { 'request': 'text/x-request-html' }
 SERIALIZERS = {
-    'text/x-request-html': ['requestSerializer', 'text/html; charset=UTF-8']
+    'text/x-request-html': [
+        'tiddlywebplugins.wikidata.requestSerializer',
+        'text/html; charset=UTF-8']
 }
 
 def init(config):
@@ -22,7 +24,7 @@ class Serialization(SerializationInterface):
     def tiddler_as(self, tiddler):
         bag = Bag('tmpbag', tmpbag=True)
         bag.add_tiddler(tiddler)
-        template = templating.get_template(environ, 'request.html')
+        template = templating.get_template(self.environ, 'request.html')
         try:
             query = self.environ['tiddlyweb.query']
             captcha = {}

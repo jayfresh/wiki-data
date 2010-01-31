@@ -11,7 +11,7 @@ DATABASE=avox
 DATAUSER=avox
 DATAFILE=avox.txt
 DATADIR=/var/lib/mysql/avox
-EXTRACTDIR=/home/avox/wikidata/avoxjson-s/dataextracts
+EXTRACTDIR=${2:-/home/avox/wikidata/avoxjson-s/dataextracts}
 
 # calculate extract
 # XXX not done!!!
@@ -21,5 +21,6 @@ cd $DATADIR
 cp $EXTRACTDIR/$EXTRACTFILE $DATAFILE
 
 mysqlimport -u $DATAUSER -r --fields-terminated-by='~' $DATABASE $DATAFILE
+#mysqlimport -r --fields-terminated-by='~' $DATABASE $DATAFILE
 
 rm $DATAFILE
