@@ -1,26 +1,28 @@
+import mangler
 config = {
+        'log_level': 'DEBUG',
         'auth_systems': ['login_form'],
         'server_store': ['tiddlywebplugins.diststore', { 
              'main': ['text', {'store_root': 'store'}], 
              'extras': [ 
-                 (r'^avox$', ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]), 
+                 (r'^avox$', ['tiddlywebplugins.mappingsql',
+                     #{'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]), 
+                     {'db_config': 'sqlite:///test.db'}]), 
                      ], 
                  }],
         # 'server_store': ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}],
-        'css_uri': 'http://peermore.com/tiddlyweb.css',
         'secret': 'the bees are in the what',
-        'system_plugins': ['tiddlywebplugins.status', 'wikidataSerializer', 'challengeSerializer', 'requestSerializer', 'tiddlywebplugins.methodhack', 'tiddlywebplugins.pathinfohack', 'routes', 'tiddlywebplugins.static', 'tiddlywbplugins.logout'],
-        'server_host': {
-            'scheme': 'http',
-            'host': 'wiki-data.com',
-            'port': '80',
-            },
-        'wikitext_render_map': {
-            'text/json': 'jsonhtml',
-            'text/x-json': 'jsonhtml',
-            },
+        'system_plugins': [
+            'tiddlywebplugins.wikidata',
+            'tiddlywebplugins.wikidata.wikidataSerializer',
+            'tiddlywebplugins.wikidata.challengeSerializer',
+            'tiddlywebplugins.wikidata.requestSerializer',
+            'tiddlywebplugins.methodhack',
+            'tiddlywebplugins.pathinfohack',
+            'tiddlywebplugins.status',
+            'tiddlywebplugins.static',
+            'tiddlywebplugins.logout'],
         'maps_api_key': 'ABQIAAAAfIA5i-5lcivJMUvTzLDrmxQg7wZe1qASdla1M-DFyiqfOoWRghT6gGJohIOLIoy-3oR7sKWQfPvlxA', # http://wiki-data.com/
-        'log_level': 'DEBUG',
         'mappingsql.table': 'avox',
         'mappingsql.bag': 'avox',
         'mappingsql.id_column': 'avid',
@@ -51,4 +53,3 @@ config = {
         'mappingsql.full_text': True,
         'mappingsql.limit': 51,
         }
-

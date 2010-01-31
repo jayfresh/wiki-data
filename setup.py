@@ -28,6 +28,7 @@ setup(
         'tiddlywebplugins.diststore',
         'tiddlywebplugins.methodhack',
         'tiddlywebplugins.pathinfohack',
+        'tiddlywebplugins.templates',
         'tiddlywebplugins.status',
         'tiddlywebplugins.static',
         'tiddlywebplugins.logout',
