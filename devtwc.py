@@ -1,6 +1,6 @@
 config = {
         'auth_systems': ['login_form'],
-        'server_store': ['diststore', { 
+        'server_store': ['tiddlywebplugins.diststore', { 
              'main': ['text', {'store_root': 'store'}], 
              'extras': [ 
                  (r'^avox$', ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]), 
@@ -9,7 +9,7 @@ config = {
         # 'server_store': ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}],
         'css_uri': 'http://peermore.com/tiddlyweb.css',
         'secret': 'the bees are in the what',
-        'system_plugins': ['status', 'wikidataSerializer', 'challengeSerializer', 'requestSerializer', 'methodhack', 'pathinfohack', 'routes', 'static', 'logout'],
+        'system_plugins': ['tiddlywebplugins.status', 'wikidataSerializer', 'challengeSerializer', 'requestSerializer', 'tiddlywebplugins.methodhack', 'tiddlywebplugins.pathinfohack', 'routes', 'tiddlywebplugins.static', 'tiddlywbplugins.logout'],
         'server_host': {
             'scheme': 'http',
             'host': 'wiki-data.com',
