@@ -8,9 +8,25 @@ import tiddlywebplugins.wikidata.requestSerializer
 from tiddlywebplugins.wikidata import templating
 from tiddlywebplugins.wikidata.emailAvox import emailAvox
 from tiddlywebplugins.wikidata.recordFields import getFields
+from tiddlywebplugins.wikidata import captcha
 
 from tiddlyweb.web.http import HTTP404
 from tiddlywebplugins.utils import replace_handler, remove_handler
+
+EXTENSION_TYPES = { 'challenge': 'text/x-challenge-html',
+        'request': 'text/x-request-html',
+        'wd': 'text/html' }
+SERIALIZERS = {
+    'text/x-challenge-html': [
+        'tiddlywebplugins.wikidata.challengeSerializer',
+        'text/html; charset=UTF-8'],
+    'text/x-request-html': [
+        'tiddlywebplugins.wikidata.requestSerializer',
+        'text/html; charset=UTF-8'],
+    'text/html': ['tiddlywebplugins.wikidata.wikidataSerializer',
+        'text/html; charset=UTF-8'],
+    'default': ['tiddlywebplugins.wikidata.wikidataSerializer',
+        'text/html; charset=UTF-8'] }
 
 def index(environ, start_response):
     template = templating.get_template(environ, 'index.html')
@@ -20,8 +36,7 @@ def index(environ, start_response):
         ('Pragma', 'no-cache')
         ])
     
-    commonVars = templating.getCommonVars(environ)
-    return template.render(commonVars=commonVars)
+    return template.render(commonVars=templating.common_vars(environ))
 
 def template_route(environ, start_response):
     template_name = environ['wsgiorg.routing_args'][1]['template_file']
@@ -30,7 +45,7 @@ def template_route(environ, start_response):
         raise HTTP404('%s invalid' % template_name)
     
     if '.html' not in template_name:
-       template_name = template_name + '.html'
+        template_name = template_name + '.html'
        
     template = templating.get_template(environ, template_name)
         
@@ -39,8 +54,7 @@ def template_route(environ, start_response):
         ('Pragma', 'no-cache')
         ])
     
-    commonVars = templating.getCommonVars(environ)
-    return template.render(commonVars=commonVars)
+    return template.render(commonVars=templating.common_vars(environ))
     
 
 def test_template_route(environ, start_response):
@@ -50,7 +64,7 @@ def test_template_route(environ, start_response):
         raise HTTP404('%s invalid' % template_name)
     
     if '.html' not in template_name:
-       template_name = template_name + '.html'
+        template_name = template_name + '.html'
        
     template = templating.get_template(environ, template_name)
         
@@ -59,15 +73,15 @@ def test_template_route(environ, start_response):
         ('Pragma', 'no-cache')
         ])
     
-    commonVars = templating.getCommonVars(environ)
-    return template.render(commonVars=commonVars)
+    return template.render(commonVars=templating.common_vars(environ))
 
 def get_fields_js(environ, start_response):
     template = templating.get_template(environ, 'fields.js.html')
     fields = getFields(environ)
     start_response('200 OK', [
         ('Content-Type', 'application/javascript'),
-        ('Pragma', 'no-cache') # XXX unless the fields are changing often this is wrong
+        # XXX unless the fields are changing often this is wrong
+        ('Pragma', 'no-cache') 
     ])
     return template.render(fields=fields)
 
@@ -79,13 +93,12 @@ def env(environ, start_response):
     return [pformat(environ)]
     
 def verify(environ, start_response):
-    from tiddlywebplugins.wikidata.captcha import submit
 
     logging.debug(environ['tiddlyweb.query'])
     try:
         redirect = environ['tiddlyweb.query']['recaptcha_redirect'][0]
-    except:
-       redirect = environ['HTTP_REFERER'].split('?',1)[0]
+    except (KeyError, IndexError):
+        redirect = environ['HTTP_REFERER'].split('?', 1)[0]
     challenge_field = environ['tiddlyweb.query']['recaptcha_challenge_field'][0]
     logging.debug('challenge_field: '+challenge_field)
     response_field = environ['tiddlyweb.query']['recaptcha_response_field'][0]
@@ -94,7 +107,8 @@ def verify(environ, start_response):
     ip_addr = environ['REMOTE_ADDR']
     logging.debug('ip_addr: '+ip_addr)
 
-    resp = submit(challenge_field, response_field, private_key, ip_addr)
+    resp = captcha.submit(challenge_field, response_field,
+            private_key, ip_addr)
     if resp.is_valid:
         redirect = redirect + '?success=1'
         emailAvox(environ['tiddlyweb.query'])
@@ -126,20 +140,6 @@ def init(config):
     remove_handler(config['selector'], '/bags/{bag_name}')
     remove_handler(config['selector'], '/bags/{bag_name}/tiddlers')
 
-    EXTENSION_TYPES = { 'challenge': 'text/x-challenge-html',
-            'request': 'text/x-request-html',
-            'wd': 'text/html' }
-    SERIALIZERS = {
-        'text/x-challenge-html': [
-            'tiddlywebplugins.wikidata.challengeSerializer',
-            'text/html; charset=UTF-8'],
-        'text/x-request-html': [
-            'tiddlywebplugins.wikidata.requestSerializer',
-            'text/html; charset=UTF-8'],
-        'text/html': ['tiddlywebplugins.wikidata.wikidataSerializer',
-            'text/html; charset=UTF-8'],
-        'default': ['tiddlywebplugins.wikidata.wikidataSerializer',
-            'text/html; charset=UTF-8'] }
 
     config['extension_types'].update(EXTENSION_TYPES)
     config['serializers'].update(SERIALIZERS)

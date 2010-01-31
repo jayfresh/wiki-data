@@ -4,7 +4,10 @@ from tiddlywebplugins.wikidata.recordFields import getFields
 def get_template(environ, name):
     return tw_get_template(environ, name)
     
-def getCommonVars(environ): # JRL: to make sure that templates have access to common fields
+def common_vars(environ):
+    """
+    To make sure that templates have access to common fields.
+    """
     fields = getFields(environ)
     usersign = environ['tiddlyweb.usersign']
     
@@ -17,14 +20,10 @@ def getCommonVars(environ): # JRL: to make sure that templates have access to co
         elif success == '0':
             captcha['failure'] = True
             try:
-               captcha['error'] = query['error'][0]
-            except:
-               captcha['error'] = "Error not supplied"
-    except:
+                captcha['error'] = query['error'][0]
+            except (KeyError, IndexError):
+                captcha['error'] = "Error not supplied"
+    except (KeyError, IndexError):
         pass
 
-    return {
-        'fields':fields,
-        'usersign':usersign,
-        'captcha':captcha
-    }
+    return {'fields':fields, 'usersign':usersign, 'captcha':captcha}

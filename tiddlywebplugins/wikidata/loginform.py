@@ -34,8 +34,8 @@ class Challenger(ChallengerInterface):
             ('Pragma', 'no-cache')
             ])
 
-        commonVars = templating.getCommonVars(environ)
-        return template.render(redirect=redirect, commonVars=commonVars)
+        return template.render(redirect=redirect,
+                commonVars=templating.common_vars(environ))
 
     def challenge_post(self, environ, start_response):
         """
@@ -59,8 +59,8 @@ class Challenger(ChallengerInterface):
                 ('Content-Type', 'text/html')
                 ])
 
-            commonVars = templating.getCommonVars(environ)
-            return template.render(redirect=redirect, commonVars=commonVars, error=True)
+            return template.render(redirect=redirect, error=True,
+                    commonVars=templating.common_vars(environ))
 
     def _validate_and_redirect(self, environ, start_response, username,
             password, redirect):
@@ -90,7 +90,6 @@ class Challenger(ChallengerInterface):
             pass
         except NoUserError:
             logging.debug('NoUserError for: '+username)
-            pass
         template = templating.get_template(environ, 'login_form.html')
         
         start_response(status, [
@@ -98,5 +97,5 @@ class Challenger(ChallengerInterface):
             ('Pragma', 'no-cache')
             ])
 
-        commonVars = templating.getCommonVars(environ)
-        return template.render(redirect=redirect, commonVars=commonVars, error=True)
+        return template.render(redirect=redirect,
+                commonVars=template.common_vars(environ), error=True)

@@ -1,6 +1,6 @@
-from sendEmail import send
 import logging
-import recordFields
+from tiddlywebplugins.wikidata import recordFields
+from tiddlywebplugins.wikidata.sendEmail import send
 
 def emailAvox(query):
     requestType = query['requestType'][0]
@@ -34,27 +34,32 @@ def emailAvox(query):
             'Source for challenge: '+source+'\n' \
             'Challenge details\n--------------\n'
         for field, label in recordFields.recordFields:
-           try:
-               body += field+': '+query['challenge_'+field][0]+'\n'
-           except KeyError:
-               pass
+            try:
+                body += field+': '+query['challenge_'+field][0]+'\n'
+            except KeyError:
+                pass
     elif requestType == 'suggest_new':
-       to = ['adam.edwards@avox.info', 'daniel.dunn@avox.info', 'paul.barlow@avox.info', 'kate.young@avox.info', 'brian.cole@avox.info', 'ken.price@avox.info', 'jnthnlstr@googlemail.com']
-       subject = 'Wiki-data AVID record suggestion'
-       body = 'Submittor info\n--------------\n' \
-           'Name: '+name+'\n' \
-           'Email address: '+email+'\n' \
-           'Country: '+country+'\n' \
-           'Company: '+company+'\n\n\n' \
-           'Record info\n--------------\n'
-       for field, label in recordFields.recordFields:
-           try:
-               body += field+': '+query[field][0]+'\n'
-           except KeyError:
-               pass
+        to = ['adam.edwards@avox.info', 'daniel.dunn@avox.info', 'paul.barlow@avox.info', 'kate.young@avox.info', 'brian.cole@avox.info', 'ken.price@avox.info', 'jnthnlstr@googlemail.com']
+        subject = 'Wiki-data AVID record suggestion'
+        body = """Submittor info
+--------------
+Name: %s
+Email address: %s
+Country: %s
+Company: %s
+
+
+Record info
+--------------
+""" % (name, email, country, company)
+        for field, label in recordFields.recordFields:
+            try:
+                body += field + ': ' + query[field][0] + '\n'
+            except KeyError:
+                pass
     else:
-       to = 'jnthnlstr@googlemail.com'
-       subject = 'Unknown contact type'
-       body = 'Query: '+repr(query)
-    logging.debug('to:'+repr(to)+', subject:'+subject+', '+'body: '+body)
-    send(to,subject,body)
+        to = 'jnthnlstr@googlemail.com'
+        subject = 'Unknown contact type'
+        body = 'Query: %s' % repr(query)
+    logging.debug('to: %s , subject: %s body: %s', repr(to), subject, body)
+    send(to, subject, body)

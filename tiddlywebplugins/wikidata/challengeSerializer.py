@@ -16,10 +16,10 @@ class Serialization(SerializationInterface):
             elif success == '0':
                 captcha['failure'] = True
                 try:
-                   captcha['error'] = query['error'][0]
+                    captcha['error'] = query['error'][0]
                 except:
-                   captcha['error'] = "Error not supplied"
+                    captcha['error'] = "Error not supplied"
         except:
             pass
-        commonVars = templating.getCommonVars(self.environ)
-        return template.render(tiddler=tiddler, commonVars=commonVars)
+        return template.render(commonVars=templating.common_vars(
+            self.environ))
