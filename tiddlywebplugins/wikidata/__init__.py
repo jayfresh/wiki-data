@@ -79,7 +79,7 @@ def env(environ, start_response):
     return [pformat(environ)]
     
 def verify(environ, start_response):
-    from captcha import submit
+    from tiddlywebplugins.wikidata.captcha import submit
 
     logging.debug(environ['tiddlyweb.query'])
     try:
