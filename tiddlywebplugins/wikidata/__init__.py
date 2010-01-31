@@ -2,12 +2,13 @@ import logging
 
 from tiddlywebplugins.wikidata import templating
 from tiddlywebplugins.wikidata.emailAvox import emailAvox
+from tiddlywebplugins.wikidata.recordFields import getFields
 
 from tiddlyweb.web.http import HTTP404
 from tiddlywebplugins.utils import replace_handler, remove_handler
 
 def index(environ, start_response):
-    template = templating.generate_template(["index.html","search.html"])
+    template = templating.get_template(environ, 'index.html')
     
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
@@ -26,7 +27,7 @@ def template_route(environ, start_response):
     if '.html' not in template_name:
        template_name = template_name + '.html'
        
-    template = templating.generate_template([template_name])
+    template = templating.get_template(environ, template_name)
         
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
@@ -46,7 +47,7 @@ def test_template_route(environ, start_response):
     if '.html' not in template_name:
        template_name = template_name + '.html'
        
-    template = templating.generate_test_template([template_name])
+    template = templating.get_template(environ, template_name)
         
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
@@ -57,12 +58,11 @@ def test_template_route(environ, start_response):
     return template.render(commonVars=commonVars)
 
 def get_fields_js(environ, start_response):
-    from recordFields import getFields
-    template = templating.generate_plain_template(['fields.js.html'])
+    template = templating.get_template(environ, 'fields.js.html')
     fields = getFields(environ)
     start_response('200 OK', [
         ('Content-Type', 'application/javascript'),
-        ('Pragma', 'no-cache')
+        ('Pragma', 'no-cache') # XXX unless the fields are changing often this is wrong
     ])
     return template.render(fields=fields)
 
@@ -102,7 +102,7 @@ def verify(environ, start_response):
             ('Pragma', 'no-cache')
             ])
     
-    return ""
+    return []
 
 def init(config):
     config['selector'].add('/pages/{template_file:segment}', GET=template_route)

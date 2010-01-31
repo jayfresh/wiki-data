@@ -1,10 +1,11 @@
 import urllib
 import logging
-import templating
 
 from tiddlyweb.serializations import SerializationInterface
 from tiddlyweb.model.bag import Bag
-from recordFields import getFields
+
+from tiddlywebplugins.wikidata import templating
+from tiddlywebplugins.wikidata.recordFields import getFields
 
 EXTENSION_TYPES = { 'request': 'text/x-request-html' }
 SERIALIZERS = {
@@ -21,7 +22,7 @@ class Serialization(SerializationInterface):
     def tiddler_as(self, tiddler):
         bag = Bag('tmpbag', tmpbag=True)
         bag.add_tiddler(tiddler)
-        template = templating.generate_template(["request.html"])
+        template = templating.get_template(environ, 'request.html')
         try:
             query = self.environ['tiddlyweb.query']
             captcha = {}

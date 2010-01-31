@@ -4,7 +4,8 @@ and password.
 """
 
 import logging
-import templating
+
+from tiddlywebplugins.wikidata import templating
 
 from tiddlyweb.web.challengers import ChallengerInterface
 from tiddlyweb.web.util import server_host_url, make_cookie
@@ -26,7 +27,7 @@ class Challenger(ChallengerInterface):
         """
         redirect = (environ['tiddlyweb.query'].
                 get('tiddlyweb_redirect', ['/'])[0])
-        template = templating.generate_template(["login_form.html"])
+        template = templating.get_template(environ, 'login_form.html')
     
         start_response('200 OK', [
             ('Content-Type', 'text/html'),
@@ -52,7 +53,7 @@ class Challenger(ChallengerInterface):
             return self._validate_and_redirect(environ, start_response,
                     username, password, redirect)
         except KeyError:
-            template = templating.generate_template(["login_form.html"])
+            template = templating.get_template(environ, 'login_form.html')
         
             start_response('401 Unauthorized', [
                 ('Content-Type', 'text/html')
@@ -90,7 +91,7 @@ class Challenger(ChallengerInterface):
         except NoUserError:
             logging.debug('NoUserError for: '+username)
             pass
-        template = templating.generate_template(["login_form.html"])
+        template = templating.get_template(environ, 'login_form.html')
         
         start_response(status, [
             ('Content-Type', 'text/html'),
