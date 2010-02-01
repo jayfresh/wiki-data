@@ -55,7 +55,7 @@
 .entitycontent td {
 	background-color:#c4d0d5;
 	border: 1px solid #fff;
-	padding:10px;
+	padding:5px;
 	color:black;
 	
 }
@@ -67,7 +67,6 @@
 .entitycontent label {
 	font-size:1em;
 	font-weight:inherit;
-	letter-spacing:.2em;
 }
 
 .labelwidth {
