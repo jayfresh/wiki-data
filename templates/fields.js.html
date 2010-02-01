@@ -1,5 +1,5 @@
 var recordFields = [
-{%- for field, label in fields %}
+{%- for field, label, tooltip in fields %}
 	["{{field}}", "{{label}}"]
 {%- if not(loop.last) %},{% endif -%}
 	{%- endfor %}
