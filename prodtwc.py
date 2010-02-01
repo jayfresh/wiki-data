@@ -1,6 +1,6 @@
 config = {
         'auth_systems': ['login_form'],
-        'server_store': ['diststore', { 
+        'server_store': ['tiddlywebplugins.diststore', { 
              'main': ['text', {'store_root': 'store'}], 
              'extras': [ 
                  (r'^avox$', ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]), 
