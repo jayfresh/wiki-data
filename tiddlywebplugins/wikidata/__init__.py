@@ -1,32 +1,17 @@
 import logging
 
-
-import tiddlywebplugins.wikidata.wikidataSerializer
-import tiddlywebplugins.wikidata.challengeSerializer
-import tiddlywebplugins.wikidata.requestSerializer
+import tiddlywebplugins.logout
 
 from tiddlywebplugins.wikidata import templating
 from tiddlywebplugins.wikidata.emailAvox import emailAvox
 from tiddlywebplugins.wikidata.recordFields import getFields
 from tiddlywebplugins.wikidata import captcha
+from tiddlywebplugins.wikidata.config import config as local_config
 
+from tiddlyweb.util import merge_config
 from tiddlyweb.web.http import HTTP404
 from tiddlywebplugins.utils import replace_handler, remove_handler
 
-EXTENSION_TYPES = { 'challenge': 'text/x-challenge-html',
-        'request': 'text/x-request-html',
-        'wd': 'text/html' }
-SERIALIZERS = {
-    'text/x-challenge-html': [
-        'tiddlywebplugins.wikidata.challengeSerializer',
-        'text/html; charset=UTF-8'],
-    'text/x-request-html': [
-        'tiddlywebplugins.wikidata.requestSerializer',
-        'text/html; charset=UTF-8'],
-    'text/html': ['tiddlywebplugins.wikidata.wikidataSerializer',
-        'text/html; charset=UTF-8'],
-    'default': ['tiddlywebplugins.wikidata.wikidataSerializer',
-        'text/html; charset=UTF-8'] }
 
 def index(environ, start_response):
     template = templating.get_template(environ, 'index.html')
@@ -140,6 +125,6 @@ def init(config):
     remove_handler(config['selector'], '/bags/{bag_name}')
     remove_handler(config['selector'], '/bags/{bag_name}/tiddlers')
 
+    tiddlywebplugins.logout.init(config)
 
-    config['extension_types'].update(EXTENSION_TYPES)
-    config['serializers'].update(SERIALIZERS)
+    merge_config(config, local_config)

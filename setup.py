@@ -27,12 +27,8 @@ setup(
         'tiddlyweb',
         'tiddlywebplugins.diststore',
         'tiddlywebplugins.methodhack',
-        'tiddlywebplugins.pathinfohack',
         'tiddlywebplugins.templates',
-        'tiddlywebplugins.status',
-        'tiddlywebplugins.static',
         'tiddlywebplugins.logout',
-        # 'system_plugins': ['wikidataSerializer', 'challengeSerializer', 'requestSerializer', 'routes'],
         # mappingsql
         ],
     zip_safe = False
