@@ -25,6 +25,7 @@ setup(
     platforms = 'Posix; MacOS X; Windows',
     install_requires = ['setuptools',
         'tiddlyweb',
+        'tiddlywebplugins.utils',
         'tiddlywebplugins.diststore',
         'tiddlywebplugins.methodhack',
         'tiddlywebplugins.templates',
