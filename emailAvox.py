@@ -11,6 +11,7 @@ def emailAvox(query):
     if requestType == 'request':
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]
+        additional_info = query['additional_info'][0]
         to = ['addadatarecord.wiki-data@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Request for more information'
         body = 'SPECIFIC REQUEST re: additional information request\n' \
@@ -18,7 +19,8 @@ def emailAvox(query):
             'Name: '+name+'\n' \
             'Email address: '+email+'\n' \
             'Country: '+country+'\n' \
-            'Company: '+company+'\n'
+            'Company: '+company+'\n' \
+            'Additional info: '+additional_info+'\n'
     elif requestType == 'challenge':
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]

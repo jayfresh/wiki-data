@@ -102,6 +102,10 @@ pre {
 	margin: auto;
 }
 
+.fullwidth {
+	width: 100%;
+}
+
 .clear {
 	overflow: auto;
 }
