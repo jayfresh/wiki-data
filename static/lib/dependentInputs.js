@@ -11,7 +11,8 @@ $.fn.replaceWith = function(value) {
 		else
 			p.append(value);
 	});
-}
+};
+
 DependentInputs = {
 	rows: [],
 	values: {},
@@ -373,21 +374,7 @@ DependentInputs.addDependency(function($row,changed) {
 	}
 });
 
-DependentInputs.fields = [
-	'Legal Name',
-	'Previous Name_s_',
-	'Trades As Name_s_',
-	'Trading Status',
-	'Company Website',
-	'Registered Country',
-	'Operational PO Box',
-	'Operational Floor',
-	'Operational Building',
-	'Operational Street 1',
-	'Operational Street 2',
-	'Operational Street 3',
-	'Operational City',
-	'Operational State',
-	'Operational Country',
-	'Operational Postcode'
-];
+DependentInputs.fields = [];
+for(var i=0, il=window.recordFields.length; i<il; i++) {
+	DependentInputs.fields.push(window.recordFields[i][1]);
+}

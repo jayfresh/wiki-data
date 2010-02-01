@@ -42,19 +42,39 @@ function addAdvSearchLine() {
 			// filter on columns assuming the select input doesn't include the AVID field
 			oTable.fnFilter(this.value,selectedIndex);
 		}*/
+		
+		/* we're going to look through the list of active filters and make sure there aren't any that shouldn't be there, which there will be if we've just changed a field */
 		if(oTable) {
-			oTable.fnFilter(elem ? elem.value : "",selectedIndex+1);
+			var activeSearchLines = [];
+			$('.advSearchLineField').each(function(i) {
+				activeSearchLines.push($(this).attr('selectedIndex'));
+			});
+			var cols = oTable.fnSettings().aoPreSearchCols;
+			$.each(cols, function(i) {
+				if(this.sSearch) {
+					if($.inArray(i,activeSearchLines)===-1) {
+						this.sSearch="";
+					}
+				}
+			});
+
+			var val = elem ? elem.value : "";
+			oTable.fnFilter(elem ? elem.value : "",selectedIndex);
 			oTable.fixedHeader.fnUpdate(true);
 		}
 	};
-	
+	var filterByInput = function(event) {
+		var target = event.target;
+		if(!$(target).is("input")) {
+			target = $(target).parent().find('input:text').get(0);
+		}
+		filterOnChange(target);
+	};
 	$row.change(function(event) {
-		filterOnChange(event.target);
+		filterByInput(event);
 	});
 	$row.keyup(function(event) {
-		if($(event.target).is("input")) {
-			filterOnChange(event.target);
-		}
+		filterByInput(event);
 	});
 	// reveal if not shown
 	var $container = $(container);
