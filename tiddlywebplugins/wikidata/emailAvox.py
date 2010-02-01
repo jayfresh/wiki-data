@@ -33,7 +33,7 @@ def emailAvox(query):
             'Company: '+company+'\n' \
             'Source for challenge: '+source+'\n' \
             'Challenge details\n--------------\n'
-        for field, label in recordFields.recordFields:
+        for field, _ in recordFields.recordFields:
             try:
                 body += field+': '+query['challenge_'+field][0]+'\n'
             except KeyError:
@@ -52,7 +52,7 @@ Company: %s
 Record info
 --------------
 """ % (name, email, country, company)
-        for field, label in recordFields.recordFields:
+        for field, _ in recordFields.recordFields:
             try:
                 body += field + ': ' + query[field][0] + '\n'
             except KeyError:

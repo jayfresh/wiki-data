@@ -1,14 +1,13 @@
 """
 Fiddle about with mapping an existing sql table to tiddlers.
 """
-from sqlalchemy import Table, Column, Unicode, Integer, create_engine, MetaData
+from sqlalchemy import Table, Column, Integer, create_engine, MetaData
 from sqlalchemy.sql import or_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import mapper, sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
 from tiddlyweb.model.tiddler import Tiddler
-from tiddlyweb.model.bag import Bag
 from tiddlyweb.stores import StorageInterface
 from tiddlyweb.store import NoBagError, NoTiddlerError
 
@@ -93,7 +92,7 @@ class Store(StorageInterface):
                 setattr(tiddler, column, unicode(getattr(stiddler, column)))
             else:
                 tiddler.fields[column] = unicode(getattr(stiddler, column))
-	if not tiddler.text:
+        if not tiddler.text:
             tiddler.text = ''
         return tiddler
 
@@ -136,6 +135,8 @@ class Store(StorageInterface):
                                     ['mappingsql.default_search_fields'])
                                 ).params(query=query_string)
             else:
+                # XXX: id and modifier fields are not guaranteed to be
+                # present. i.e. this code is wrong!
                 query = query.filter(or_(
                             sTiddler.id.like('%%%s%%' % query_string),
                             sTiddler.modifier.like('%%%s%%' % query_string)))
@@ -150,15 +151,16 @@ class Store(StorageInterface):
             have_query = True
 
         if have_query:
-            logging.debug('query is: %s' % query)
+            logging.debug('query is: %s', query)
             limit = self.environ['tiddlyweb.config'].get('mappingsql.limit', 50)
             stiddlers = query.limit(limit).all()
         else:
             stiddlers = []
 
         bag_name = self.environ['tiddlyweb.config']['mappingsql.bag']
-        tiddlers =  (Tiddler(unicode(getattr(stiddler, self.id_column)), bag_name)
-                for stiddler in stiddlers)
+        tiddlers =  (Tiddler(
+            unicode(getattr(stiddler, self.id_column)), bag_name)
+            for stiddler in stiddlers)
 
         return tiddlers
 
