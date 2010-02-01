@@ -26,8 +26,8 @@ class Store(StorageInterface):
 
     mapped = False
 
-    def __init__(self, environ=None):
-        super(Store, self).__init__(environ)
+    def __init__(self, store_config=None, environ=None):
+        super(Store, self).__init__(store_config, environ)
         self._init_store()
 
     def _init_store(self):
