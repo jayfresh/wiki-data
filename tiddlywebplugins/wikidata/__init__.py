@@ -109,6 +109,9 @@ def verify(environ, start_response):
     return []
 
 def init(config):
+    merge_config(config, local_config)
+    tiddlywebplugins.logout.init(config)
+
     config['selector'].add('/pages/{template_file:segment}',
             GET=template_route)
     config['selector'].add('/test/{template_file:segment}',
@@ -125,6 +128,4 @@ def init(config):
     remove_handler(config['selector'], '/bags/{bag_name}')
     remove_handler(config['selector'], '/bags/{bag_name}/tiddlers')
 
-    tiddlywebplugins.logout.init(config)
 
-    merge_config(config, local_config)

@@ -30,7 +30,8 @@ setup(
         'tiddlywebplugins.methodhack',
         'tiddlywebplugins.templates',
         'tiddlywebplugins.logout',
-        # mappingsql
+        'tiddlywebplugins.mappingsql',
         ],
-    zip_safe = False
+    zip_safe = False,
+    include_package_data = True,
     )
