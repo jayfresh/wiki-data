@@ -4,6 +4,15 @@ This can be overridden in tiddlywebconfig.py
 """
 
 config = {
+        'auth_systems': ['tiddlywebplugins.wikidata.loginform'],
+        'server_store': ['tiddlywebplugins.diststore', {
+            'main': ['text', {'store_root': 'store'}],
+            'extras': [
+                (r'^avox$', ['tiddlywebplugins.mappingsql',
+                    {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]),
+                    #{'db_config': 'sqlite:///test.db'}]),
+                ],
+            }],
         'mappingsql.table': 'avox',
         'mappingsql.bag': 'avox',
         'mappingsql.id_column': 'avid',
