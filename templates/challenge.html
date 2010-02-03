@@ -31,7 +31,7 @@
 </div>
 
 <div id="content-challenge">
-	{% if captcha.success %}
+	{% if success == 1 %}
 	<div class="wrap">
 		<p>Thanks! We'll be in touch shortly.</p>
 	</div>
@@ -42,9 +42,14 @@
 			<div class="right rightpanelhead">
 				<h2>information</h2>
 				<div class="stripe">
+					{% if commonVars.usersign.name == "GUEST" %}
 					<p>We'd like to know who you are!</p>
+					{% else %}
+					<p>Your account details are shown below</p>
+					{% endif %}
 				</div>
-				<div class="right lightbluebox lightblueborder" id="rightpanel" style="visibility: visible;">
+				<div class="lightbluebox lightblueborder" id="rightpanel" style="visibility: visible;">
+					{% if commonVars.usersign.name == "GUEST" %}
 					<label for="name">Your name</label>
 					<input type="text" name="name" id="name" size="35"/>
 					<label for="email">Your email address</label>
@@ -53,11 +58,26 @@
 					<input type="text" name="country" id="country" size="35" />
 					<label for="company">Your company <span>(Optional)</span></label>
 					<input type="text" name="company" size="35"/>
+					{% else %}
+					<div>Your name</div>
+					<input type="hidden" name="name" />
+					<div>blah</div>
+					<div>Your email address</div>
+					<input type="hidden" name="email" />
+					<div>blah</div>
+					<div>Your country</div>
+					<input type="hidden" name="country" />
+					<div>blah</div>
+					<div>Your company (Optional)</div>
+					<input type="hidden" name="company" />
+					<div>blah</div>
+					{% endif %}
 					<label for="source">(Optional) What is your source for this? Please include URL and/or sources used. We will use this to validate your challenge.</label>
 					<textarea cols="35" rows="5" name="source"></textarea>
 					<input type="hidden" name="requestType" value="challenge" />
 					<input type="hidden" name="avid" value="{{tiddler.title}}" />
 					<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
+					{% if commonVars.usersign.name == "GUEST" %}
 					<div>Are you human?</div>
 					<script src="http://api.recaptcha.net/challenge?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29" type="text/javascript"/></script>
 					<noscript>
@@ -69,6 +89,7 @@
 					<div class="captcha_error">
 						<p>Whoops! I think you made a mistake with the CAPTCHA. Please try again.</p>
 					</div>
+					{% endif %}
 					{% endif %}
 				</div>
 				<input id='submit' class="darkgreen lightborder whitetext caps margintop" type="submit" value="Submit challenge"/>

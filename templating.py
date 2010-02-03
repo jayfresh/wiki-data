@@ -35,18 +35,14 @@ def getCommonVars(environ): # JRL: to make sure that templates have access to co
     fields = getFields(environ)
     usersign = environ['tiddlyweb.usersign']
     
+    query = environ['tiddlyweb.query']
     captcha = {}
     try:
-        query = environ['tiddlyweb.query']
-        success = query['success'][0]
-        if success == '1':
-            captcha['success'] = True
-        elif success == '0':
-            captcha['failure'] = True
-            try:
-               captcha['error'] = query['error'][0]
-            except:
-               captcha['error'] = "Error not supplied"
+        captchaStatus = query['captcha'][0]
+        if captchaStatus == 1:
+            captcha['success'] = 1
+        else:
+            captcha['failure'] = 1
     except:
         pass
 

@@ -11,8 +11,7 @@ $.fn.replaceWith = function(value) {
 		else
 			p.append(value);
 	});
-};
-
+}
 DependentInputs = {
 	rows: [],
 	values: {},
@@ -67,8 +66,18 @@ DependentInputs = {
 	},
 	addRow: function(container,field,val,i) {
 		i = i || 0;
-		var $field = $(container).find(field).eq(i);
+		var $container = $(container);
+		if(!$container.length) {
+			throw new Error('error when adding row - no container matching '+container);
+		}
+		var $field = $container.find(field).eq(i);
+		if(!$field.length) {
+			throw new Error('error when adding row - no fields matching '+field+', '+i);
+		}
 		var $val = $(container).find(val).eq(i);
+		if(!$val.length) {
+			throw new Error('error when adding row - no values matching '+val+', '+i);
+		}
 		return this.convert($field,$val);
 	},
 	addRows: function(container,field,val,rowSelector) {
@@ -374,7 +383,21 @@ DependentInputs.addDependency(function($row,changed) {
 	}
 });
 
-DependentInputs.fields = [];
-for(var i=0, il=window.recordFields.length; i<il; i++) {
-	DependentInputs.fields.push(window.recordFields[i][1]);
-}
+DependentInputs.fields = [
+	'Legal Name',
+	'Previous Name_s_',
+	'Trades As Name_s_',
+	'Trading Status',
+	'Company Website',
+	'Registered Country',
+	'Operational PO Box',
+	'Operational Floor',
+	'Operational Building',
+	'Operational Street 1',
+	'Operational Street 2',
+	'Operational Street 3',
+	'Operational City',
+	'Operational State',
+	'Operational Country',
+	'Operational Postcode'
+];

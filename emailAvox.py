@@ -35,25 +35,25 @@ def emailAvox(query):
             'Company: '+company+'\n' \
             'Source for challenge: '+source+'\n' \
             'Challenge details\n--------------\n'
-        for field, label in recordFields.recordFields:
+        for field, label, tooltip in recordFields.recordFields:
            try:
                body += field+': '+query['challenge_'+field][0]+'\n'
            except KeyError:
                pass
     elif requestType == 'suggest_new':
-       to = ['adam.edwards@avox.info', 'daniel.dunn@avox.info', 'paul.barlow@avox.info', 'kate.young@avox.info', 'brian.cole@avox.info', 'ken.price@avox.info', 'jnthnlstr@googlemail.com']
-       subject = 'Wiki-data AVID record suggestion'
-       body = 'Submittor info\n--------------\n' \
-           'Name: '+name+'\n' \
-           'Email address: '+email+'\n' \
-           'Country: '+country+'\n' \
-           'Company: '+company+'\n\n\n' \
-           'Record info\n--------------\n'
-       for field, label in recordFields.recordFields:
-           try:
-               body += field+': '+query[field][0]+'\n'
-           except KeyError:
-               pass
+        to = ['adam.edwards@avox.info', 'daniel.dunn@avox.info', 'paul.barlow@avox.info', 'kate.young@avox.info', 'brian.cole@avox.info', 'ken.price@avox.info', 'jnthnlstr@googlemail.com']
+        subject = 'Wiki-data AVID record suggestion'
+        body = 'Submittor info\n--------------\n' \
+            'Name: '+name+'\n' \
+            'Email address: '+email+'\n' \
+            'Country: '+country+'\n' \
+            'Company: '+company+'\n\n\n' \
+            'Record info\n--------------\n'
+        for field, label, tooltip in recordFields.recordFields:
+            try:
+                body += field+': '+query[field][0]+'\n'
+            except KeyError:
+                pass
     else:
        to = 'jnthnlstr@googlemail.com'
        subject = 'Unknown contact type'
