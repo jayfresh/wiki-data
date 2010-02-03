@@ -4,6 +4,7 @@ import templating
 
 from tiddlyweb.serializations import SerializationInterface
 from tiddlyweb.model.bag import Bag
+from tiddlyweb.model.tiddler import Tiddler
 from recordFields import getFields
 
 EXTENSION_TYPES = { 'challenge': 'text/x-challenge-html' }
@@ -28,4 +29,9 @@ class Serialization(SerializationInterface):
         except:
             success = None
         commonVars = templating.getCommonVars(self.environ)
-        return template.render(tiddler=tiddler, commonVars=commonVars, success=success)
+        store = self.environ['tiddlyweb.store']
+        userTiddler = Tiddler(commonVars['usersign']['name'])
+        userTiddler.bag = self.environ['tiddlyweb.config']['userbag_bag']
+        userTiddler = store.get(userTiddler)
+        userFields = userTiddler.fields
+        return template.render(tiddler=tiddler, commonVars=commonVars, success=success, userFields=userFields)

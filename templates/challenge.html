@@ -59,18 +59,36 @@
 					<label for="company">Your company <span>(Optional)</span></label>
 					<input type="text" name="company" size="35"/>
 					{% else %}
-					<div>Your name</div>
-					<input type="hidden" name="name" />
-					<div>blah</div>
-					<div>Your email address</div>
-					<input type="hidden" name="email" />
-					<div>blah</div>
-					<div>Your country</div>
-					<input type="hidden" name="country" />
-					<div>blah</div>
-					<div>Your company (Optional)</div>
-					<input type="hidden" name="company" />
-					<div>blah</div>
+					<div class="lightpanel">
+						<div>
+							<span>Name:</span>
+							<input type="hidden" name="name" value="{{userFields.name}}" />
+							<span class="thick">{% if userFields.name -%}
+								{{userFields.name}}{%else%}(not provided)
+							{%-endif%}</span>
+						</div>
+						<div>
+							<span>Email address:</span>
+							<input type="hidden" name="email" value="{{userFields.email}}" />
+							<span class="thick">{% if userFields.email -%}
+								{{userFields.email}}{%else%}(not provided)
+							{%-endif%}</span>
+						</div>
+						<div>
+							<span>Country:</span>
+							<input type="hidden" name="country" value="{{userFields.country}}" />
+							<span class="thick">{% if userFields.country -%}
+								{{userFields.country}}{%else%}(not provided)
+							{%-endif%}</span>
+						</div>
+						<div>
+							<span>Company (Optional):</span>
+							<input type="hidden" name="company" value="{{userFields.company}}" />
+							<span class="thick">{% if userFields.company -%}
+								{{userFields.company}}{%else%}(not provided)
+							{%-endif%}</span>
+						</div>
+					</div>
 					{% endif %}
 					<label for="source">(Optional) What is your source for this? Please include URL and/or sources used. We will use this to validate your challenge.</label>
 					<textarea cols="35" rows="5" name="source"></textarea>

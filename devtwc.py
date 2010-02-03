@@ -3,7 +3,8 @@ config = {
         'server_store': ['tiddlywebplugins.diststore', { 
              'main': ['text', {'store_root': 'store'}], 
              'extras': [ 
-                 (r'^avox$', ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]), 
+                 (r'^avox$', ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]),
+                 (r'^users$', ['userbag', {}]),
                      ], 
                  }],
         # 'server_store': ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}],
@@ -50,5 +51,6 @@ config = {
         ],
         'mappingsql.full_text': True,
         'mappingsql.limit': 51,
+        'userbag_bag': 'users',
         }
 

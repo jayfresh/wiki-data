@@ -211,6 +211,16 @@ border:1px solid #7AAEB9;
 
 /* image replacements */
 
+#ribbon {
+	position:absolute;
+	left:0px;
+	top:0px;
+	z-index:4;
+	height:130px;
+	width:130px;
+	background:url("/static/test_images/myAVOX.gif") top left no-repeat;
+}
+
 #suggestlogo {
 	background: url("/static/test_images/suggest.gif") top right no-repeat;
 	height: 44px;
