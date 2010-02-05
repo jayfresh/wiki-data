@@ -1,0 +1,23 @@
+{% extends "wikidatabase.html" %}
+{% block body %}
+<div id="static">
+	<div id="searchtitle" class="darkgreen">
+		<div class="wrap">
+			<h2>Register</h2>
+		</div>
+	</div>
+	<div class="wrap">
+		<div class="miniwrap bluebox lightblueborder">
+                <p>You can register!</p>
+                <form action="/register" method="POST">
+                    Name: <input name="name" /><br />
+                    Email: <input name="email" /><br />
+                    Country: <input name="country" /><br />
+                    Company: <input name="company" /><br />
+                    <input type="submit" value="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
