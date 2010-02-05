@@ -11,9 +11,11 @@ from tiddlywebplugins.wikidata import captcha
 from tiddlywebplugins.wikidata.config import config as local_config
 
 from tiddlyweb.util import merge_config
+from tiddlyweb.store import NoUserError
+from tiddlyweb.model.user import User
 from tiddlyweb.web.http import HTTP404, HTTP302, HTTP303
 from tiddlyweb.web.util import server_base_url
-from tiddlywebplugins.utils import replace_handler, remove_handler
+from tiddlywebplugins.utils import replace_handler, remove_handler, require_role
 
 
 def index(environ, start_response):
@@ -88,8 +90,9 @@ def register(environ, start_response):
     query = environ['tiddlyweb.query']
     name = query.get('name', [None])[0]
     company = query.get('company', [None])[0]
+    company = query.get('country', [None])[0]
     email = query.get('email', [None])[0]
-    if not (name or company or email):
+    if not (name and company and email):
         # The form has not been filled out
         raise HTTP302(server_base_url(environ) + '/pages/register.html')
     to_address = environ['tiddlyweb.config'].get(
@@ -97,13 +100,14 @@ def register(environ, start_response):
     subject = 'Registration Request'
     body = """
 name: %s
-company: %s
 email: %s
-""" % (name, company, email)
+company: %s
+country: %s
+""" % (name, email, company, country)
     try:
         send_email(to_address, subject, body)
     except socket.error:
-        logging.debug('%s:%s:%s', to_address, subject, body)
+        logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
     raise HTTP303(server_base_url(environ) + '/pages/registered.html')
 
     
@@ -139,6 +143,66 @@ def verify(environ, start_response):
     return []
 
 
+@require_role('ADMIN')
+def user_form(environ, start_response):
+
+    template = templating.get_template(environ, 'user_form.html')
+
+    start_response('200 OK', [
+        ('Content-Type', 'text/html'),
+        ('Pragma', 'no-cache')
+        ])
+    
+    return template.render(commonVars=templating.common_vars(environ))
+
+
+@require_role('ADMIN')
+def create_user(environ, start_response):
+    """
+    This is improper and insecure.
+    """
+    store = environ['tiddlyweb.store']
+    query = environ['tiddlyweb.query']
+    name = query.get('name', [None])[0]
+    email = query.get('email', [None])[0]
+    if not (name and email):
+        # The form has not been filled out
+        raise HTTP302(server_base_url(environ) + '/_admin/createuser')
+    user = User(email)
+    try:
+        user = store.get(user)
+        # User exists!
+        raise HTTP302(server_base_url(environ) + '/_admin/createuser')
+    except NoUserError:
+        password = _random_pass()
+        user.set_password(password)
+        user.note = name
+        store.put(user)
+    to_address = email
+    subject = "Wiki-Data user info"
+    body = """
+Here's your info:
+Username: %s
+Password: %s
+""" % (email, password)
+    try:
+        send_email(to_address, subject, body)
+    except socket.error:
+        logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
+
+    raise HTTP302(server_base_url(environ))
+
+
+
+def _random_pass():
+    import string
+    from random import choice
+    chars = string.letters + string.digits
+    stuff = ''.join([choice(chars) for i in xrange(8)])
+    print 'stuff ', stuff
+    return stuff
+
+
 def init(config):
     merge_config(config, local_config)
     tiddlywebplugins.logout.init(config)
@@ -152,6 +216,7 @@ def init(config):
     config['selector'].add('/lib/fields.js', GET=get_fields_js)
     config['selector'].add('/env', GET=env)
     config['selector'].add('/register', POST=register)
+    config['selector'].add('/_admin/createuser', GET=user_form, POST=create_user)
     replace_handler(config['selector'], '/', dict(GET=index))
     remove_handler(config['selector'], '/recipes')
     remove_handler(config['selector'], '/recipes/{recipe_name}')

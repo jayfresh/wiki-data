@@ -1,7 +1,7 @@
 import mangler
 config = {
         'log_level': 'DEBUG',
-        # 'server_store': ['mappingsql', {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}],
+        #'server_store': ['tiddlywebplugins.mappingsql', {'db_config': 'sqlite:///test.db'}],
         'secret': 'the bees are in the what',
         'system_plugins': [
             'tiddlywebplugins.wikidata',

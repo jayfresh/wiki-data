@@ -17,8 +17,9 @@ class Serialization(HTML_Serializer):
     def list_tiddlers(self, bag):
         logging.debug('in list_tiddlers')
         tiddlers = bag.list_tiddlers()
+        result_count = self.environ.get('tiddlyweb.mappingsql.count', 0)
         template = templating.get_template(self.environ, 'collection.html')
-        return template.render(tiddlers=tiddlers,
+        return template.render(tiddlers=tiddlers, resultcount=result_count,
                 commonVars=templating.common_vars(self.environ))
 
     def tiddler_as(self, tiddler):
