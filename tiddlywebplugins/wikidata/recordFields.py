@@ -1,29 +1,31 @@
 import logging
 
+# expand this for MAD
 recordFields = [
-        ('legal_name', 'Legal Name'),
-        ('previous_name_s_', 'Previous Name(s)'),
-        ('trades_as_name_s_', 'Trades As Name(s)'),
-        ('trading_status', 'Trading Status'),
-        ('company_website', 'Company Website'),
-        ('operational_po_box', 'Operational PO Box'),
-        ('operational_floor', 'Operational Floor'),
-        ('operational_building', 'Operational Building'),
-        ('operational_street_1', 'Operational Street 1'),
-        ('operational_street_2', 'Operational Street 2'),
-        ('operational_street_3', 'Operational Street 3'),
-        ('operational_city', 'Operational City'),
-        ('operational_state', 'Operational State'),
-        ('operational_country', 'Operational Country'),
-        ('operational_postcode', 'Operational Postcode'),
-        ('registered_country', 'Registered Country')
-]
+('avid', 'AVID', 'Avox identifier'),
+('legal_name', 'Legal Name', 'Legal name as per the registration document'),
+('previous_name_s_', 'Previous Name(s)', 'Previous legal names'),
+('trades_as_name_s_', 'Trades As Name(s)', 'Names under which the company trades but which differ from their legal name'),
+('trading_status', 'Trading Status', 'Defines the trading status of the entity, e,g, Active'),
+('company_website', 'Company Website', 'URL'),
+('operational_po_box', 'Operational PO Box', 'Operational address information'),
+('operational_floor', 'Operational Floor', 'Operational address information'),
+('operational_building', 'Operational Building', 'Operational address information'),
+('operational_street_1', 'Operational Street 1', 'Operational address information'),
+('operational_street_2', 'Operational Street 2', 'Operational address information'),
+('operational_street_3', 'Operational Street 3', 'Operational address information'),
+('operational_city', 'Operational City', 'Operational City'),
+('operational_state', 'Operational State', 'Operational State, Province, Region or Territory'),
+('operational_country', 'Operational Country', 'Operational address information'),
+('operational_postcode', 'Operational Postcode', 'Operational address information'),
+('registered_country', 'Registered Country', 'Registered address information')
+];
 
 def getFields(environ):
     fields = []
     openfields = environ['tiddlyweb.config']['mappingsql.open_fields']
-    for field, label in recordFields:
+    for field, label, tooltip in recordFields:
         if field in openfields:
-            fields.append((field, label))
+            fields.append((field,label,tooltip))
     logging.debug('fields passed: %s', fields)
     return fields

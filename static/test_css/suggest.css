@@ -74,6 +74,17 @@
 	text-transform: lowercase;
 	}
 
+#rightpanel .lightpanel {
+	text-transform: none;
+	padding: 10px;
+	background-color: #fff;
+}
+
+#rightpanel .lightpanel .thick {
+	font-weight: bold;
+	margin-left: 5px;
+}
+
 .rightpanelhead {
 	width: 350px;
 }

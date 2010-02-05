@@ -11,6 +11,7 @@ def emailAvox(query):
     if requestType == 'request':
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]
+        additional_info = query['additional_info'][0]
         to = ['addadatarecord.wiki-data@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Request for more information'
         body = 'SPECIFIC REQUEST re: additional information request\n' \

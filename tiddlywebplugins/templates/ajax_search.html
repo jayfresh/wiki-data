@@ -1,3 +1,4 @@
+<!-- Feb 1st, 2010 - not being used anymore, so not maintained, but demonstrates accessing API to perform search -->
 {% set fields = commonVars.fields %}
 <script type="text/javascript">
 	window.asyncSearch = true;
@@ -25,7 +26,7 @@
 			<div id="columnPicker" class="onlyjs">
 				<button class="darkgreen whitetext lightborder caps right" id="pickerControl">Hide/Show Columns</button>
 				<div id="cols">
-					{% for field, label in fields %}
+					{% for field, label, tooltip in fields %}
 					<div class="columns">
 						<span class="label">{{label}}</span>
 						<span class="controls">
@@ -41,9 +42,8 @@
 		<table id="recordsTable" class="draggable forget-ordering">
 			<thead>
 				<tr>
-					<th>AVID</th>
-				{% for field, label in fields %}
-					<th>{{label}}</th>
+				{% for field, label, tooltip in fields %}
+					<th title="{{tooltip}}">{{label}}</th>
 				{% endfor %}
 					<th>Challenge</th>
 					<th>Request More Info</th>
@@ -51,8 +51,7 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<th><a href="javascript:;">hide</a></th>
-				{% for field, label in fields %}
+				{% for field, label, tooltip in fields %}
 					<th><a href="javascript:;">hide</a></th>
 				{% endfor %}
 					<th><a href="javascript:;">hide</a></th>
