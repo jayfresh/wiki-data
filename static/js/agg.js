@@ -1112,8 +1112,13 @@ function parseQueryString(q) {
 	}
 	return params;
 }
+function redraw() { // IE6/7 position:relative elements not moving fix
+	if($.browser.msie) {
+		$('#columnPicker').css('display','none');
+		$('#columnPicker').css('display','block');
+	}
+};
 function addAdvSearchLine() {
-	try {
 	var container = '#advancedSearchContainer';
 	
 	var i = DependentInputs.createRow(container);
@@ -1173,18 +1178,23 @@ function addAdvSearchLine() {
 			}
 		}, 300);
 	}
+	redraw();
 	return $row;
-	} catch(ex) {
-		console.log(ex);
-	}
 }
 $(document).ready(function() {
 	// set advanced search on a slider
-	$('#search .advanced').css('cursor','pointer').click(function() {
+	$('#search .advanced').click(function() {
 		addAdvSearchLine();
+		return false;
 	});
 	$('#tableinfo .filter a').click(function() {
 		addAdvSearchLine();
+		return false;
+	});
+	$('#advancedSearchContainer').bind("mouseup",function() {
+		window.setTimeout(function() {
+			redraw();
+		},0);
 	});
 	// fill in search box and filters with current query
 	var q = window.location.search;
@@ -6094,7 +6104,9 @@ var aoColumnsRenderMap = {
 				// nothing
 				break;
 		}
-		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];
+		/* this line shows operational_state if is there
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];*/
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : "";
 		return state;
 	},
 	"operational_country": function(data) {

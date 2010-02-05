@@ -1,5 +1,6 @@
 import logging
 
+# expand this for MAD
 recordFields = [
 ('avid', 'AVID', 'Avox identifier'),
 ('legal_name', 'Legal Name', 'Legal name as per the registration document'),

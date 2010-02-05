@@ -33,7 +33,9 @@ var aoColumnsRenderMap = {
 				// nothing
 				break;
 		}
-		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];
+		/* this line shows operational_state if is there
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];*/
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : "";
 		return state;
 	},
 	"operational_country": function(data) {
