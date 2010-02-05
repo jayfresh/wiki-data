@@ -750,8 +750,18 @@ DependentInputs = {
 	},
 	addRow: function(container,field,val,i) {
 		i = i || 0;
-		var $field = $(container).find(field).eq(i);
+		var $container = $(container);
+		if(!$container.length) {
+			throw new Error('error when adding row - no container matching '+container);
+		}
+		var $field = $container.find(field).eq(i);
+		if(!$field.length) {
+			throw new Error('error when adding row - no fields matching '+field+', '+i);
+		}
 		var $val = $(container).find(val).eq(i);
+		if(!$val.length) {
+			throw new Error('error when adding row - no values matching '+val+', '+i);
+		}
 		return this.convert($field,$val);
 	},
 	addRows: function(container,field,val,rowSelector) {
@@ -1102,8 +1112,13 @@ function parseQueryString(q) {
 	}
 	return params;
 }
+function redraw() { // IE6/7 position:relative elements not moving fix
+	if($.browser.msie) {
+		$('#columnPicker').css('display','none');
+		$('#columnPicker').css('display','block');
+	}
+};
 function addAdvSearchLine() {
-	try {
 	var container = '#advancedSearchContainer';
 	
 	var i = DependentInputs.createRow(container);
@@ -1118,19 +1133,39 @@ function addAdvSearchLine() {
 			// filter on columns assuming the select input doesn't include the AVID field
 			oTable.fnFilter(this.value,selectedIndex);
 		}*/
+		
+		/* we're going to look through the list of active filters and make sure there aren't any that shouldn't be there, which there will be if we've just changed a field */
 		if(oTable) {
-			oTable.fnFilter(elem ? elem.value : "",selectedIndex+1);
+			var activeSearchLines = [];
+			$('.advSearchLineField').each(function(i) {
+				activeSearchLines.push($(this).attr('selectedIndex'));
+			});
+			var cols = oTable.fnSettings().aoPreSearchCols;
+			$.each(cols, function(i) {
+				if(this.sSearch) {
+					if($.inArray(i,activeSearchLines)===-1) {
+						this.sSearch="";
+					}
+				}
+			});
+
+			var val = elem ? elem.value : "";
+			oTable.fnFilter(elem ? elem.value : "",selectedIndex);
 			oTable.fixedHeader.fnUpdate(true);
 		}
 	};
-	
+	var filterByInput = function(event) {
+		var target = event.target;
+		if(!$(target).is("input")) {
+			target = $(target).parent().find('input:text').get(0);
+		}
+		filterOnChange(target);
+	};
 	$row.change(function(event) {
-		filterOnChange(event.target);
+		filterByInput(event);
 	});
 	$row.keyup(function(event) {
-		if($(event.target).is("input")) {
-			filterOnChange(event.target);
-		}
+		filterByInput(event);
 	});
 	// reveal if not shown
 	var $container = $(container);
@@ -1143,18 +1178,23 @@ function addAdvSearchLine() {
 			}
 		}, 300);
 	}
+	redraw();
 	return $row;
-	} catch(ex) {
-		console.log(ex);
-	}
 }
 $(document).ready(function() {
 	// set advanced search on a slider
-	$('#search .advanced').css('cursor','pointer').click(function() {
+	$('#search .advanced').click(function() {
 		addAdvSearchLine();
+		return false;
 	});
 	$('#tableinfo .filter a').click(function() {
 		addAdvSearchLine();
+		return false;
+	});
+	$('#advancedSearchContainer').bind("mouseup",function() { // most ridiculous hack yet
+		window.setTimeout(function() {
+			redraw();
+		},0);
 	});
 	// fill in search box and filters with current query
 	var q = window.location.search;
@@ -1209,7 +1249,9 @@ $(document).ready(function() {
 		if($('table.fields').length) {
 			DependentInputs.addRows('table.fields',"label",":input","tr");
 		}
-		DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
+		if($('div.right label[for=country]+input').length) {
+			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
+		}
 		var $hiddenWhileRendering = $('table.fields, div.right');
 		if($hiddenWhileRendering.length) {
 			$hiddenWhileRendering.css("visibility","visible");
@@ -6062,7 +6104,9 @@ var aoColumnsRenderMap = {
 				// nothing
 				break;
 		}
-		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];
+		/* this line shows operational_state if is there
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];*/
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : "";
 		return state;
 	},
 	"operational_country": function(data) {
@@ -6073,7 +6117,6 @@ $(document).ready(function() {
 	// set up records table
 	var aoColumns = [];
 	var field, options;
-	aoColumns.push({}); // AVID
 	for(var i=0, il=recordFields.length; i<il; i++) {
 		field = recordFields[i][0];
 		options = {};
@@ -6191,8 +6234,10 @@ $(document).ready(function() {
 						tiddler = json[i];
 						fields = tiddler.fields;
 						row = [];
-						row.push('<a href="/bags/avox/tiddlers/'+tiddler.title+'.html">'+tiddler.title+'</a>'); // AVID
 						for(var j=0, jl=recordFields.length; j<jl; j++) {
+							if(j===0) {
+								row.push('<a href="/bags/avox/tiddlers/'+tiddler.title+'.html">'+tiddler.title+'</a>'); // AVID
+							}
 							field = recordFields[j][0];
 							row.push(fields[field] || "");
 						}

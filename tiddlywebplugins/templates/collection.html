@@ -23,7 +23,7 @@
 			<div id="columnPicker" class="onlyjs">
 				<button class="darkgreen whitetext lightborder caps right" id="pickerControl">Hide/Show Columns</button>
 				<div id="cols">
-					{% for field, label in fields %}
+					{% for field, label, tooltip in fields %}
 					<div class="columns">
 						<span class="controls">
 							<span class="hideControl">hide</span>|<span class="showControl">show</span>
@@ -44,7 +44,7 @@
 			{% else %}
 				There are {{count}} results
 			{% endif %}
-                        Total results: {{ resultcount }}.
+			            Total results: {{ resultcount }}.
 			 - <span class="filter"><a href="#">add a filter</a>?</span>
 			{% endif %}
 			</p>
@@ -54,9 +54,8 @@
 		<table id="recordsTable" class="draggable forget-ordering">
 			<thead>
 				<tr>
-					<th>AVID</th>
-				{% for field, label in fields %}
-					<th>{{label}}</th>
+				{% for field, label, tooltip in fields %}
+					<th title="{{tooltip}}">{{label}}</th>
 				{% endfor %}
 					<th>Challenge</th>
 					<th>Request More Info</th>
@@ -64,8 +63,7 @@
 			</thead>
 			<tfoot>
 				<tr>
-					<th><a href="javascript:;">hide</a></th>
-				{% for field, label in fields %}
+				{% for field, label, tooltip in fields %}
 					<th><a href="javascript:;">hide</a></th>
 				{% endfor %}
 					<th><a href="javascript:;">hide</a></th>
@@ -75,9 +73,10 @@
 			<tbody>
 			{% for tiddler in tiddlers %}
 				<tr>
+				{% for field, label, tooltip in fields %}
+					{% if field == 'avid' %}
 					<td><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.title}}</a></td>
-				{% for field, label in fields %}
-					{% if field == 'company_website' %}
+					{% elif field == 'company_website' %}
 					<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
 					{% else %}
 					<td>{{tiddler.fields[field]}}</td>

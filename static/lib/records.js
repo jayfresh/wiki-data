@@ -33,7 +33,9 @@ var aoColumnsRenderMap = {
 				// nothing
 				break;
 		}
-		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];
+		/* this line shows operational_state if is there
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : data.aData[data.iDataColumn];*/
+		state = mapping ? mapping.iso2name[data.aData[data.iDataColumn]] : "";
 		return state;
 	},
 	"operational_country": function(data) {
@@ -44,7 +46,6 @@ $(document).ready(function() {
 	// set up records table
 	var aoColumns = [];
 	var field, options;
-	aoColumns.push({}); // AVID
 	for(var i=0, il=recordFields.length; i<il; i++) {
 		field = recordFields[i][0];
 		options = {};
@@ -162,8 +163,10 @@ $(document).ready(function() {
 						tiddler = json[i];
 						fields = tiddler.fields;
 						row = [];
-						row.push('<a href="/bags/avox/tiddlers/'+tiddler.title+'.html">'+tiddler.title+'</a>'); // AVID
 						for(var j=0, jl=recordFields.length; j<jl; j++) {
+							if(j===0) {
+								row.push('<a href="/bags/avox/tiddlers/'+tiddler.title+'.html">'+tiddler.title+'</a>'); // AVID
+							}
 							field = recordFields[j][0];
 							row.push(fields[field] || "");
 						}

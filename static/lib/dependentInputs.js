@@ -66,8 +66,18 @@ DependentInputs = {
 	},
 	addRow: function(container,field,val,i) {
 		i = i || 0;
-		var $field = $(container).find(field).eq(i);
+		var $container = $(container);
+		if(!$container.length) {
+			throw new Error('error when adding row - no container matching '+container);
+		}
+		var $field = $container.find(field).eq(i);
+		if(!$field.length) {
+			throw new Error('error when adding row - no fields matching '+field+', '+i);
+		}
 		var $val = $(container).find(val).eq(i);
+		if(!$val.length) {
+			throw new Error('error when adding row - no values matching '+val+', '+i);
+		}
 		return this.convert($field,$val);
 	},
 	addRows: function(container,field,val,rowSelector) {

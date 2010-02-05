@@ -118,21 +118,45 @@ def verify(environ, start_response):
         redirect = environ['tiddlyweb.query']['recaptcha_redirect'][0]
     except (KeyError, IndexError):
         redirect = environ['HTTP_REFERER'].split('?', 1)[0]
-    challenge_field = environ['tiddlyweb.query']['recaptcha_challenge_field'][0]
-    logging.debug('challenge_field: '+challenge_field)
-    response_field = environ['tiddlyweb.query']['recaptcha_response_field'][0]
-    logging.debug('response_field: '+response_field)
-    private_key = "6Ld8HAgAAAAAAAyOgYXbOtqAD1yuTaOuwP8lpzX0"
-    ip_addr = environ['REMOTE_ADDR']
-    logging.debug('ip_addr: '+ip_addr)
-
-    resp = captcha.submit(challenge_field, response_field,
-            private_key, ip_addr)
-    if resp.is_valid:
-        redirect = redirect + '?success=1'
-        emailAvox(environ['tiddlyweb.query'])
+    commonVars = templating.common_vars(environ)
+    responseVars = {}
+    notSpam = False
+    if commonVars['usersign']['name'] == 'GUEST':
+        challenge_field = environ['tiddlyweb.query']['recaptcha_challenge_field'][0]
+        logging.debug('challenge_field: '+challenge_field)
+        response_field = environ['tiddlyweb.query']['recaptcha_response_field'][0]
+        logging.debug('response_field: '+response_field)
+        private_key = "6Ld8HAgAAAAAAAyOgYXbOtqAD1yuTaOuwP8lpzX0"
+        ip_addr = environ['REMOTE_ADDR']
+        logging.debug('ip_addr: '+ip_addr)
+    
+        resp = captcha.submit(challenge_field, response_field, private_key, ip_addr)
+        if resp.is_valid:
+            responseVars['captcha'] = 1
+            notSpam = True
+        else:
+            responseVars['captcha'] = 0
     else:
-        redirect = redirect + '?success=0&error=' + resp.error_code
+        notSpam = True
+    
+    if notSpam:
+        try:
+            emailAvox(environ['tiddlyweb.query'])
+            valid = 1
+        except KeyError as detail: # the hook for server-side validation
+            responseVars['formError'] = detail.args[0]
+            valid = 0
+    
+    if notSpam == False or valid == 0 or (responseVars.has_key('captcha') and responseVars['captcha'] == 0):
+        responseVars['success'] = 0
+    else:
+        responseVars['success'] = 1
+    
+    redirect = redirect + '?success='+str(responseVars['success'])
+    if responseVars.has_key('captcha'):
+        redirect = redirect + '&captcha='+str(responseVars['captcha'])
+    if responseVars.has_key('formError'):
+        redirect = redirect +'&formError='+responseVars['formError']
 
     start_response('302 Found', [
             ('Content-Type', 'text/html'),
