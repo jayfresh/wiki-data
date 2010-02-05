@@ -98,4 +98,4 @@ class Challenger(ChallengerInterface):
             ])
 
         return template.render(redirect=redirect,
-                commonVars=template.common_vars(environ), error=True)
+                commonVars=templating.common_vars(environ), error=True)
