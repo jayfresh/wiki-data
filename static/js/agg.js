@@ -6218,9 +6218,16 @@ $(document).ready(function() {
 				$('#columnPicker #cols').toggle();
 			};
 			$('#pickerControl').click(colToggle);
+			$('a.pagebutton').click(function() {
+				var label = $(this).text();
+				var direction = label==="next" ? 1 : -1;
+				var diff = direction*$('#pageDistance').text();
+				alert(diff);
+				return false;
+			});
 		};
 		
-		if(window.asyncSearch) {
+		if(window.asyncSearch) { // disabled this on Feb 1st 2010
 			var q = window.location.search;
 			options.sAjaxSource = "/search.json"+q;
 			options.fnInitComplete = setUpTable;
