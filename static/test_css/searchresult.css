@@ -50,6 +50,15 @@
 	margin: 0;
 }
 
+.pagebutton.inactive {
+	font-style: italic;
+	color: #333;
+}
+
+#pageDistance {
+	display:none;
+}
+
 /* results table */
 
 tfoot tr th, thead tr th{

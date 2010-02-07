@@ -1,3 +1,4 @@
+# this must actually be nonsense? it should be making use of tiddlywebplugins.wikidata
 config = {
         'auth_systems': ['login_form'],
         'server_store': ['diststore', { 

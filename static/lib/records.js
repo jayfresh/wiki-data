@@ -11,6 +11,12 @@ var defaultView = [
 	"operational_country",
 	"operational_postcode"	
 ];
+var entityNameMap = {
+	"TP": "Ultimate Parent",
+	"LE": "Subsidiary",
+	"SLE": "Branch",
+	"DIV": "Division"
+};
 var aoColumnsRenderMap = {
 	"registered_country": function(data) {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
@@ -40,6 +46,9 @@ var aoColumnsRenderMap = {
 	},
 	"operational_country": function(data) {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
+	},
+	"entity_type": function(data) {
+		return entity_name_map[data.aData[data.iDataColumn]] || "";
 	}
 };
 $(document).ready(function() {
@@ -147,9 +156,16 @@ $(document).ready(function() {
 				$('#columnPicker #cols').toggle();
 			};
 			$('#pickerControl').click(colToggle);
+			$('a.pagebutton').click(function() {
+				var label = $(this).text();
+				var direction = label==="next" ? 1 : -1;
+				var diff = direction*$('#pageDistance').text();
+				alert(diff);
+				return false;
+			});
 		};
 		
-		if(window.asyncSearch) {
+		if(window.asyncSearch) { // disabled this on Feb 1st 2010
 			var q = window.location.search;
 			options.sAjaxSource = "/search.json"+q;
 			options.fnInitComplete = setUpTable;
