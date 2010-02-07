@@ -6082,6 +6082,12 @@ var defaultView = [
 	"operational_country",
 	"operational_postcode"	
 ];
+var entityNameMap = {
+	"TP": "Ultimate Parent",
+	"LE": "Subsidiary",
+	"SLE": "Branch",
+	"DIV": "Division"
+};
 var aoColumnsRenderMap = {
 	"registered_country": function(data) {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
@@ -6111,6 +6117,9 @@ var aoColumnsRenderMap = {
 	},
 	"operational_country": function(data) {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
+	},
+	"entity_type": function(data) {
+		return entity_name_map[data.aData[data.iDataColumn]] || "";
 	}
 };
 $(document).ready(function() {
@@ -6222,7 +6231,15 @@ $(document).ready(function() {
 				var label = $(this).text();
 				var direction = label==="next" ? 1 : -1;
 				var diff = direction*$('#pageDistance').text();
-				alert(diff);
+				var q = window.location.search;
+				var start = q.indexOf('index=');
+				var s = "";
+				if(start===-1) {
+					s = q+"&index="+diff;
+				} else {
+					s = q.substring(0,start+6)+diff;
+				}
+				window.location = s;
 				return false;
 			});
 		};

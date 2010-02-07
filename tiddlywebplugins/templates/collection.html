@@ -16,19 +16,11 @@
 </div>
 <div id="content">
 	{% include 'search.html' %}
-	query: {{ query }}
 	<div id="table" class="wrap">
 		{% set count = tiddlers|count %}
-		{% if query['index'] is defined %}
-			{% set from = query['index'][0] %}
-		{% else %}
-			{% set from = 0 %}
-		{% endif %}
-		from: {{from}}
-		{% set to = from+count %}
-		to: {{to}}
+		{% set from = queryIndex+1 %}
+		{% set to = queryIndex+count %}
 		{% set count_to_end = resultcount - to %}
-		count_to_end: {{count_to_end}}
 		<div id="tableinfo">
 			<div id="columnPicker" class="onlyjs">
 				<button class="darkgreen whitetext lightborder caps right" id="pickerControl">Hide/Show Columns</button>
@@ -54,7 +46,7 @@
 				{%- endif %}
 				 - <span class="filter"><a href="#">add a filter</a>? </span>
 				<span id="pageDistance">{{pageDistance}}</span>
-				{%- if from is sameas 0 -%}
+				{%- if queryIndex is sameas 0 -%}
 					<span class="pagebutton inactive">prev</span>
 				{%- else -%}
 					<a href="#" class="pagebutton">prev</a>

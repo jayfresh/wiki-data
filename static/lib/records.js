@@ -160,7 +160,16 @@ $(document).ready(function() {
 				var label = $(this).text();
 				var direction = label==="next" ? 1 : -1;
 				var diff = direction*$('#pageDistance').text();
-				alert(diff);
+				var q = window.location.search;
+				var start = q.indexOf('index=');
+				var s = "";
+				if(start===-1) {
+					s = q+"&index="+diff;
+				} else {
+					var existing = 
+					s = q.substring(0,start+6)+diff;
+				}
+				window.location = s;
 				return false;
 			});
 		};
