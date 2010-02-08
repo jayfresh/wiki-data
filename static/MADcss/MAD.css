@@ -3,3 +3,13 @@ h1 {
 	height: 159px;
 	background-position: center left;
 }
+
+#searchlogo {
+	background: url("/static/test_images/search_MAD.gif") top right no-repeat;
+	height: 44px;
+}
+
+#aboutlogo {
+	background: url("/static/test_images/about_MAD.gif") top right no-repeat;
+	height: 44px;
+}
