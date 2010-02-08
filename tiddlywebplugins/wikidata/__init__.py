@@ -2,6 +2,7 @@ import logging
 import socket
 
 import tiddlywebplugins.logout
+import tiddlywebplugins.magicuser
 
 from tiddlywebplugins.wikidata import templating
 from tiddlywebplugins.wikidata.emailAvox import emailAvox
@@ -13,9 +14,11 @@ from tiddlywebplugins.wikidata.config import config as local_config
 from tiddlyweb.util import merge_config
 from tiddlyweb.store import NoUserError
 from tiddlyweb.model.user import User
+from tiddlyweb.model.tiddler import Tiddler
 from tiddlyweb.web.http import HTTP404, HTTP302, HTTP303
 from tiddlyweb.web.util import server_base_url
-from tiddlywebplugins.utils import replace_handler, remove_handler, require_role
+from tiddlywebplugins.utils import (replace_handler, remove_handler,
+        require_role, ensure_bag)
 
 
 def index(environ, start_response):
@@ -90,7 +93,7 @@ def register(environ, start_response):
     query = environ['tiddlyweb.query']
     name = query.get('name', [None])[0]
     company = query.get('company', [None])[0]
-    company = query.get('country', [None])[0]
+    country = query.get('country', [None])[0]
     email = query.get('email', [None])[0]
     if not (name and company and email):
         # The form has not been filled out
@@ -189,6 +192,8 @@ def create_user(environ, start_response):
     query = environ['tiddlyweb.query']
     name = query.get('name', [None])[0]
     email = query.get('email', [None])[0]
+    company = query.get('company', [None])[0]
+    country = query.get('country', [None])[0]
     if not (name and email):
         # The form has not been filled out
         raise HTTP302(server_base_url(environ) + '/_admin/createuser')
@@ -200,8 +205,18 @@ def create_user(environ, start_response):
     except NoUserError:
         password = _random_pass()
         user.set_password(password)
-        user.note = name
         store.put(user)
+
+    bag_name = environ['tiddlyweb.config'].get('magicuser.bag', 'MAGICUSER')
+    ensure_bag(bag_name, store, policy_dict={
+        'read': ['NONE'], 'write': ['NONE'],
+        'create': ['NONE'], 'manage': ['NONE']})
+    tiddler = Tiddler(email, bag_name)
+    tiddler.fields['country'] = country
+    tiddler.fields['company'] = company
+    tiddler.fields['name'] = name
+    store.put(tiddler)
+
     to_address = email
     subject = "Wiki-Data user info"
     body = """
@@ -214,8 +229,7 @@ Password: %s
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
 
-    raise HTTP302(server_base_url(environ))
-
+    raise HTTP303(server_base_url(environ))
 
 
 def _random_pass():
@@ -230,6 +244,7 @@ def _random_pass():
 def init(config):
     merge_config(config, local_config)
     tiddlywebplugins.logout.init(config)
+    tiddlywebplugins.magicuser.init(config)
 
     config['selector'].add('/pages/{template_file:segment}',
             GET=template_route)
