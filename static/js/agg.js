@@ -6233,21 +6233,34 @@ $(document).ready(function() {
 				$('#columnPicker #cols').toggle();
 			};
 			$('#pickerControl').click(colToggle);
-			$('a.pagebutton').click(function() {
-				var label = $(this).text();
+			var getPagingLink = function(elem) {
+				var label = $(elem).text();
 				var direction = label==="next" ? 1 : -1;
 				var diff = direction*$('#pageDistance').text();
 				var q = window.location.search;
-				var start = q.indexOf('index=');
+				var start = q.indexOf('index=')+6;
 				var s = "";
-				if(start===-1) {
+				if(start===-1) { // diff can only be positive as we're at the start
 					s = q+"&index="+diff;
 				} else {
-					var existing = 
-					s = q.substring(0,start+6)+diff;
+					var end = q.indexOf('&',start);
+					if(end===-1) {
+						end = q.length;
+					}
+					var index = q.substring(start,end);
+					var newIndex = parseInt(index,10)+diff;
+					s = q.substring(0,start)+newIndex;
 				}
-				window.location = s;
+				return s;
+			};
+			$('a.pagebutton').click(function() {
+				window.location = getPagingLink(this);
 				return false;
+			});
+			$('a.pagebutton').hover(function() {
+				if($(this).attr('href')==='#') {
+					$(this).attr('href', getPagingLink(this));
+				}
 			});
 		};
 		
