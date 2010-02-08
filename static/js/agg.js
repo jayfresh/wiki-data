@@ -6309,8 +6309,10 @@ $(document).ready(function() {
 		function gLoad(mapSelector, address) {
 			google.load("maps", "2", {
 				"callback" : function() {
+					try {
 					var map;
 					var op_company = window.gMaps.op_company;
+					var company;
 					var addToMap = function(response) {
 						// Retrieve the object
 						var place = response.Placemark[0];
@@ -6329,13 +6331,17 @@ $(document).ready(function() {
 					};
 					// Create new map object
 					map = new google.maps.Map2($(mapSelector));
+					console.log(map);
 					map.addControl(new google.maps.SmallMapControl());
 					map.addControl(new google.maps.MapTypeControl());
 					// Create new geocoding object
 					var geocoder = new google.maps.ClientGeocoder();
 					// Retrieve location information, pass it to addToMap()
-					var company = op_company + "<br/>"+ address;
+					company = op_company + "<br/>"+ address;
 					geocoder.getLocations(address, addToMap);
+					} catch(ex) {
+						console.log(ex);
+					}
 				}
 			});
 		}
