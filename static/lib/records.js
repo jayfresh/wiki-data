@@ -11,7 +11,7 @@ var defaultView = [
 	"operational_country",
 	"operational_postcode"	
 ];
-var entityNameMap = {
+var entity_name_map = {
 	"TP": "Ultimate Parent",
 	"LE": "Subsidiary",
 	"SLE": "Branch",
@@ -22,7 +22,7 @@ var aoColumnsRenderMap = {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
 	},
 	"operational_state": function(data) {
-		var country = ISO_3166.countries.iso2name[data.aData[14]]; // 14 is the operational_country
+		var country = ISO_3166.countries.iso2name[data.aData[aoColumnsRenderMap.operational_country_index]]; // aoColumnsRenderMap.operational_country_index gets set in another function - this method allows us to cope with tables that are different column sizes
 		var mapping;
 		var state;
 		switch(country) {
@@ -60,6 +60,9 @@ $(document).ready(function() {
 		options = {};
 		if($.inArray(field,defaultView)===-1) {
 			options.bVisible = false;
+		}
+		if(field==="operational_country") {
+			aoColumnsRenderMap.operational_country_index = i;
 		}
 		if(field in aoColumnsRenderMap) {
 			options.fnRender = aoColumnsRenderMap[field];
@@ -156,12 +159,34 @@ $(document).ready(function() {
 				$('#columnPicker #cols').toggle();
 			};
 			$('#pickerControl').click(colToggle);
-			$('a.pagebutton').click(function() {
-				var label = $(this).text();
+			var getPagingLink = function(elem) {
+				var label = $(elem).text();
 				var direction = label==="next" ? 1 : -1;
 				var diff = direction*$('#pageDistance').text();
-				alert(diff);
+				var q = window.location.search;
+				var start = q.indexOf('index=')+6;
+				var s = "";
+				if(start===-1) { // diff can only be positive as we're at the start
+					s = q+"&index="+diff;
+				} else {
+					var end = q.indexOf('&',start);
+					if(end===-1) {
+						end = q.length;
+					}
+					var index = q.substring(start,end);
+					var newIndex = parseInt(index,10)+diff;
+					s = q.substring(0,start)+newIndex;
+				}
+				return s;
+			};
+			$('a.pagebutton').click(function() {
+				window.location = getPagingLink(this);
 				return false;
+			});
+			$('a.pagebutton').hover(function() {
+				if($(this).attr('href')==='#') {
+					$(this).attr('href', getPagingLink(this));
+				}
 			});
 		};
 		

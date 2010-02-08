@@ -36,11 +36,17 @@ $(document).ready(function() {
 		});
 		$companyDiv.removeClass('hide').css("visibility", "visible");
 		$('#recordcontainer .tab').eq(0).click();
-		var addressText = $.trim((//$companyDiv.find('.adr .street-address').text() + " " +
-			$companyDiv.find('.adr .locality').text() + " " +
-			$companyDiv.find('.adr .region').text() + " " +
-			$companyDiv.find('.adr .country-name').text() + " " +
-			$companyDiv.find('.adr .postal-code').text()).replace(/[\n|\r]/g,"").replace(/(\s)+/g," "));
-		window.gMaps.op_address = addressText;
+		var makeAddressText = function(selector) {
+			var $elem = $(selector);
+			return $.trim((//$companyDiv.find('.adr .street-address').text() + " " +
+				$elem.find('.adr .locality').text() + " " +
+				$elem.find('.adr .region').text() + " " +
+				$elem.find('.adr .country-name').text() + " " +
+				$elem.find('.adr .postal-code').text()).replace(/[\n|\r]/g,"").replace(/(\s)+/g," "));
+		};
+		window.gMaps.op_address = makeAddressText('#op_address_div');
+		if($('#reg_address_div').length) {
+			window.gMaps.reg_address = makeAddressText('#reg_address_div');
+		}
 	}
 });

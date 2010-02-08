@@ -30,7 +30,11 @@
 		<div id="main" class="clearfix">
 		{%- if usersign.name != "GUEST" -%}
 		<div id="backstage" class="loggedIn">
-			You are logged in as {{usersign.name}} | <a href="/logout">Logout</a>
+			You are logged in as {{usersign.name}} |
+			{% if "ADMIN" in usersign.roles %}
+			<a href="/_admin/createuser">Register new account</a> |
+			{% endif %}
+			<a href="/logout">Logout</a>
 		{%- else -%}
 		<div id="backstage">
 				<a href="/challenge">Login</a>
@@ -61,14 +65,7 @@
 				</div>
 				<div id="counter" class="small">
 					<span class="lightborder darkgreen norightborder">Currently Searching Through</span>
-					<span id="fruitmachine" class="lightborder darkgreen">
-						<img src="/static/test_images/count2.png" alt="2" />
-						<img src="/static/test_images/count6.png" alt="6" />
-						<img src="/static/test_images/count1.png" alt="1" />
-						<img src="/static/test_images/count3.png" alt="3" />
-						<img src="/static/test_images/count6.png" alt="6" />
-						<img src="/static/test_images/count1.png" alt="1" />
-					</span>
+					{% include 'fruitmachine.html' %}
 					<span class="lightborder darkgreen noleftborder">Avox Records</span>
 				</div>
 			</div>
@@ -81,7 +78,7 @@
 		</div> <!-- footwrap -->
 		<div id="footer" class="wrap clear caps small">
 			<ul class="left">
-				<li>&copy;&nbsp;Avox All Rights Reserved</li>
+				<li>&copy;&nbsp;<a href="http://avox.info" target="_blank">Avox</a> All Rights Reserved</li>
 			</ul>
 			<ul class="right">
 				<li>Found a bug? Please <a href="mailto:support@wiki-data.com">email us</a></li>

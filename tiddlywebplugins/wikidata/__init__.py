@@ -224,12 +224,15 @@ Here's your info:
 Username: %s
 Password: %s
 """ % (email, password)
+    query_string = '?email=%s' % to_address
     try:
         send_email(to_address, subject, body)
+        query_string += '?success=1'
+        raise HTTP303(server_base_url(environ)+'/pages/new_account'+query_string)
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
-
-    raise HTTP303(server_base_url(environ))
+        query_string += '?failure=1'
+        raise HTTP302(server_base_url(environ)+'/pages/new_account'+query_string)
 
 
 def _random_pass():

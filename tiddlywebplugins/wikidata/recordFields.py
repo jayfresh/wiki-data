@@ -12,7 +12,7 @@ recordFields = [
 ('trades_as_name_s_', 'Trades As Name(s)', 'Names under which the company trades but which differ from their legal name - Delimited by | if multiple values'),
 ('name_notes', 'Name Notes', 'Analyst notes about the company name(s)'),
 ('legal_form', 'Legal Form', 'Examples include Partnership, Sole Proprietorship and Limited. This is typically defaulted from the legal name field - free format text'),
-('trading_status', 'Trading Status', 'Defines the trading status of the entity, e,g, Active'),
+('trading_status', 'Trading Status', 'Defines the trading status of the entity: Active, In Administration, Inactive, Dissolved'),
 ('swift_bic', 'SWIFT BIC', 'Mixed alpha-numeric code from Swift - Bank Identifier Code'),
 ('vat_number', 'VAT Number', 'Value added tax number applicable in countries such as the UK'),
 ('tax_payer_id', 'Tax Payer ID', 'US identifier allocated to companies and individuals'),
@@ -23,7 +23,7 @@ recordFields = [
 ('registration_authority', 'Registration Authority', '(e.g. Companies House, SEDAR, Deleware Secretary of State)'),
 ('registration_number__operational_', 'Registration Number (Operational)', 'Identification code assigned by the registration authority for the country (or US state) in which the entity operates.'),
 ('registration_number__jurisdiction_', 'Registration Number (Jurisdiction)', 'Identification code assigned by the registration authority for the country (or US state) of Jurisdiction for the entity'),
-('date_of_registration', 'Date Of Registration', 'Date that the company was registered'),
+('date_of_registration', 'Date Of Incorporation', 'Date that the company was incorporated in the state or country of jurisdiction'), # used to be Date of Registration
 ('date_of_dissolution', 'Date Of Dissolution', 'Date that the company dissolved if it is no longer active'),
 ('issuer_flag', 'Issuer Flag', 'Does the entity issue listed securities - Y/N'),
 ('primary_listing_exchange', 'Primary Listing Exchange', 'Primary exchange upon which the company\'s ordinary shares are listed'),
