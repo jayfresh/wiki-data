@@ -11,7 +11,7 @@ var defaultView = [
 	"operational_country",
 	"operational_postcode"	
 ];
-var entityNameMap = {
+var entity_name_map = {
 	"TP": "Ultimate Parent",
 	"LE": "Subsidiary",
 	"SLE": "Branch",

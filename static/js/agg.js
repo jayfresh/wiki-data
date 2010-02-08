@@ -6082,7 +6082,7 @@ var defaultView = [
 	"operational_country",
 	"operational_postcode"	
 ];
-var entityNameMap = {
+var entity_name_map = {
 	"TP": "Ultimate Parent",
 	"LE": "Subsidiary",
 	"SLE": "Branch",
@@ -6237,6 +6237,7 @@ $(document).ready(function() {
 				if(start===-1) {
 					s = q+"&index="+diff;
 				} else {
+					var existing = 
 					s = q.substring(0,start+6)+diff;
 				}
 				window.location = s;
