@@ -152,6 +152,10 @@ pre {
 	text-transform: uppercase;
 }
 
+.divider {
+	margin: 0 2px;
+}
+
 .norightborder {
 	border-right: 0;
 }

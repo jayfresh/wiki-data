@@ -27,6 +27,17 @@
 	('registration_number__jurisdiction_', 'Registration Number (Jurisdiction)')
 ] %}
 {% set captcha = commonVars.captcha %}
+{% if commonVars.usersign.name != 'GUEST' %}
+{% set name = commonVars.usersign.fields.name %}
+{% set email = commonVars.usersign.name %}
+{% set country = commonVars.usersign.fields.country %}
+{% set company = commonVars.usersign.fields.company %}
+{% else %}
+{% set name = '' %}
+{% set email = '' %}
+{% set country = '' %}
+{% set company = '' %}
+{% endif %}
 <div id="pagenav">		
 	<ul>
 		<li><a href="/index.html" class="lightborder darkgreen caps">Home</a></li>
@@ -50,13 +61,17 @@
 				</div>
 				<div class="right lightbluebox lightblueborder" id="rightpanel">
 					<label for="name">Your name</label>
-					<input type="text" name="name" id="name" size="35"/>
+                                        <input type="text" value="{{ name }}"
+                                            name="name" id="name" size="35"/>
 					<label for="email">Your email address</label>
-					<input type="text" name="email" id="email" size="35"/>
+                                        <input type="text" value="{{ email }}"
+                                            name="email" id="email" size="35"/>
 					<label for="country">Your country</label>
-					<input type="text" name="country" id="country" size="35" />
+                                        <input type="text" value="{{ country }}" 
+                                            name="country" id="country" size="35" />
 					<label for="company">Your company <span>(Optional)</span></label>
-					<input type="text" name="company" id="company" size="35"/>
+                                        <input type="text" value="{{ company }}"
+                                            name="company" id="company" size="35"/>
 					<input type="hidden" value="suggest_new" name="requestType"/>
 					<div>Are you human?</div>
 					<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29"></script>

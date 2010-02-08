@@ -29,6 +29,7 @@ setup(
         'tiddlywebplugins.diststore',
         'tiddlywebplugins.methodhack',
         'tiddlywebplugins.templates',
+        #'tiddlywebplugins.magicuser' # not yet packages, install by hand
         'tiddlywebplugins.logout',
         'tiddlywebplugins.mappingsql',
         ],

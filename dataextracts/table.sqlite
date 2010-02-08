@@ -71,5 +71,6 @@ CREATE TABLE IF NOT EXISTS avox (
 	ultimate_parent_name VARCHAR(256),
 	ultimate_parent_notes VARCHAR(256),
 	general_notes VARCHAR(256),
+        taster CHAR(1),
 	PRIMARY KEY (avid)
 );
