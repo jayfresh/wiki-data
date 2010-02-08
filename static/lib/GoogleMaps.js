@@ -1,12 +1,11 @@
 $(document).ready(function() {
 	var gMapsHost = window.gMaps ? "http://www.google.com/jsapi?key="+window.gMaps.apiKey : "";
 	if(gMapsHost) {
-		function gLoad() {
+		function gLoad(mapSelector, address) {
 			google.load("maps", "2", {
 				"callback" : function() {
 					var map;
 					var op_company = window.gMaps.op_company;
-					var op_address = window.gMaps.op_address;
 					var addToMap = function(response) {
 						// Retrieve the object
 						var place = response.Placemark[0];
@@ -24,20 +23,22 @@ $(document).ready(function() {
 						marker.openInfoWindowHtml(company);
 					};
 					// Create new map object
-					map = new google.maps.Map2(document.getElementById("operational_map"));
+					map = new google.maps.Map2($(mapSelector));
 					map.addControl(new google.maps.SmallMapControl());
 					map.addControl(new google.maps.MapTypeControl());
 					// Create new geocoding object
 					var geocoder = new google.maps.ClientGeocoder();
 					// Retrieve location information, pass it to addToMap()
-					var company = op_company + "<br/>"+ op_address;
-					geocoder.getLocations(op_address, addToMap);
+					var company = op_company + "<br/>"+ address;
+					geocoder.getLocations(address, addToMap);
 				}
 			});
 		}
 		window.mapsInitialize = function() {
 			if($('#operational_map').is(":visible")) {
-				gLoad();
+				gLoad('#operational_map',window.gMaps.op_address);
+			} else if($('#registered_map').is(":visible")) {
+				gLoad('#registered_map', window.gMaps.reg_address);
 			} else {
 				window.setTimeout(window.mapsInitialize,1000);
 			}

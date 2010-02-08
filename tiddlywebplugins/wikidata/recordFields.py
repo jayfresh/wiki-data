@@ -12,7 +12,7 @@ recordFields = [
 ('trades_as_name_s_', 'Trades As Name(s)', 'Names under which the company trades but which differ from their legal name - Delimited by | if multiple values'),
 ('name_notes', 'Name Notes', 'Analyst notes about the company name(s)'),
 ('legal_form', 'Legal Form', 'Examples include Partnership, Sole Proprietorship and Limited. This is typically defaulted from the legal name field - free format text'),
-('trading_status', 'Trading Status', 'Defines the trading status of the entity, e,g, Active'),
+('trading_status', 'Trading Status', 'Defines the trading status of the entity: Active, In Administration, Inactive, Dissolved'),
 ('swift_bic', 'SWIFT BIC', 'Mixed alpha-numeric code from Swift - Bank Identifier Code'),
 ('vat_number', 'VAT Number', 'Value added tax number applicable in countries such as the UK'),
 ('tax_payer_id', 'Tax Payer ID', 'US identifier allocated to companies and individuals'),

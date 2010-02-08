@@ -18,10 +18,11 @@ class Serialization(HTML_Serializer):
         logging.debug('in list_tiddlers')
         tiddlers = bag.list_tiddlers()
         resultcount = self.environ.get('tiddlyweb.mappingsql.count', 0) # the total number of results in the database, as opposed to the number I can see
+        access_count = self.environ.get('tiddlyweb.mappingsql.access_count', 0) # the number of results I have access to
         index = self.environ.get('tiddlyweb.mappingsql.index', 0)
         template = templating.get_template(self.environ, 'collection.html')
-        return template.render(tiddlers=tiddlers, resultcount=resultcount,
-                commonVars=templating.common_vars(self.environ), query=self.environ['tiddlyweb.query'], pageDistance=self.environ['tiddlyweb.config']['mappingsql.limit'], queryIndex=index)
+        return template.render(tiddlers=tiddlers, resultcount=resultcount, access_count=access_count, 
+                commonVars=templating.common_vars(self.environ), pageDistance=self.environ['tiddlyweb.config']['mappingsql.limit'], queryIndex=index)
 
     def tiddler_as(self, tiddler):
         logging.debug('in tiddler_as')
