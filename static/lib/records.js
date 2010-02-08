@@ -22,7 +22,7 @@ var aoColumnsRenderMap = {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
 	},
 	"operational_state": function(data) {
-		var country = ISO_3166.countries.iso2name[data.aData[14]]; // 14 is the operational_country
+		var country = ISO_3166.countries.iso2name[data.aData[aoColumnsRenderMap.operational_country_index]]; // aoColumnsRenderMap.operational_country_index gets set in another function - this method allows us to cope with tables that are different column sizes
 		var mapping;
 		var state;
 		switch(country) {
@@ -60,6 +60,9 @@ $(document).ready(function() {
 		options = {};
 		if($.inArray(field,defaultView)===-1) {
 			options.bVisible = false;
+		}
+		if(field==="operational_country") {
+			aoColumnsRenderMap.operational_country_index = i;
 		}
 		if(field in aoColumnsRenderMap) {
 			options.fnRender = aoColumnsRenderMap[field];
