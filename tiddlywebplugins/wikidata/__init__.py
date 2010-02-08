@@ -237,7 +237,6 @@ def _random_pass():
     from random import choice
     chars = string.letters + string.digits
     stuff = ''.join([choice(chars) for i in xrange(8)])
-    print 'stuff ', stuff
     return stuff
 
 
