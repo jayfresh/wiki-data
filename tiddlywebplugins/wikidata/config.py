@@ -8,7 +8,7 @@ config = {
         'server_store': ['tiddlywebplugins.diststore', {
             'main': ['text', {'store_root': 'store'}],
             'extras': [
-                (r'^avox$', ['tiddlywebplugins.mappingsql',
+                (r'^avox$', ['tiddlywebplugins.wikidata.wdsql',
                     {'db_config': 'mysql://avox@localhost/avox?charset=utf8'}]),
                     #{'db_config': 'sqlite:///test.db'}]),
                 ],
