@@ -1287,6 +1287,7 @@ $(document).ready(function() {
 				$('.entitycontent',$elem).hide();
 			}
 		});
+		$('#recordcontainer .tab h3').css('position','relative'); // otherwise you can't see the h3's in Safari
 		$('#recordcontainer .tab').click(function() {
 			var i = $('#recordcontainer .tab').index(this);
 			$('#recordcontainer .record.selected').removeClass('selected').find('.entitycontent').hide();
