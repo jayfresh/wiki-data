@@ -61,33 +61,37 @@
 					<label for="company">Your company <span>(Optional)</span></label>
 					<input type="text" name="company" size="35"/>
 					{% else %}
+					{% set name = commonVars.usersign.fields.name %}
+					{% set email = commonVars.usersign.name %}
+					{% set country = commonVars.usersign.fields.country %}
+					{% set company = commonVars.usersign.fields.company %}
 					<div class="lightpanel">
 						<div>
 							<span>Name:</span>
-							<input type="hidden" name="name" value="{{userFields.name}}" />
-							<span class="thick">{% if userFields.name -%}
-								{{userFields.name}}{%else%}(not provided)
+							<input type="hidden" name="name" value="{{name}}" />
+							<span class="thick">{% if name -%}
+								{{name}}{%else%}(not provided)
 							{%-endif%}</span>
 						</div>
 						<div>
 							<span>Email address:</span>
-							<input type="hidden" name="email" value="{{userFields.email}}" />
-							<span class="thick">{% if userFields.email -%}
-								{{userFields.email}}{%else%}(not provided)
+							<input type="hidden" name="email" value="{{email}}" />
+							<span class="thick">{% if email -%}
+								{{email}}{%else%}(not provided)
 							{%-endif%}</span>
 						</div>
 						<div>
 							<span>Country:</span>
-							<input type="hidden" name="country" value="{{userFields.country}}" />
-							<span class="thick">{% if userFields.country -%}
-								{{userFields.country}}{%else%}(not provided)
+							<input type="hidden" name="country" value="{{country}}" />
+							<span class="thick">{% if country -%}
+								{{country}}{%else%}(not provided)
 							{%-endif%}</span>
 						</div>
 						<div>
 							<span>Company (Optional):</span>
-							<input type="hidden" name="company" value="{{userFields.company}}" />
-							<span class="thick">{% if userFields.company -%}
-								{{userFields.company}}{%else%}(not provided)
+							<input type="hidden" name="company" value="{{company}}" />
+							<span class="thick">{% if company -%}
+								{{company}}{%else%}(not provided)
 							{%-endif%}</span>
 						</div>
 					</div>
