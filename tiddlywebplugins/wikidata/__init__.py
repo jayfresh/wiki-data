@@ -224,12 +224,15 @@ Here's your info:
 Username: %s
 Password: %s
 """ % (email, password)
+    query_string = '?email=%s' % to_address
     try:
         send_email(to_address, subject, body)
+        query_string += '?success=1'
+        raise HTTP303(server_base_url(environ)+'/pages/new_account'+query_string)
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
-
-    raise HTTP303(server_base_url(environ))
+        query_string += '?failure=1'
+        raise HTTP302(server_base_url(environ)+'/pages/new_account'+query_string)
 
 
 def _random_pass():
@@ -237,29 +240,30 @@ def _random_pass():
     from random import choice
     chars = string.letters + string.digits
     stuff = ''.join([choice(chars) for i in xrange(8)])
-    print 'stuff ', stuff
     return stuff
 
 
 def init(config):
     merge_config(config, local_config)
-    tiddlywebplugins.logout.init(config)
     tiddlywebplugins.magicuser.init(config)
 
-    config['selector'].add('/pages/{template_file:segment}',
-            GET=template_route)
-    config['selector'].add('/test/{template_file:segment}',
-            GET=test_template_route)
-    config['selector'].add('/index.html', GET=index)
-    config['selector'].add('/verify', POST=verify)
-    config['selector'].add('/lib/fields.js', GET=get_fields_js)
-    config['selector'].add('/env', GET=env)
-    config['selector'].add('/register', POST=register)
-    config['selector'].add('/_admin/createuser', GET=user_form, POST=create_user)
-    replace_handler(config['selector'], '/', dict(GET=index))
-    remove_handler(config['selector'], '/recipes')
-    remove_handler(config['selector'], '/recipes/{recipe_name}')
-    remove_handler(config['selector'], '/recipes/{recipe_name}/tiddlers')
-    remove_handler(config['selector'], '/bags')
-    remove_handler(config['selector'], '/bags/{bag_name}')
-    remove_handler(config['selector'], '/bags/{bag_name}/tiddlers')
+    if 'selector' in config:
+        tiddlywebplugins.logout.init(config)
+
+        config['selector'].add('/pages/{template_file:segment}',
+                GET=template_route)
+        config['selector'].add('/test/{template_file:segment}',
+                GET=test_template_route)
+        config['selector'].add('/index.html', GET=index)
+        config['selector'].add('/verify', POST=verify)
+        config['selector'].add('/lib/fields.js', GET=get_fields_js)
+        config['selector'].add('/env', GET=env)
+        config['selector'].add('/register', POST=register)
+        config['selector'].add('/_admin/createuser', GET=user_form, POST=create_user)
+        replace_handler(config['selector'], '/', dict(GET=index))
+        remove_handler(config['selector'], '/recipes')
+        remove_handler(config['selector'], '/recipes/{recipe_name}')
+        remove_handler(config['selector'], '/recipes/{recipe_name}/tiddlers')
+        remove_handler(config['selector'], '/bags')
+        remove_handler(config['selector'], '/bags/{bag_name}')
+        remove_handler(config['selector'], '/bags/{bag_name}/tiddlers')

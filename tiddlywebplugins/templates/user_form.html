@@ -9,13 +9,23 @@
 	<div class="wrap">
 		<div class="miniwrap bluebox lightblueborder">
                 <p>Enter the User Information:</p>
-                <form action="" method="POST">
-                    Name: <input name="name" /><br />
-                    Email: <input name="email" /><br />
-                    Country: <input name="country" /><br />
-                    Company: <input name="company" /><br />
-                    <input type="submit" value="submit" />
-                </form>
+                <form method="POST" id="loginform">
+					<div>
+						<label for="name">Name:</label>&nbsp;<input type="text" name="name" id="name" size="40" />
+					</div>
+					<div>
+						<label for="email">Email:</label>&nbsp;<input type="text" id="email" name="email" size="40" />
+					</div>
+					<div>
+						<label for="country">Country:</label>&nbsp;<input type="text" id="country" name="country" size="40" />
+					</div>
+					<div>
+						<label for="company">Company (optional):</label>&nbsp;<input type="text" id="company" name="company" size="40" />
+					</div>
+					<div>
+						<input type="submit" id="submit" class="darkgreen lightborder whitetext caps margintop" value="Create account" />
+					</div>
+				</form>
             </div>
         </div>
     </div>

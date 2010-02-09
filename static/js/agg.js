@@ -1182,6 +1182,11 @@ function addAdvSearchLine() {
 	return $row;
 }
 $(document).ready(function() {
+	// overwrite default fields with dynamically generated list
+	DependentInputs.fields = [];
+	$.each(recordFields, function(i,pair) {
+		DependentInputs.fields.push(pair[0].replace(/__/g,"_(").replace(/_(\w)_/g,"($1)").replace(/_$/g,")").replace(/_/g," "));
+	});
 	// set advanced search on a slider
 	$('#search .advanced').click(function() {
 		addAdvSearchLine();
@@ -1191,7 +1196,7 @@ $(document).ready(function() {
 		addAdvSearchLine();
 		return false;
 	});
-	$('#advancedSearchContainer').bind("mouseup",function() { // most ridiculous hack yet
+	$('#advancedSearchContainer').bind("mouseup",function() { // most ridiculous hack yet - fixing IE6/7 position:relative redraw problem
 		window.setTimeout(function() {
 			redraw();
 		},0);
@@ -1304,12 +1309,18 @@ $(document).ready(function() {
 		});
 		$companyDiv.removeClass('hide').css("visibility", "visible");
 		$('#recordcontainer .tab').eq(0).click();
-		var addressText = $.trim((//$companyDiv.find('.adr .street-address').text() + " " +
-			$companyDiv.find('.adr .locality').text() + " " +
-			$companyDiv.find('.adr .region').text() + " " +
-			$companyDiv.find('.adr .country-name').text() + " " +
-			$companyDiv.find('.adr .postal-code').text()).replace(/[\n|\r]/g,"").replace(/(\s)+/g," "));
-		window.gMaps.op_address = addressText;
+		var makeAddressText = function(selector) {
+			var $elem = $(selector);
+			return $.trim((//$companyDiv.find('.adr .street-address').text() + " " +
+				$elem.find('.adr .locality').text() + " " +
+				$elem.find('.adr .region').text() + " " +
+				$elem.find('.adr .country-name').text() + " " +
+				$elem.find('.adr .postal-code').text()).replace(/[\n|\r]/g,"").replace(/(\s)+/g," "));
+		};
+		window.gMaps.op_address = makeAddressText('#op_address_div');
+		if($('#reg_address_div').length) {
+			window.gMaps.reg_address = makeAddressText('#reg_address_div');
+		}
 	}
 });/*
  * File:        jquery.dataTables.js
@@ -6082,12 +6093,18 @@ var defaultView = [
 	"operational_country",
 	"operational_postcode"	
 ];
+var entity_name_map = {
+	"TP": "Ultimate Parent",
+	"LE": "Subsidiary",
+	"SLE": "Branch",
+	"DIV": "Division"
+};
 var aoColumnsRenderMap = {
 	"registered_country": function(data) {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
 	},
 	"operational_state": function(data) {
-		var country = ISO_3166.countries.iso2name[data.aData[14]]; // 14 is the operational_country
+		var country = ISO_3166.countries.iso2name[data.aData[aoColumnsRenderMap.operational_country_index]]; // aoColumnsRenderMap.operational_country_index gets set in another function - this method allows us to cope with tables that are different column sizes
 		var mapping;
 		var state;
 		switch(country) {
@@ -6111,6 +6128,9 @@ var aoColumnsRenderMap = {
 	},
 	"operational_country": function(data) {
 		return ISO_3166.countries.iso2name[data.aData[data.iDataColumn]] || "";
+	},
+	"entity_type": function(data) {
+		return entity_name_map[data.aData[data.iDataColumn]] || "";
 	}
 };
 $(document).ready(function() {
@@ -6122,6 +6142,9 @@ $(document).ready(function() {
 		options = {};
 		if($.inArray(field,defaultView)===-1) {
 			options.bVisible = false;
+		}
+		if(field==="operational_country") {
+			aoColumnsRenderMap.operational_country_index = i;
 		}
 		if(field in aoColumnsRenderMap) {
 			options.fnRender = aoColumnsRenderMap[field];
@@ -6218,12 +6241,34 @@ $(document).ready(function() {
 				$('#columnPicker #cols').toggle();
 			};
 			$('#pickerControl').click(colToggle);
-			$('a.pagebutton').click(function() {
-				var label = $(this).text();
+			var getPagingLink = function(elem) {
+				var label = $(elem).text();
 				var direction = label==="next" ? 1 : -1;
 				var diff = direction*$('#pageDistance').text();
-				alert(diff);
+				var q = window.location.search;
+				var start = q.indexOf('index=')+6;
+				var s = "";
+				if(start===-1) { // diff can only be positive as we're at the start
+					s = q+"&index="+diff;
+				} else {
+					var end = q.indexOf('&',start);
+					if(end===-1) {
+						end = q.length;
+					}
+					var index = q.substring(start,end);
+					var newIndex = parseInt(index,10)+diff;
+					s = q.substring(0,start)+newIndex;
+				}
+				return s;
+			};
+			$('a.pagebutton').click(function() {
+				window.location = getPagingLink(this);
 				return false;
+			});
+			$('a.pagebutton').hover(function() {
+				if($(this).attr('href')==='#') {
+					$(this).attr('href', getPagingLink(this));
+				}
 			});
 		};
 		
@@ -6282,44 +6327,65 @@ $(document).ready(function() {
 $(document).ready(function() {
 	var gMapsHost = window.gMaps ? "http://www.google.com/jsapi?key="+window.gMaps.apiKey : "";
 	if(gMapsHost) {
-		function gLoad() {
+		function gLoad(mapSelector, address) {
 			google.load("maps", "2", {
 				"callback" : function() {
-					var map;
-					var op_company = window.gMaps.op_company;
-					var op_address = window.gMaps.op_address;
-					var addToMap = function(response) {
-						// Retrieve the object
-						var place = response.Placemark[0];
-						// Retrieve the latitude and longitude
-						var point = new google.maps.LatLng(place.Point.coordinates[1],
-						                  place.Point.coordinates[0]);
-						// Center the map on this point
-						map.setCenter(point, 3);
-						map.setZoom(14);
-						// Create a marker
-						var marker = new google.maps.Marker(point);
-						// Add the marker to map
-						map.addOverlay(marker);
-						// Add address information to marker
-						marker.openInfoWindowHtml(company);
-					};
-					// Create new map object
-					map = new google.maps.Map2(document.getElementById("operational_map"));
-					map.addControl(new google.maps.SmallMapControl());
-					map.addControl(new google.maps.MapTypeControl());
-					// Create new geocoding object
-					var geocoder = new google.maps.ClientGeocoder();
-					// Retrieve location information, pass it to addToMap()
-					var company = op_company + "<br/>"+ op_address;
-					geocoder.getLocations(op_address, addToMap);
+					try {
+						var map;
+						var op_company = window.gMaps.op_company;
+						var company;
+						var addToMap = function(response) {
+							// Retrieve the object
+							var place = response.Placemark[0];
+							// Retrieve the latitude and longitude
+							var point = new google.maps.LatLng(place.Point.coordinates[1],
+							                  place.Point.coordinates[0]);
+							// Center the map on this point
+							map.setCenter(point, 3);
+							map.setZoom(14);
+							// Create a marker
+							var marker = new google.maps.Marker(point);
+							// Add the marker to map
+							map.addOverlay(marker);
+							// Add address information to marker
+							marker.openInfoWindowHtml(company);
+						};
+						// Create new map object
+						map = new google.maps.Map2($(mapSelector).get(0));
+						map.addControl(new google.maps.SmallMapControl());
+						map.addControl(new google.maps.MapTypeControl());
+						// Create new geocoding object
+						var geocoder = new google.maps.ClientGeocoder();
+						// Retrieve location information, pass it to addToMap()
+						company = op_company + "<br/>"+ address;
+						geocoder.getLocations(address, addToMap);
+					} catch(ex) {
+						$(mapSelector).html('<p>error loading map</p>');
+					}
 				}
 			});
 		}
+		var toInitialize = {
+			'operational_map' : {
+				address: window.gMaps.op_address,
+				initialized: false
+			},
+			'registered_map' : {
+				address: window.gMaps.reg_address,
+				initialized: false
+			}
+		};
+		var initCount = 2;
 		window.mapsInitialize = function() {
-			if($('#operational_map').is(":visible")) {
-				gLoad();
-			} else {
+			$.each(toInitialize, function(id, value) {
+				var selector = '#'+id;
+				if(initCount && $(selector).is(":visible") && !value.initialized) {				
+					value.initialized = true;
+					initCount--;
+					gLoad(selector, value.address);
+				}
+			});
+			if(initCount) {
 				window.setTimeout(window.mapsInitialize,1000);
 			}
 		};

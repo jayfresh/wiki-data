@@ -96,6 +96,11 @@ function addAdvSearchLine() {
 	return $row;
 }
 $(document).ready(function() {
+	// overwrite default fields with dynamically generated list
+	DependentInputs.fields = [];
+	$.each(recordFields, function(i,pair) {
+		DependentInputs.fields.push(pair[0].replace(/__/g,"_(").replace(/_(\w)_/g,"($1)").replace(/_$/g,")").replace(/_/g," "));
+	});
 	// set advanced search on a slider
 	$('#search .advanced').click(function() {
 		addAdvSearchLine();
@@ -105,7 +110,7 @@ $(document).ready(function() {
 		addAdvSearchLine();
 		return false;
 	});
-	$('#advancedSearchContainer').bind("mouseup",function() { // most ridiculous hack yet
+	$('#advancedSearchContainer').bind("mouseup",function() { // most ridiculous hack yet - fixing IE6/7 position:relative redraw problem
 		window.setTimeout(function() {
 			redraw();
 		},0);
