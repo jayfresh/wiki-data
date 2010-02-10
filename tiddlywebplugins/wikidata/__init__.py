@@ -243,12 +243,14 @@ Password: %s
 """ % (email, password)
     query_string = '?email=%s' % to_address
     try:
+        logging.debug('trying to email')
         send_email(to_address, subject, body)
-        query_string += '?success=1'
+        query_string += '&success=1'
+        logging.debug('success with email, trying to raise 303')
         raise HTTP303(server_base_url(environ)+'/pages/new_account'+query_string)
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
-        query_string += '?failure=1'
+        query_string += '&failure=1'
         raise HTTP302(server_base_url(environ)+'/pages/new_account'+query_string)
 
     raise HTTP303(server_base_url(environ))
