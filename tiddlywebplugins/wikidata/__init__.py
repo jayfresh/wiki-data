@@ -253,8 +253,6 @@ Password: %s
         query_string += '&failure=1'
         raise HTTP302(server_base_url(environ)+'/pages/new_account'+query_string)
 
-    raise HTTP303(server_base_url(environ))
-
 
 def _random_pass():
     import string
