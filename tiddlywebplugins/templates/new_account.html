@@ -1,7 +1,7 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
 {% set query = commonVars.query %}
-{% if query['success'] and query['success'][0] == 1 %}
+{% if query['success'] and query['success'][0] == '1' %}
    {% set success = 1 %}
 {% else %}
    {% set success = 0 %}
