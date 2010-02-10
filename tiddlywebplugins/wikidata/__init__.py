@@ -171,7 +171,11 @@ def verify(environ, start_response):
 
 
 @require_role('ADMIN')
-def user_form(environ, start_response, message='', formdata=None):
+def user_form(environ, start_response):
+    return _user_form(environ, start_response)
+
+
+def _user_form(environ, start_response, message='', formdata=None):
     form_starter = {
             'name': '',
             'email': '',
@@ -205,14 +209,14 @@ def create_user(environ, start_response):
     country = query.get('country', [None])[0]
     if not (name and email):
         # The form has not been filled out
-        return user_form(environ, start_response, message='Missing Data!',
+        return _user_form(environ, start_response, message='Missing Data!',
                 formdata={'name': name, 'email': email,
                     'company': company, 'country': country})
     user = User(email)
     try:
         user = store.get(user)
         # User exists!
-        return user_form(environ, start_response, message='That user already exists!',
+        return _user_form(environ, start_response, message='That user already exists!',
                 formdata={'name': name, 'email': email,
                     'company': company, 'country': country})
     except NoUserError:
