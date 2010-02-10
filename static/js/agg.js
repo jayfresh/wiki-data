@@ -6295,7 +6295,7 @@ $(document).ready(function() {
 				var direction = label==="next" ? 1 : -1;
 				var diff = direction*$('#pageDistance').text();
 				var q = window.location.search;
-				var start = q.indexOf('index=')+6;
+				var start = q.indexOf('index=');
 				var s = "";
 				if(start===-1) { // diff can only be positive as we're at the start
 					s = q+"&index="+diff;
@@ -6304,9 +6304,9 @@ $(document).ready(function() {
 					if(end===-1) {
 						end = q.length;
 					}
-					var index = q.substring(start,end);
+					var index = q.substring(start+6,end);
 					var newIndex = parseInt(index,10)+diff;
-					s = q.substring(0,start)+newIndex;
+					s = q.substring(0,start+6)+newIndex;
 				}
 				return s;
 			};
