@@ -171,7 +171,15 @@ def verify(environ, start_response):
 
 
 @require_role('ADMIN')
-def user_form(environ, start_response):
+def user_form(environ, start_response, message='', formdata=None):
+    form_starter = {
+            'name': '',
+            'email': '',
+            'country': '',
+            'company': '',
+            }
+    if formdata:
+        form_starter.update(formdata)
 
     template = templating.get_template(environ, 'user_form.html')
 
@@ -180,7 +188,8 @@ def user_form(environ, start_response):
         ('Pragma', 'no-cache')
         ])
     
-    return template.render(commonVars=templating.common_vars(environ))
+    return template.render(commonVars=templating.common_vars(environ),
+            message=message, form=form_starter)
 
 
 @require_role('ADMIN')
@@ -196,12 +205,16 @@ def create_user(environ, start_response):
     country = query.get('country', [None])[0]
     if not (name and email):
         # The form has not been filled out
-        raise HTTP302(server_base_url(environ) + '/_admin/createuser')
+        return user_form(environ, start_response, message='Missing Data!',
+                formdata={'name': name, 'email': email,
+                    'company': company, 'country': country})
     user = User(email)
     try:
         user = store.get(user)
         # User exists!
-        raise HTTP302(server_base_url(environ) + '/_admin/createuser')
+        return user_form(environ, start_response, message='That user already exists!',
+                formdata={'name': name, 'email': email,
+                    'company': company, 'country': country})
     except NoUserError:
         password = _random_pass()
         user.set_password(password)
