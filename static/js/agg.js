@@ -1185,7 +1185,8 @@ $(document).ready(function() {
 	// overwrite default fields with dynamically generated list
 	DependentInputs.fields = [];
 	$.each(recordFields, function(i,pair) {
-		DependentInputs.fields.push(pair[0].replace(/__/g,"_(").replace(/_(\w)_/g,"($1)").replace(/_$/g,")").replace(/_/g," "));
+		//DependentInputs.fields.push(pair[0].replace(/__/g,"_(").replace(/_(\w)_/g,"($1)").replace(/_$/g,")").replace(/_/g," "));
+		DependentInputs.fields.push(pair[1]);
 	});
 	// set advanced search on a slider
 	$('#search .advanced').click(function() {

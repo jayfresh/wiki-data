@@ -4,7 +4,7 @@ import smtplib
 from email.mime.text import MIMEText
 
 def send(to, subject, body):
-    if type(to) is str:
+    if isinstance(to, basestring):
         to = [to]
     msg = MIMEText(body)
     msg['subject'] = subject

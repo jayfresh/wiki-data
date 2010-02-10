@@ -13,3 +13,7 @@ h1 {
 	background: url("/static/test_images/about_MAD.gif") top right no-repeat;
 	height: 44px;
 }
+
+#request #leftpanel textarea {
+	height: 100px;
+}

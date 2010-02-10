@@ -28,7 +28,7 @@ recordFields = [
 ('issuer_flag', 'Issuer Flag', 'Does the entity issue listed securities - Y/N'),
 ('primary_listing_exchange', 'Primary Listing Exchange', 'Primary exchange upon which the company\'s ordinary shares are listed'),
 ('ticker_code', 'Ticker Code', 'The symbol representing the company name on the primary exchange'),
-('cabre', 'CABRE', ''), # this is not being used
+#('cabre', 'CABRE', ''), # this is not being used
 ('fiscal_year_end', 'Fiscal Year End', 'Financial statement information - Month of entity\'s year end'),
 ('mifid_source', 'MIFID Source', 'Financial statement information'),
 ('balance_sheet_date', 'Balance Sheet Date', 'Financial statement information'),
