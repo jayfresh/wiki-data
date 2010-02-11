@@ -1,0 +1,2 @@
+#!/bin/sh
+ssh avox@217.9.192.10 "cd wikidata/wiki-data && git pull origin master"
