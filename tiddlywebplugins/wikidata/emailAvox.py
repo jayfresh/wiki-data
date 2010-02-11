@@ -11,15 +11,12 @@ def emailAvox(query):
     if requestType == 'request':
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]
-        try:
-            additional_info = query['additional_info'][0]
-        except:
-            additional_info = ''
+        additional_info = query.get('additional_info', [''])[0]
         to = ['addadatarecord.wiki-data@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Request for more information'
         body = 'SPECIFIC REQUEST re: additional information request\n' \
             'for '+legal_name+' (AVID = '+avid+')\n'
-        if additional_info == '':
+        if additional_info != '':
             body += 'Additional info: '+additional_info+'\n'
         body += 'Name: '+name+'\n' \
             'Email address: '+email+'\n' \
