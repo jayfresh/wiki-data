@@ -59,7 +59,7 @@ Company: %s
 Record info
 --------------
 """ % (name, email, country, company)
-        for field, _ in recordFields.recordFields:
+        for field, label, tooltip in recordFields.recordFields:
             try:
                 body += field + ': ' + query[field][0] + '\n'
             except KeyError:
