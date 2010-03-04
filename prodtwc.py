@@ -3,6 +3,7 @@ config = {
         'system_plugins': ['tiddlywebplugins.wikidata'],
             'tiddlywebplugins.methodhack',
             'tiddlywebplugins.pathinfohack',
-            'tiddlywebplugins.static'],
+            'tiddlywebplugins.static',
+            'tiddlywebplugins.jsonp'],
         }
 

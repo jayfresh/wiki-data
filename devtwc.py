@@ -7,6 +7,7 @@ config = {
             'tiddlywebplugins.wikidata',
             'tiddlywebplugins.methodhack',
             'tiddlywebplugins.pathinfohack',
-            'tiddlywebplugins.static'],
+            'tiddlywebplugins.static',
+            'tiddlywebplugins.jsonp'],
         'maps_api_key': 'ABQIAAAAfIA5i-5lcivJMUvTzLDrmxQg7wZe1qASdla1M-DFyiqfOoWRghT6gGJohIOLIoy-3oR7sKWQfPvlxA', # http://wiki-data.com/
         }
