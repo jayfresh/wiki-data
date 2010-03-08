@@ -3,6 +3,7 @@ import socket
 
 import tiddlywebplugins.logout
 import tiddlywebplugins.magicuser
+import tiddlywebplugins.jsonp
 
 from tiddlywebplugins.wikidata import templating
 from tiddlywebplugins.wikidata.emailAvox import emailAvox
@@ -263,6 +264,7 @@ def _random_pass():
 def init(config):
     merge_config(config, local_config)
     tiddlywebplugins.magicuser.init(config)
+    tiddlywebplugins.jsonp.init(config)
 
     if 'selector' in config:
         tiddlywebplugins.logout.init(config)

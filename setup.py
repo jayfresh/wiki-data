@@ -32,6 +32,7 @@ setup(
         #'tiddlywebplugins.magicuser' # not yet packages, install by hand
         'tiddlywebplugins.logout',
         'tiddlywebplugins.mappingsql',
+        'tiddlywebplugins.jsonp'
         ],
     zip_safe = False,
     include_package_data = True,
