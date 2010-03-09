@@ -11,12 +11,14 @@ def emailAvox(query):
     if requestType == 'request':
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]
-        additional_info = query['additional_info'][0]
+        additional_info = query.get('additional_info', [''])[0]
         to = ['addadatarecord.wiki-data@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Request for more information'
         body = 'SPECIFIC REQUEST re: additional information request\n' \
-            'for '+legal_name+' (AVID = '+avid+')\n' \
-            'Name: '+name+'\n' \
+            'for '+legal_name+' (AVID = '+avid+')\n'
+        if additional_info != '':
+            body += 'Additional info: '+additional_info+'\n'
+        body += 'Name: '+name+'\n' \
             'Email address: '+email+'\n' \
             'Country: '+country+'\n' \
             'Company: '+company+'\n'
@@ -34,7 +36,8 @@ def emailAvox(query):
             'Company: '+company+'\n' \
             'Source for challenge: '+source+'\n' \
             'Challenge details\n--------------\n'
-        for field, _ in recordFields.recordFields:
+        #for field, _ in recordFields.recordFields: # is this syntax valid?
+        for field, label, tooltip in recordFields.recordFields:
             try:
                 body += field+': '+query['challenge_'+field][0]+'\n'
             except KeyError:
@@ -53,7 +56,7 @@ Company: %s
 Record info
 --------------
 """ % (name, email, country, company)
-        for field, _ in recordFields.recordFields:
+        for field, label, tooltip in recordFields.recordFields:
             try:
                 body += field + ': ' + query[field][0] + '\n'
             except KeyError:

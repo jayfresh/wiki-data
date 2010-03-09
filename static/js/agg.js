@@ -1311,6 +1311,53 @@ $(document).ready(function() {
 		});
 		$companyDiv.removeClass('hide').css("visibility", "visible");
 		$('#recordcontainer .tab').eq(0).click();
+		
+		
+		// fix up state codes
+		var findStateMap = function(country) {
+			if(country==='Australia') {
+				return ISO_3166['2:AU'].iso2name;
+			} else if(country==='Canada') {
+				return ISO_3166['2:CA'].iso2name;
+			} else if(country==='USA') {
+				return ISO_3166.usa.iso2name;
+			}
+		};
+		var $op_address_div = $('#op_address_div');
+		var country = $op_address_div.find('.operational_country').text();
+		var stateMap = findStateMap(country);
+		var state;
+		if(stateMap) {
+			state = stateMap[$op_address_div.find('.operational_state').text()];
+			if(state) {
+				$op_address_div.find('.operational_state').text(state);
+			}
+		}
+		var $reg_address_div = $('#reg_address_div');
+		country = $reg_address_div.find('.registered_country').text();
+		stateMap = findStateMap(country);
+		if(stateMap) {
+			state = stateMap[$reg_address_div.find('.registered_state').text()];
+			if(state) {
+				$reg_address_div.find('.registered_state').text(state);
+			}
+		}
+		
+		// fix entity type codes
+		var entity_name_map = {
+			"TP": "Ultimate Parent",
+			"LE": "Subsidiary",
+			"SLE": "Branch",
+			"DIV": "Division"
+		};
+		var entity_code = $('.entity_type').text();
+		if(entity_code) {
+			var entity = entity_name_map[entity_code];
+			if(entity) {
+				$('.entity_type').text(entity);
+			}
+		}
+				
 		var makeAddressText = function(selector) {
 			var $elem = $(selector);
 			return $.trim((//$companyDiv.find('.adr .street-address').text() + " " +
@@ -6248,7 +6295,7 @@ $(document).ready(function() {
 				var direction = label==="next" ? 1 : -1;
 				var diff = direction*$('#pageDistance').text();
 				var q = window.location.search;
-				var start = q.indexOf('index=')+6;
+				var start = q.indexOf('index=');
 				var s = "";
 				if(start===-1) { // diff can only be positive as we're at the start
 					s = q+"&index="+diff;
@@ -6257,9 +6304,9 @@ $(document).ready(function() {
 					if(end===-1) {
 						end = q.length;
 					}
-					var index = q.substring(start,end);
+					var index = q.substring(start+6,end);
 					var newIndex = parseInt(index,10)+diff;
-					s = q.substring(0,start)+newIndex;
+					s = q.substring(0,start+6)+newIndex;
 				}
 				return s;
 			};
@@ -6395,13 +6442,14 @@ $(document).ready(function() {
 		$.getScript(gMapsHost);
 	}
 });/* Google Analytics */
+var gAnalyticsTracker = window.location.host.indexOf("wiki-data.com")!==-1 ? "UA-7537948-1" : "UA-13045628-1";
 $(document).ready(function() {
 	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 	gaJsHost += "google-analytics.com/ga.js";
 	var track = function() {
 		if(document.location.hostname!=="localhost") {
 			try {
-				var pageTracker = _gat._getTracker("UA-7537948-1");
+				var pageTracker = _gat._getTracker(gAnalyticsTracker);
 				pageTracker._trackPageview();
 			} 
 			catch(err) {}

@@ -1,8 +1,10 @@
+import time
 import logging
 import socket
 
 import tiddlywebplugins.logout
 import tiddlywebplugins.magicuser
+import tiddlywebplugins.jsonp
 
 from tiddlywebplugins.wikidata import templating
 from tiddlywebplugins.wikidata.emailAvox import emailAvox
@@ -171,11 +173,13 @@ def verify(environ, start_response):
 
 
 @require_role('ADMIN')
-def user_form(environ, start_response):
-    return _user_form(environ, start_response)
+def tier2_user_form(environ, start_response):
+    return _user_form(environ, start_response, role='tier2')
 
 
-def _user_form(environ, start_response, message='', formdata=None):
+def _user_form(environ, start_response, role='tier1', message='', formdata=None):
+# XXX add an action argument so we can choose if we are doing tier1
+# or tier2 registration
     form_starter = {
             'name': '',
             'email': '',
@@ -185,7 +189,10 @@ def _user_form(environ, start_response, message='', formdata=None):
     if formdata:
         form_starter.update(formdata)
 
-    template = templating.get_template(environ, 'user_form.html')
+    if role == 'tier2':
+        template = templating.get_template(environ, 'user_form.html')
+    else:
+        template = templating.get_template(environ, 'user_self_form.html')
 
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
@@ -196,11 +203,32 @@ def _user_form(environ, start_response, message='', formdata=None):
             message=message, form=form_starter)
 
 
-@require_role('ADMIN')
-def create_user(environ, start_response):
+def create_tier1_user(environ, start_response):
     """
     This is improper and insecure.
     """
+    query = environ['tiddlyweb.query']
+    now = time.time()
+    expiration = now + (DEFAULT_EXPIRE_DAYS * 24 * 60 * 60)
+    return _create_user(environ, start_response, expiration=expiration,
+            role='tier1')
+
+
+@require_role('ADMIN')
+def create_tier2_user(environ, start_response):
+    """
+    This is improper and insecure.
+    """
+    query = environ['tiddlyweb.query']
+    now = time.time()
+    expiration = query.get('expiration', [90])[0] # days
+    expiration = now + (expiration * 24 * 60 * 60)
+    return _create_user(environ, start_response, creation=now,
+            expiration=expiration, role='tier2')
+
+def _create_user(environ, start_response, creation=0, expiration=0, role='tier1'):
+    if creation == 0:
+        creation = time.time()
     store = environ['tiddlyweb.store']
     query = environ['tiddlyweb.query']
     name = query.get('name', [None])[0]
@@ -209,19 +237,20 @@ def create_user(environ, start_response):
     country = query.get('country', [None])[0]
     if not (name and email):
         # The form has not been filled out
-        return _user_form(environ, start_response, message='Missing Data!',
+        return _user_form(environ, start_response, role=role, message='Missing Data!',
                 formdata={'name': name, 'email': email,
                     'company': company, 'country': country})
     user = User(email)
     try:
         user = store.get(user)
         # User exists!
-        return _user_form(environ, start_response, message='That user already exists!',
+        return _user_form(environ, start_response, role=role, message='That user already exists!',
                 formdata={'name': name, 'email': email,
                     'company': company, 'country': country})
     except NoUserError:
         password = _random_pass()
         user.set_password(password)
+        user.add_role(role)
         store.put(user)
 
     bag_name = environ['tiddlyweb.config'].get('magicuser.bag', 'MAGICUSER')
@@ -232,6 +261,10 @@ def create_user(environ, start_response):
     tiddler.fields['country'] = country
     tiddler.fields['company'] = company
     tiddler.fields['name'] = name
+    # Set the creation and expiration times.
+    now = time.time()
+    tiddler.fields['creation'] = '%s' % creation
+    tiddler.fields['expiry'] = '%s' % expiration
     store.put(tiddler)
 
     to_address = email
@@ -241,12 +274,15 @@ Here's your info:
 Username: %s
 Password: %s
 """ % (email, password)
+    query_string = '?email=%s' % to_address
     try:
         send_email(to_address, subject, body)
+        query_string += '&success=1&role=%s' % role
+        raise HTTP303(server_base_url(environ)+'/pages/new_account'+query_string)
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
-
-    raise HTTP303(server_base_url(environ))
+        query_string += '&failure=1&role=%s' % role
+        raise HTTP302(server_base_url(environ)+'/pages/new_account'+query_string)
 
 
 def _random_pass():
@@ -260,6 +296,7 @@ def _random_pass():
 def init(config):
     merge_config(config, local_config)
     tiddlywebplugins.magicuser.init(config)
+    tiddlywebplugins.jsonp.init(config)
 
     if 'selector' in config:
         tiddlywebplugins.logout.init(config)
@@ -273,7 +310,8 @@ def init(config):
         config['selector'].add('/lib/fields.js', GET=get_fields_js)
         config['selector'].add('/env', GET=env)
         config['selector'].add('/register', POST=register)
-        config['selector'].add('/_admin/createuser', GET=user_form, POST=create_user)
+        config['selector'].add('/_admin/createuser', GET=tier2_user_form, POST=create_tier2_user)
+        config['selector'].add('/createuser', POST=create_tier1_user)
         replace_handler(config['selector'], '/', dict(GET=index))
         remove_handler(config['selector'], '/recipes')
         remove_handler(config['selector'], '/recipes/{recipe_name}')

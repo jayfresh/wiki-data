@@ -5,6 +5,7 @@ This can be overridden in tiddlywebconfig.py
 
 config = {
         'auth_systems': ['tiddlywebplugins.wikidata.loginform'],
+        'system_plugins': ['tiddlywebplugins.jsonp'],
         'server_store': ['tiddlywebplugins.diststore', {
             'main': ['text', {'store_root': 'store'}],
             'extras': [

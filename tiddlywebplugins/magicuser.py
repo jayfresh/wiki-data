@@ -21,6 +21,9 @@ This plugin works by wrapping the existing extactors configured
 for the system. It then calls the wrapped extractors before
 doing its own augmentation.
 """
+
+import time
+
 from tiddlyweb.web.extractors import ExtractorInterface
 from tiddlyweb.web.extractor import _try_extractors
 
@@ -62,6 +65,21 @@ class Extractor(ExtractorInterface):
         userinfo['modifier'] = tiddler.modifier
         userinfo['modified'] = tiddler.modified
         userinfo['tags'] = tiddler.tags
+
+        userinfo = self._check_expiration(userinfo)
+
+        return userinfo
+
+    def _check_expiration(self, userinfo):
+        if 'expiry' not in userinfo:
+            return userinfo
+        expiration = float(userinfo['expiry'])
+        now = time.time()
+
+        username = userinfo['name']
+        if now > expiration:
+            userinfo = {"name": u'GUEST', "roles": []}
+            userinfo['expired_user'] = username
 
         return userinfo
 

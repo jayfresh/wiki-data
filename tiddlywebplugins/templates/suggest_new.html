@@ -35,7 +35,7 @@
 </div>
 
 <div id="content-suggest">
-	{% if captcha.success %}
+	{% if commonVars.query['success'] and commonVars.query['success'][0] == '1' %}
 	<div class="wrap">
 		<p>Thanks! We'll be in touch shortly.</p>
 	</div>

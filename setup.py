@@ -3,7 +3,7 @@ AUTHOR = 'Wiki-Data'
 AUTHOR_EMAIL = 'suppoert@wiki-data.com'
 NAME = 'tiddlywebplugins.wikidata'
 DESCRIPTION = 'Packaging of Wiki-Data Project'
-VERSION = '0.36'
+VERSION = '0.43'
 
 
 import os
@@ -32,6 +32,7 @@ setup(
         #'tiddlywebplugins.magicuser' # not yet packages, install by hand
         'tiddlywebplugins.logout',
         'tiddlywebplugins.mappingsql',
+        'tiddlywebplugins.jsonp'
         ],
     zip_safe = False,
     include_package_data = True,
