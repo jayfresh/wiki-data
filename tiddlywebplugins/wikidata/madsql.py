@@ -5,8 +5,26 @@ for future expansion.
 
 from tiddlywebplugins.mappingsql import Store
 
+from tiddlyweb.model.policy import ForbiddenError, UserRequiredError
+
 
 class Store(MappingSQLStore):
+    
+    def _determine_user_access(self):
+        """
+        For now we return true if the user is authenticated.
+        """
+        try:
+            current_user = self.environ['tiddlyweb.usersign']
+        except KeyError:
+            return False
+        if current_user['name'] == u'GUEST':
+            raise UserRequiredError('A login is required for this action.')
+        if 'tier2' in current_user['roles']:
+            return 2
+        if 'tier1' in current_user['roles']:
+            return 1
+        raise ForbiddenError('Tiered access required for this action.')
     
     def tiddler_get(self, tiddler):
         full_access = self._determine_user_access()
@@ -18,13 +36,15 @@ class Store(MappingSQLStore):
                         'mappingsql.tasters', False)
         self._validate_bag_name(tiddler.bag)
         try:
-            if tasters and not full_access:
+            if full_access == 1:
                 stiddler = self.session.query(sTiddler).filter(
                         getattr(sTiddler, self.id_column)==tiddler.title).filter(
                                 sTiddler.taster=='Y').one()
-            else:
+            elif full_access == 2:
                 stiddler = self.session.query(sTiddler).filter(
                         getattr(sTiddler, self.id_column)==tiddler.title).one()
+            else:
+                raise ForbiddenError('incorrect user access')
         except NoResultFound, exc:
             raise NoTiddlerError('tiddler %s not found, %s' %
                     (tiddler.title, exc))
@@ -98,7 +118,7 @@ class Store(MappingSQLStore):
             tasters = self.environ[
                 'tiddlyweb.config'].get(
                         'mappingsql.tasters', False)
-            if tasters and not full_access:
+            if full_access == 1:
                 query = query.filter(sTiddler.taster=='Y')
             access_count = query.count()
             logging.debug('access_count is: %s', access_count)

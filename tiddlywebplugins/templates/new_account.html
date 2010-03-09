@@ -5,6 +5,11 @@
    {% set success = 1 %}
 {% else %}
    {% set success = 0 %}
+   {% if query['role'] == 'tier2' %}
+      {% set action = '/_admin/createuser' %}
+   {% else %}
+      {% set action = '/createuser' %}
+   {% endif %}
 {% endif %}
 <div id="static">
 	<div id="searchtitle" class="darkgreen">
@@ -20,7 +25,8 @@
                 {% if success==1 -%}
                 <p>An email has been sent to: {{query['email'][0]}} with a new password.</p>
                 {%- else -%}
-                <p class="error">Oops! Something went wrong. Please <a href="/_admin/createuser">try again.</a></p>
+                <p class="error">Oops! Something went wrong. Please <a
+                    href="{{ action }}">try again.</a></p>
                 {%- endif %}
             </div>
         </div>
