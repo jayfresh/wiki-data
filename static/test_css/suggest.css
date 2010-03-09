@@ -36,17 +36,17 @@
 	vertical-align:top;
 }
 
-#leftpanel input, #rightpanel input {
+#leftpanel input, #rightpanel input, .panel input {
 	width: 200px;
 	height: 21px;
 	margin-bottom: 12px;
 	font-size: 1em;
 	}
 
-#rightpanel label {
+#rightpanel label, .panel label {
 	display: block;
 	}
-#rightpanel select {
+#rightpanel select, .panel select {
 	width: 258px;
 	padding: 5px 0;
 	margin-bottom: 12px;
@@ -61,6 +61,9 @@
 
 #rightpanel {
 	width: 318px;
+}
+
+#rightpanel, .panel {
 	padding: 15px;
 	line-height: 2em;
 	text-transform: uppercase;
@@ -68,19 +71,19 @@
 	font-size: 0.8em;
 }
 
-#rightpanel span {
+#rightpanel span, .panel span {
 	font-style: italic;
 	font-weight: normal;
 	text-transform: lowercase;
 	}
 
-#rightpanel .lightpanel {
+#rightpanel .lightpanel, .panel .lightpanel {
 	text-transform: none;
 	padding: 10px;
 	background-color: #fff;
 }
 
-#rightpanel .lightpanel .thick {
+#rightpanel .lightpanel .thick, .panel .lightpanel .thick {
 	font-weight: bold;
 	margin-left: 5px;
 }
