@@ -17,3 +17,14 @@ h1 {
 #request #leftpanel textarea {
 	height: 100px;
 }
+
+#registerform .subfield {
+	font-size: 50%;
+	float: left;
+	margin-right: 5px;
+}
+
+#registerform .small {
+	width: 20px;
+	margin: 0;
+}
