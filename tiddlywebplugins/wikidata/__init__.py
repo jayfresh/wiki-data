@@ -14,7 +14,7 @@ from tiddlywebplugins.wikidata import captcha
 from tiddlywebplugins.wikidata.config import config as local_config
 
 from tiddlyweb.util import merge_config
-from tiddlyweb.store import NoUserError
+from tiddlyweb.store import NoUserError, NoTiddlerError
 from tiddlyweb.model.user import User
 from tiddlyweb.model.tiddler import Tiddler
 from tiddlyweb.web.http import HTTP404, HTTP302, HTTP303
@@ -172,6 +172,105 @@ def verify(environ, start_response):
     
     return []
 
+@require_role('ADMIN')
+def update_user_form(environ, start_response, message=''):
+    query = environ['tiddlyweb.query']
+    store = environ['tiddlyweb.store']
+    username = query.get('username', [None])[0]
+
+    userinfo = {}
+    if username:
+        # get the user info out of the store and magicuser
+        user = User(username)
+        try:
+            user = store.get(user)
+        except NoUserError:
+            pass
+        userinfo['email'] = user.usersign
+        try:
+            userinfo['tier'] = [role for role in user.list_roles() if role.startswith('tier')][0]
+        except IndexError:
+            userinfo['tier'] = ''
+
+        bag_name = environ['tiddlyweb.config'].get('magicuser.bag', 'MAGICUSER')
+        tiddler = Tiddler(user.usersign, bag_name)
+        try:
+            tiddler = store.get(tiddler)
+        except NoTiddlerError:
+            pass
+        country = tiddler.fields.get('country', '')
+        company = tiddler.fields.get('company', '')
+        name = tiddler.fields.get('name', '')
+        # Get the expiration time.
+        now = time.time()
+        expiration = float(tiddler.fields.get('expiry', 0))
+        if expiration != 0:
+            expiration = (expiration - now) / (24 * 60 * 60)
+        userinfo['country'] = country
+        userinfo['company'] = company
+        userinfo['name'] = name
+        userinfo['expiry'] = expiration
+
+    template = templating.get_template(environ, 'user_update.html')
+    start_response('200 OK', [
+        ('Content-Type', 'text/html'),
+        ('Pragma', 'no-cache')
+        ])
+
+    form_starter = userinfo
+    
+    return template.render(commonVars=templating.common_vars(environ),
+            message=message, form=form_starter)
+
+@require_role('ADMIN')
+def update_user(environ, start_response):
+    query = environ['tiddlyweb.query']
+    store = environ['tiddlyweb.store']
+    username = query.get('email', [None])[0]
+    if not username:
+        return update_user_form(environ, start_response,
+                message='Must have username/email')
+    name = query.get('name', [''])[0]
+    country = query.get('country', [''])[0]
+    company = query.get('company', [''])[0]
+    password = query.get('password', [''])[0]
+    tier = query.get('tier', [''])[0]
+
+    expiry = query.get('expiry', ['0'])[0]
+    now = time.time()
+    expiry = now + (float(expiry) * 24 * 60 * 60)
+    print 'updating expiry to', expiry
+
+    user = User(username)
+    user_new = False
+    try:
+        user = store.get(user)
+    except NoUserError:
+        user_new = True
+    roles = [role for role in user.list_roles() if not role.startswith('tier')]
+    for role in user.list_roles():
+        user.del_role(role)
+    roles.append(tier)
+    for role in roles:
+        user.add_role(role) # it's a set dupes are handled
+    if password:
+        user.set_password(password)
+    store.put(user)
+
+    bag_name = environ['tiddlyweb.config'].get('magicuser.bag', 'MAGICUSER')
+    tiddler = Tiddler(username, bag_name)
+    tiddler.fields['country'] = country
+    tiddler.fields['company'] = company
+    tiddler.fields['name'] = name
+    # Set the creation and expiration times.
+    if user_new:
+        tiddler.fields['creation'] = '%s' % now
+    tiddler.fields['expiry'] = '%s' % expiry
+    store.put(tiddler)
+
+    # XXX need to go somewhere useful?
+    raise HTTP303(server_base_url(environ))
+
 
 @require_role('ADMIN')
 def tier2_user_form(environ, start_response):
@@ -193,7 +292,8 @@ def _user_form(environ, start_response, role='tier1', message='', formdata=None)
     if role == 'tier2':
         template = templating.get_template(environ, 'user_form.html')
     else:
-        template = templating.get_template(environ, 'user_self_form.html')
+        # XXX does additional information need to be sent in?
+        template = templating.get_template(environ, 'index.html')
 
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
@@ -312,6 +412,7 @@ def init(config):
         config['selector'].add('/env', GET=env)
         config['selector'].add('/register', POST=register)
         config['selector'].add('/_admin/createuser', GET=tier2_user_form, POST=create_tier2_user)
+        config['selector'].add('/_admin/updateuser', GET=update_user_form, POST=update_user)
         config['selector'].add('/createuser', POST=create_tier1_user)
         replace_handler(config['selector'], '/', dict(GET=index))
         remove_handler(config['selector'], '/recipes')
