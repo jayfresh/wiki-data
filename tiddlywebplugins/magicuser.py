@@ -71,9 +71,9 @@ class Extractor(ExtractorInterface):
         return userinfo
 
     def _check_expiration(self, userinfo):
-        if 'expiry' not in userinfo:
+        if 'expiry' not in userinfo['fields']:
             return userinfo
-        expiration = float(userinfo['expiry'])
+        expiration = float(userinfo['fields']['expiry'])
         now = time.time()
 
         username = userinfo['name']
