@@ -22,6 +22,7 @@ from tiddlyweb.web.util import server_base_url
 from tiddlywebplugins.utils import (replace_handler, remove_handler,
         require_role, ensure_bag)
 
+DEFAULT_EXPIRE_DAYS = 90
 
 def index(environ, start_response):
     template = templating.get_template(environ, 'index.html')
