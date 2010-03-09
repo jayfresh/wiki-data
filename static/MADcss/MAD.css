@@ -28,3 +28,8 @@ h1 {
 	width: 20px;
 	margin: 0;
 }
+
+.api_search_results {
+	height: 200px;
+	overflow-y: scroll;
+}
