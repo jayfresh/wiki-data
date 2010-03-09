@@ -3,7 +3,11 @@ Map the mappingsql store into the wikidata namespace
 for future expansion.
 """
 
-from tiddlywebplugins.mappingsql import Store
+import logging
+
+from tiddlywebplugins.mappingsql import (
+        Store as MappingSQLStore, query_dict_to_search_tuple,
+        sTiddler, NoResultFound, Tiddler)
 
 from tiddlyweb.model.policy import ForbiddenError, UserRequiredError
 
