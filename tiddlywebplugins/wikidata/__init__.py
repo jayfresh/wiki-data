@@ -173,8 +173,8 @@ def verify(environ, start_response):
 
 
 @require_role('ADMIN')
-def user_form(environ, start_response):
-    return _user_form(environ, start_response)
+def tier2_user_form(environ, start_response):
+    return _user_form(environ, start_response, role='tier2')
 
 
 def _user_form(environ, start_response, role='tier1', message='', formdata=None):
@@ -311,7 +311,7 @@ def init(config):
         config['selector'].add('/env', GET=env)
         config['selector'].add('/register', POST=register)
         config['selector'].add('/_admin/createuser', GET=tier2_user_form, POST=create_tier2_user)
-        config['selector'].add('/createuser', GET=tier1_user_form, POST=create_tier1_user)
+        config['selector'].add('/createuser', POST=create_tier1_user)
         replace_handler(config['selector'], '/', dict(GET=index))
         remove_handler(config['selector'], '/recipes')
         remove_handler(config['selector'], '/recipes/{recipe_name}')
