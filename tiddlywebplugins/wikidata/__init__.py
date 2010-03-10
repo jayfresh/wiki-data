@@ -242,7 +242,6 @@ def update_user(environ, start_response):
     expiry = query.get('expiry', ['0'])[0]
     now = time.time()
     expiry = now + (float(expiry) * 24 * 60 * 60)
-    print 'updating expiry to', expiry
 
     user = User(username)
     user_new = False
