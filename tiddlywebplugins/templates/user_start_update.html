@@ -1,0 +1,27 @@
+{% extends "wikidatabase.html" %}
+{% block body %}
+<div id="static">
+	<div id="searchtitle" class="darkgreen">
+		<div class="wrap">
+			<h2>Update a User</h2>
+		</div>
+	</div>
+	<div class="wrap">
+		<div class="miniwrap bluebox lightblueborder">
+                <form method="GET" id="updateform">
+                    <div>
+                            <label
+                                for="username">Email:</label>&nbsp;<input
+                            type="text" id="username" size="50"
+                            name="username" value="" />
+                    </div>
+                    <div>
+                            <input type="submit" id="submit"
+                            class="darkgreen lightborder whitetext
+                            caps margintop" value="Update account" />
+                    </div>
+				</form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

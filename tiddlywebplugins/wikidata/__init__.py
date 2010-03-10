@@ -179,7 +179,9 @@ def update_user_form(environ, start_response, message=''):
     username = query.get('username', [None])[0]
 
     userinfo = {}
-    if username:
+    if not username:
+        template = templating.get_template(environ, 'user_start_update.html')
+    else: 
         # get the user info out of the store and magicuser
         user = User(username)
         try:
@@ -211,7 +213,8 @@ def update_user_form(environ, start_response, message=''):
         userinfo['name'] = name
         userinfo['expiry'] = expiration
 
-    template = templating.get_template(environ, 'user_update.html')
+        template = templating.get_template(environ, 'user_update.html')
+
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
         ('Pragma', 'no-cache')
