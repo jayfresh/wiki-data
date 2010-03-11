@@ -21,6 +21,9 @@
 					{% if error -%}
 					<span class="error">Oops. Your username or password didn't match our records, please try again</span>
 					{%- endif %}
+					{% if commonVars.usersign.fields.expired_user -%}
+					<span class="error">I'm sorry, your account has expired. Please contact <a href="mailto:support@wiki-data.com">support@wiki-data.com</a> for help.</span>
+					{%- endif %}
 				</div>
 			</form>
 		</div>

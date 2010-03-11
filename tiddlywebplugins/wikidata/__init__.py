@@ -347,7 +347,7 @@ def _create_user(environ, start_response, creation=0, expiration=0, role='tier1'
     try:
         user = store.get(user)
         # User exists!
-        return _user_form(environ, start_response, role=role, message='That user already exists!',
+        return _user_form(environ, start_response, role=role, message='That account already exists!',
                 formdata={'name': name, 'email': email,
                     'company': company, 'country': country})
     except NoUserError:
