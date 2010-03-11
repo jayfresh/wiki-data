@@ -111,7 +111,7 @@ company: %s
 country: %s
 """ % (name, email, company, country)
     try:
-        send_email(to_address, subject, body)
+        send_email(to_address, subject=subject, body=body)
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
     raise HTTP303(server_base_url(environ) + '/pages/registered.html')
@@ -386,7 +386,7 @@ Password: %s
 """ % (email, password)
     query_string = '?email=%s' % to_address
     try:
-        send_email(to_address, subject, body)
+        send_email(to_address, subject=subject, body=body)
         query_string += '&success=1&role=%s' % role
         raise HTTP303(server_base_url(environ)+'/pages/new_account'+query_string)
     except socket.error:
