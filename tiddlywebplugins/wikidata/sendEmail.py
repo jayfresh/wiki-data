@@ -3,18 +3,18 @@ import smtplib
 
 from email.mime.text import MIMEText
 
-def send(to, subject, body):
+def send(to, subject='', body='', from_='avox@wiki-data.com'):
     if isinstance(to, basestring):
         to = [to]
+
     msg = MIMEText(body)
-    msg['subject'] = subject
-    #msg['From'] = fromName+' <'+fromEmail+'>'
-    #msg['Reply-To'] = fromEmail
-    fromEmail = 'avox@wiki-data.com'
-    msg['From'] = 'Avox <%s>' % fromEmail
-    msg['Reply-To'] = fromEmail
-    msg['To'] = ""
-    for e in to:
-        msg['To'] += e
+
+    msg['Subject'] = subject
+
+    msg['From'] = 'Avox <%s>' % from_
+    msg['Reply-To'] = from_
+
+    msg['To'] = ', '.join(to)
+
     s = smtplib.SMTP('localhost')
-    s.sendmail(fromEmail, to, msg.as_string())
+    s.sendmail(from_, to, msg.as_string())

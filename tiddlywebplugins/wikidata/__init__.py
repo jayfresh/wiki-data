@@ -111,7 +111,7 @@ company: %s
 country: %s
 """ % (name, email, company, country)
     try:
-        send_email(to_address, subject, body)
+        send_email(to_address, subject=subject, body=body)
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
     raise HTTP303(server_base_url(environ) + '/pages/registered.html')
@@ -173,7 +173,10 @@ def verify(environ, start_response):
     return []
 
 @require_role('ADMIN')
-def update_user_form(environ, start_response, message=''):
+def update_user_form(environ, start_response, message=None):
+    if message is None:
+        message = ''
+    logging.debug('in update_user_form, message: '+message)
     query = environ['tiddlyweb.query']
     store = environ['tiddlyweb.store']
     username = query.get('username', [None])[0]
@@ -222,6 +225,7 @@ def update_user_form(environ, start_response, message=''):
 
     form_starter = userinfo
     
+    logging.debug('rendering with message:'+message)
     return template.render(commonVars=templating.common_vars(environ),
             message=message, form=form_starter)
 
@@ -271,7 +275,10 @@ def update_user(environ, start_response):
     store.put(tiddler)
 
     # XXX need to go somewhere useful?
-    raise HTTP303(server_base_url(environ))
+    #raise HTTP303(server_base_url(environ))
+    message = "Update successful"
+    logging.debug('going to update_user_form with message: '+message)
+    return update_user_form(environ, start_response, message)
 
 
 @require_role('ADMIN')
@@ -347,7 +354,7 @@ def _create_user(environ, start_response, creation=0, expiration=0, role='tier1'
     try:
         user = store.get(user)
         # User exists!
-        return _user_form(environ, start_response, role=role, message='That user already exists!',
+        return _user_form(environ, start_response, role=role, message='That account already exists!',
                 formdata={'name': name, 'email': email,
                     'company': company, 'country': country})
     except NoUserError:
@@ -379,7 +386,7 @@ Password: %s
 """ % (email, password)
     query_string = '?email=%s' % to_address
     try:
-        send_email(to_address, subject, body)
+        send_email(to_address, subject=subject, body=body)
         query_string += '&success=1&role=%s' % role
         raise HTTP303(server_base_url(environ)+'/pages/new_account'+query_string)
     except socket.error:

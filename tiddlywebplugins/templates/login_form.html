@@ -21,6 +21,11 @@
 					{% if error -%}
 					<span class="error">Oops. Your username or password didn't match our records, please try again</span>
 					{%- endif %}
+					{% if commonVars.usersign.fields -%}
+					{%- if commonVars.usersign.fields.expired_user -%}
+					<span class="error">{% include 'login_form_support_line.html' %}</span>
+					{%- endif -%}
+					{%- endif %}
 				</div>
 			</form>
 		</div>
