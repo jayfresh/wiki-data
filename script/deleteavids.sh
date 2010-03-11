@@ -9,5 +9,5 @@ DATABASE=avox
 
 while read AVID; do \
     echo $AVID
-    echo "DELETE FROM $DATABASE WHERE AVID=$AVID;" | mysql avox
+    echo "DELETE FROM $DATABASE WHERE avid=$AVID;" | mysql avox
 done
