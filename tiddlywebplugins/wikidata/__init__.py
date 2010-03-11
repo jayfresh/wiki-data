@@ -173,7 +173,10 @@ def verify(environ, start_response):
     return []
 
 @require_role('ADMIN')
-def update_user_form(environ, start_response, message=''):
+def update_user_form(environ, start_response, message=None):
+    if message is None:
+        message = ''
+    logging.debug('in update_user_form, message: '+message)
     query = environ['tiddlyweb.query']
     store = environ['tiddlyweb.store']
     username = query.get('username', [None])[0]
@@ -222,6 +225,7 @@ def update_user_form(environ, start_response, message=''):
 
     form_starter = userinfo
     
+    logging.debug('rendering with message:'+message)
     return template.render(commonVars=templating.common_vars(environ),
             message=message, form=form_starter)
 
@@ -271,7 +275,10 @@ def update_user(environ, start_response):
     store.put(tiddler)
 
     # XXX need to go somewhere useful?
-    raise HTTP303(server_base_url(environ))
+    #raise HTTP303(server_base_url(environ))
+    message = "Update successful"
+    logging.debug('going to update_user_form with message: '+message)
+    return update_user_form(environ, start_response, message)
 
 
 @require_role('ADMIN')
