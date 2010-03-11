@@ -22,7 +22,9 @@ from tiddlyweb.web.util import server_base_url
 from tiddlywebplugins.utils import (replace_handler, remove_handler,
         require_role, ensure_bag)
 
-DEFAULT_EXPIRE_DAYS = 90
+DEFAULT_TIER1_EXPIRY = 90
+DEFAULT_TIER2_EXPIRY = 365
+
 
 def index(environ, start_response):
     template = templating.get_template(environ, 'index.html')
@@ -319,7 +321,7 @@ def create_tier1_user(environ, start_response):
     """
     query = environ['tiddlyweb.query']
     now = time.time()
-    expiration = now + (DEFAULT_EXPIRE_DAYS * 24 * 60 * 60)
+    expiration = now + (DEFAULT_TIER1_EXPIRY * 24 * 60 * 60)
     return _create_user(environ, start_response, expiration=expiration,
             role='tier1')
 
@@ -331,7 +333,7 @@ def create_tier2_user(environ, start_response):
     """
     query = environ['tiddlyweb.query']
     now = time.time()
-    expiration = query.get('expiration', [90])[0] # days
+    expiration = query.get('expiration', [DEFAULT_TIER2_EXPIRY])[0] # days
     expiration = now + (expiration * 24 * 60 * 60)
     return _create_user(environ, start_response, creation=now,
             expiration=expiration, role='tier2')

@@ -30,6 +30,8 @@ from tiddlyweb.web.extractor import _try_extractors
 from tiddlyweb.store import NoTiddlerError, NoBagError
 from tiddlyweb.model.tiddler import Tiddler, string_to_tags_list
 
+DEFAULT_EXPIRE_DAYS = 90
+
 class Extractor(ExtractorInterface):
 
     def extract(self, environ, start_response):
@@ -66,11 +68,11 @@ class Extractor(ExtractorInterface):
         userinfo['modified'] = tiddler.modified
         userinfo['tags'] = tiddler.tags
 
-        userinfo = self._check_expiration(userinfo)
+        userinfo = self._check_expiration(environ, userinfo)
 
         return userinfo
 
-    def _check_expiration(self, userinfo):
+    def _check_expiration(self, environ, userinfo):
         if 'expiry' not in userinfo['fields']:
             return userinfo
         expiration = float(userinfo['fields']['expiry'])
@@ -78,9 +80,35 @@ class Extractor(ExtractorInterface):
 
         username = userinfo['name']
         if now > expiration:
-            userinfo = {"name": u'GUEST', "roles": []}
-            userinfo['expired_user'] = username
+            if 'tier2' in userinfo['roles']:
+                userinfo = self._downgrade_to_tier1(environ, userinfo)
+            else:
+                userinfo = {"name": u'GUEST', "roles": []}
+                userinfo['expired_user'] = username
 
+        return userinfo
+
+    def _downgrade_to_tier1(self, environ, userinfo):
+        store = environ['tiddlyweb.store'] 
+        expiration = (time.time() + DEFAULT_EXPIRE_DAYS * 60 * 60)
+        userinfo['roles'].remove('tier2')
+        userinfo['roles'].append('tier1')
+        userinfo['fields']['expiry'] = expiration
+
+        username = userinfo['name']
+        tiddler = Tiddler(username, bag_name)
+        try:
+            tiddler = store.get(tiddler)
+        except (NoTiddlerError, NoBagError):
+            pass # tiddler is empty
+        tiddler.fields['expiry'] = '%s' % expiration
+        store.put(tiddler)
+
+        user = User(username)
+        user = store.get(user)
+        user.del_role('tier2')
+        user.add_role('tier1')
+        store.put(user)
         return userinfo
 
 
