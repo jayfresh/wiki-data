@@ -28,11 +28,23 @@ class Challenger(ChallengerInterface):
         redirect = (environ['tiddlyweb.query'].
                 get('tiddlyweb_redirect', ['/'])[0])
         template = templating.get_template(environ, 'login_form.html')
+        headers = []
+
+        # If the current user is expired, log them out as part of this
+        # request by expiring their ticket.
+        userinfo = environ['tiddlyweb.usersign']
+        if 'fields' in userinfo and 'expired_user' in userinfo['fields']:
+            path = environ.get('tiddlyweb.config', {}).get('server_prefix', '')
+            cookie = Cookie.SimpleCookie()
+            cookie['tiddlyweb_user'] = ''
+            cookie['tiddlyweb_user']['path'] = '%s/' % path
+            cookie['tiddlyweb_user']['expires'] = '%s' % (time.ctime(time.time()-6000))
+            headers.append(('Set-Cookie', cookie.output(header='')))
+
+        headers.extend([('Content-Type', 'text/html'),
+            ('Pragma', 'no-cache') ])
     
-        start_response('200 OK', [
-            ('Content-Type', 'text/html'),
-            ('Pragma', 'no-cache')
-            ])
+        start_response('200 OK', headers)
 
         return template.render(redirect=redirect,
                 commonVars=templating.common_vars(environ))
