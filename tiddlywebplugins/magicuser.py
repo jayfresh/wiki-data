@@ -29,6 +29,7 @@ from tiddlyweb.web.extractor import _try_extractors
 
 from tiddlyweb.store import NoTiddlerError, NoBagError
 from tiddlyweb.model.tiddler import Tiddler, string_to_tags_list
+from tiddlyweb.model.user import User
 
 DEFAULT_EXPIRE_DAYS = 90
 
@@ -90,11 +91,12 @@ class Extractor(ExtractorInterface):
 
     def _downgrade_to_tier1(self, environ, userinfo):
         store = environ['tiddlyweb.store'] 
-        expiration = (time.time() + DEFAULT_EXPIRE_DAYS * 60 * 60)
+        expiration = (time.time() + DEFAULT_EXPIRE_DAYS * 24 * 60 * 60)
         userinfo['roles'].remove('tier2')
         userinfo['roles'].append('tier1')
         userinfo['fields']['expiry'] = expiration
 
+        bag_name = environ['tiddlyweb.config'].get('magicuser.bag', 'MAGICUSER')
         username = userinfo['name']
         tiddler = Tiddler(username, bag_name)
         try:
