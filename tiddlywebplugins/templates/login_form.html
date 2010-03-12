@@ -17,15 +17,13 @@
 				</div>
 				<div>
 					<input type="hidden" name="tiddlyweb_redirect" value="{{redirect}}" />
-					<input type="submit" id="submit" class="darkgreen lightborder whitetext caps margintop" value="Login" />
 					{% if error -%}
-					<span class="error">Oops. Your username or password didn't match our records, please try again</span>
+					<div class="error">Oops. Your username or password didn't match our records, please try again</div>
 					{%- endif %}
-					{% if commonVars.usersign.fields -%}
-					{%- if commonVars.usersign.fields.expired_user -%}
-					<span class="error">{% include 'login_form_support_line.html' %}</span>
-					{%- endif -%}
+					{% if commonVars.usersign.expired_user -%}
+					<div class="error">{{commonVars.usersign.expired_user}} - {% include 'login_form_support_line.html' %}</div>
 					{%- endif %}
+					<input type="submit" id="submit" class="darkgreen lightborder whitetext caps margintop" value="Login" />
 				</div>
 			</form>
 		</div>
