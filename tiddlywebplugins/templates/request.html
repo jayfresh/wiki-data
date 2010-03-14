@@ -17,12 +17,12 @@
 	<div id="leftbit" class="padded notIE"></div>
 	<div class="wrap relative z1">
 		<form method="post" action="/verify" id="request">
-			<div class="left leftpanelhead">		
+			<div class="left leftpanelhead wrap">		
 				<h2>Request More Information</h2>
 				<div class="stripe noleftborder">
 					<p>These are the extra data fields you are requesting for {{tiddler.title}}</p>
 				</div>
-				<div class="left lightbluebox lightblueborder" id="leftpanel">
+				<div class="left lightbluebox lightblueborder leftpanel" id="leftpanel">
 					<p class="entity-name"><a href="/bags/avox/tiddlers/{{tiddler.title}}">{{tiddler.fields.legal_name}}</a></p>
 					<h3>Registered Address</h3>
 					<table class="fields">
@@ -109,14 +109,14 @@
 				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow">
 					<table class="fields"></table>
 				</div>
+				<div>
+					<input type="hidden" value="request" name="requestType"/>
+					<input type="hidden" name="avid" value="{{tiddler.title}}" />
+					<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
+					<input id='submitButton' class="right submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit request"/>
+				</div>
 			</div>
 			{% include 'personal_info.html' %}
-			<div>
-				<input type="hidden" value="request" name="requestType"/>
-				<input type="hidden" name="avid" value="{{tiddler.title}}" />
-				<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
-				<input id='submitButton' class="submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit request"/>
-			</div>
 		</form>
 	</div>
 	<br class="clearboth" />

@@ -41,12 +41,16 @@
 	<div id="leftbit" class="padded"></div>
 	<div class="wrap relative z1">
 		<form method="post" action="/verify" id="challenge">
-			<div class="left leftpanelhead">		
+			<div class="left leftpanelhead wrap">		
 				<h2>Challenge Information</h2>
 				<div class="stripe noleftborder">
 					<p>Please correct any details you would like to challenge for AVID {{tiddler.title}}</p>
 				</div>
-				<div class="left lightbluebox lightblueborder" id="leftpanel">
+				<div class="left lightbluebox lightblueborder leftpanel" id="leftpanel">
+					<div>
+						<label for="source">(Optional) What is your source for this? Please include URL and/or sources used. We will use this to validate your challenge.</label></td>
+						<textarea cols="35" rows="5" name="source" class="fullwidth"></textarea>
+					</div>
 					<h3>Entity Name</h3>
 					<table class="fields">
 						<tbody>
@@ -129,18 +133,18 @@
 							{% endfor %}
 						</tbody>
 					</table>
-	
+				</div>
+				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow">
+					<table class="fields"></table>
+				</div>
+				<div>
+					<input type="hidden" name="requestType" value="challenge" />
+					<input type="hidden" name="avid" value="{{tiddler.title}}" />
+					<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
+					<input id='submitButton' class="right submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit challenge"/>
 				</div>
 			</div>
 			{% include 'personal_info.html' %}
-			<div>
-				<label for="source">(Optional) What is your source for this? Please include URL and/or sources used. We will use this to validate your challenge.</label>
-				<textarea cols="35" rows="5" name="source"></textarea>
-				<input type="hidden" name="requestType" value="challenge" />
-				<input type="hidden" name="avid" value="{{tiddler.title}}" />
-				<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
-				<input id='submitButton' class="submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit challenge"/>
-			</div>
 		</form>
 	</div>
 	<br class="clearboth" />

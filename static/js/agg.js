@@ -1181,11 +1181,23 @@ function addAdvSearchLine() {
 	redraw();
 	return $row;
 }
-function overflowTable(table,overflowTarget) {
-	var $rows = $(table).find('tr');
-	var toMove = Math.floor($rows.length / 2);
-	$rows = $rows.slice(toMove);
-	$rows.appendTo($(overflowTarget));
+function overflowTable(container,overflowTarget) {
+	/* copy the entire table,
+	   calculate the breaking point,
+	   remove everything before the breaking point in the overflow column,
+	   remove everything after the breaking point in the original column
+	*/
+	var $container = $(container), $overflowTarget = $(overflowTarget);
+	if(!$container.length || !$overflowTarget.length) {
+		return;
+	}
+	var breakingPoint = Math.floor($(container).find('tr').length / 2);
+	var $point = $(overflowTarget).append($(container).html()).find('tr').eq(breakingPoint);
+	$point.prevAll().remove();
+	$point.closest('table').prevAll().remove();
+	$point = $(container).find('tr').eq(breakingPoint-1);
+	$point.nextAll().remove();
+	$point.closest('table').nextAll().remove();
 }
 function makeCaptcha() {
 	Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
@@ -1204,8 +1216,9 @@ function makeModal(idSelector) {
 		});
 		$origForm.get(0).submit();
 	});
-	$('<a>Return to form</a>').appendTo($(idSelector)).css({
-		'marginLeft': "8px"
+	$('<a class="margintop left">Return to form</a>').appendTo($(idSelector)).css({
+		'marginRight': '8px',
+		'marginLeft': '8px'
 	}).click(function(e) {
 		e.preventDefault();
 		$('html').removeClass('modal');
@@ -1287,10 +1300,10 @@ $(document).ready(function() {
 				return DependentInputs.values.countries;
 			}
 		});
-		if($('table.fields').length) {
+		if($('table.fields label').length) {
 			DependentInputs.addRows('table.fields',"label",":input","tr");
-			overflowTable('table.fields','#tableoverflow table');
 		}
+		overflowTable('#leftpanel','#tableoverflow table');
 		if($('div.right label[for=country]+input').length) {
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
 		}
