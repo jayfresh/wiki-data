@@ -19,12 +19,6 @@
 	color: black;
 }
 
-#submit {
-	-moz-border-radius: 0.5em;
-	-webkit-border-radius: 0.5em;
-	padding: 8px;
-}
-
 .existing {
 	width:185px;
 	background-color:#0F242B;

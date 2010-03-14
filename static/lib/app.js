@@ -31,7 +31,7 @@ function redraw() { // IE6/7 position:relative elements not moving fix
 		$('#columnPicker').css('display','none');
 		$('#columnPicker').css('display','block');
 	}
-};
+}
 function addAdvSearchLine() {
 	var container = '#advancedSearchContainer';
 	
@@ -94,6 +94,41 @@ function addAdvSearchLine() {
 	}
 	redraw();
 	return $row;
+}
+function overflowTable(table,overflowTarget) {
+	var $rows = $(table).find('tr');
+	var toMove = Math.floor($rows.length / 2);
+	$rows = $rows.slice(toMove);
+	$rows.appendTo($(overflowTarget));
+}
+function makeCaptcha() {
+	Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
+		theme: 'red',
+		callback: Recaptcha.focus_response_field
+	}); 
+}
+function makeModal(idSelector) {
+	$('body').prepend('<div id="modal"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"></div></div></div></div></div></div>');
+	var $moved = $(idSelector).appendTo($('#modal .content'));
+	$('#submitButton').clone().attr('id','submitButtonClone').appendTo($(idSelector)).click(function(e) {
+		e.preventDefault();
+		var $origForm = $('form').eq(0); // shouldn't be a problem until you want to use more than one form on a page
+		$moved.find('input').each(function() {
+			$('<input type="hidden" name="'+$(this).attr('name')+'" value="'+$(this).val()+'" />').appendTo($origForm);
+		});
+		$origForm.get(0).submit();
+	});
+	$('<a>Return to form</a>').appendTo($(idSelector)).css({
+		'marginLeft': "8px"
+	}).click(function(e) {
+		e.preventDefault();
+		$('html').removeClass('modal');
+	});
+	$('#submitButton').click(function(e) {
+		e.preventDefault();
+		$('#modal .overlay-decorator, #modal .overlay-wrap').css('top',$(window).scrollTop());
+		$('html').addClass('modal');
+	});
 }
 $(document).ready(function() {
 	// overwrite default fields with dynamically generated list
@@ -168,11 +203,19 @@ $(document).ready(function() {
 		});
 		if($('table.fields').length) {
 			DependentInputs.addRows('table.fields',"label",":input","tr");
+			overflowTable('table.fields','#tableoverflow table');
 		}
 		if($('div.right label[for=country]+input').length) {
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
 		}
-		var $hiddenWhileRendering = $('table.fields, div.right');
+		if($('#recaptcha').length) {
+			makeCaptcha();
+		}
+		makeModal('#personal_info');
+		if($('div.captcha_error').length) {
+			$('#submitButton').click();
+		}
+		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow');
 		if($hiddenWhileRendering.length) {
 			$hiddenWhileRendering.css("visibility","visible");
 		}
