@@ -16,7 +16,7 @@
 	{% else %}
 	<div id="leftbit" class="padded notIE"></div>
 	<div class="wrap relative z1">
-		<form method="post" action="/verify" id="request">
+		<form method="post" action="/verify" id="recordForm">
 			<div class="left leftpanelhead wrap">		
 				<h2>Request More Information</h2>
 				<div class="stripe noleftborder">
@@ -106,9 +106,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow">
-					<table class="fields"></table>
-				</div>
+				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
 				<div>
 					<input type="hidden" value="request" name="requestType"/>
 					<input type="hidden" name="avid" value="{{tiddler.title}}" />

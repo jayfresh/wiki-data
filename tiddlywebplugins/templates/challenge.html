@@ -40,7 +40,7 @@
 	{% else %}
 	<div id="leftbit" class="padded"></div>
 	<div class="wrap relative z1">
-		<form method="post" action="/verify" id="challenge">
+		<form method="post" action="/verify" id="recordForm">
 			<div class="left leftpanelhead wrap">		
 				<h2>Challenge Information</h2>
 				<div class="stripe noleftborder">
@@ -134,9 +134,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow">
-					<table class="fields"></table>
-				</div>
+				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
 				<div>
 					<input type="hidden" name="requestType" value="challenge" />
 					<input type="hidden" name="avid" value="{{tiddler.title}}" />

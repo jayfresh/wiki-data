@@ -120,11 +120,15 @@ function makeCaptcha() {
 	}); 
 }
 function makeModal(idSelector) {
-	$('body').prepend('<div id="modal"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"></div></div></div></div></div></div>');
-	var $moved = $(idSelector).appendTo($('#modal .content'));
+	var $origForm = $('#recordForm'); // shouldn't be a problem until you want to use more than one form on a page
+	$('body').prepend('<div id="modal"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"><form id="tempForm"></form></div></div></div></div></div></div>');
+	var $moved = $(idSelector).appendTo($('#modal #tempForm'));
+	$('#tempForm').validate();
 	$('#submitButton').clone().attr('id','submitButtonClone').appendTo($(idSelector)).click(function(e) {
 		e.preventDefault();
-		var $origForm = $('form').eq(0); // shouldn't be a problem until you want to use more than one form on a page
+		if(!$('#tempForm').valid()) {
+			return;
+		}
 		$moved.find('input').each(function() {
 			$('<input type="hidden" name="'+$(this).attr('name')+'" value="'+$(this).val()+'" />').appendTo($origForm);
 		});
@@ -139,6 +143,9 @@ function makeModal(idSelector) {
 	});
 	$('#submitButton').click(function(e) {
 		e.preventDefault();
+		if(!$origForm.valid()) {
+			return;
+		}
 		$('#modal .overlay-decorator, #modal .overlay-wrap').css('top',$(window).scrollTop());
 		$('html').addClass('modal');
 	});
@@ -207,17 +214,17 @@ $(document).ready(function() {
 			$(this).text(ISO_3166.countries.iso2name[$(this).text()]);
 		});
 	}
-	if($('#suggest_new, #challenge, #request').length!==0) {
+	if($('#recordForm').length!==0) {
 		DependentInputs.addDependency(function($row,changed) {
 			if(changed==="field" && $row.field.attr("for")==="country") {
 				$row.valueMap = ISO_3166.countries.name2iso;
 				return DependentInputs.values.countries;
 			}
 		});
+		overflowTable('#leftpanel','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
 		if($('table.fields label').length) {
 			DependentInputs.addRows('table.fields',"label",":input","tr");
 		}
-		overflowTable('#leftpanel','#tableoverflow table');
 		if($('div.right label[for=country]+input').length) {
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
 		}
@@ -225,6 +232,7 @@ $(document).ready(function() {
 			makeCaptcha();
 		}
 		makeModal('#personal_info');
+		$('#recordForm').validate();
 		if($('div.captcha_error').length) {
 			$('#submitButton').click();
 		}

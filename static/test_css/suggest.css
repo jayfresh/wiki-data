@@ -117,6 +117,10 @@ select#smallselect {
 	width: 208px;
 }
 
+label.error {
+	display: block;
+	color: #f00;
+}
 
 .stripe {
 background-color: #0F242B;

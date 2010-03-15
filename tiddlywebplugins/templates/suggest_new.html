@@ -42,7 +42,7 @@
 	{% else %}
 	<div id="leftbit" class="padded notIE"></div>
 	<div class="wrap relative z1">
-		<form method="post" action="/verify" id="suggest_new">
+		<form method="post" action="/verify" id="recordForm">
 			<div class="left leftpanelhead wrap">		
 				<h2>Suggest a New Record</h2>
 				<div class="stripe noleftborder">
@@ -54,15 +54,15 @@
 						<tbody>
 							<tr>
 								<td><label for="legal_name">Legal Name</label></td>
-								<td><input type="text" size="35" name="legal_name" /></td>
+								<td><input class="required" type="text" size="35" name="legal_name" /></td>
 							</tr>
 							<tr>
 								<td colspan="2"><label for="operational_country">Operational Country</label>
-								<input type="text" size="35" name="operational_country" /></td>
+								<input class="required" type="text" size="35" name="operational_country" /></td>
 							</tr>
 							<tr>
 								<td><label for="operational_state">Operational State</label></td>
-								<td><input type="text" size="35" name="operational_state" /></td>
+								<td><input class="required" type="text" size="35" name="operational_state" /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -90,15 +90,13 @@
 						{% endfor %}
 					</table>
 				</div>
-				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow">
-					<table class="fields"></table>
+				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
+				<div>
+					<input type="hidden" value="suggest_new" name="requestType"/>
+					<input id='submitButton' class="right submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit suggestion"/>
 				</div>
 			</div>
 			{% include 'personal_info.html' %}
-			<div>
-				<input type="hidden" value="suggest_new" name="requestType"/>
-				<input id='submitButton' class="submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit suggestion"/>
-			</div>
 		</form>
 	</div>
 	<br class="clearboth" />
