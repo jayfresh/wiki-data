@@ -42,7 +42,7 @@ config = {
              'trades_as_name_s_',
         ],
         'mappingsql.full_text': True,
-        'mappingsql.limit': 51,
+        'mappingsql.limit': 50,
         'extension_types': {
             'challenge': 'text/x-challenge-html',
             'request': 'text/x-request-html',
