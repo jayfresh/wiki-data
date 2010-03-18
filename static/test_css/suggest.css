@@ -13,13 +13,13 @@
 }
 
 
-#leftpanel {
-	width: 528px;
+.leftpanel {
+	width: 420px;
 	padding: 15px;
-	line-height: 2.5em;
+	/*line-height: 2.5em;*/
 }
 
-.leftpanelhead #leftpanel h3 {
+.leftpanelhead .leftpanel h3 {
 	font-weight:bold;
 	font-size: 1em;
 	letter-spacing:0.05em;
@@ -31,17 +31,25 @@
 	
 }
 
-#leftpanel td {
-	width: 250px;
+.leftpanel td {
+	width: 50%;
 	vertical-align:top;
 }
 
-#leftpanel input, #rightpanel input, .panel input {
+table.fields {
+	width: 100%;
+}
+
+.leftpanel input, #rightpanel input, .panel input {
 	width: 200px;
 	height: 21px;
 	margin-bottom: 12px;
 	font-size: 1em;
 	}
+
+.js #personal_info {
+	/*visibility: hidden;*/
+}
 
 #rightpanel label, .panel label {
 	display: block;
@@ -53,11 +61,15 @@
 	}
 	
 	
-#leftpanel select {
+.leftpanel select {
 	padding: 5px 0;
 	margin-bottom: 12px;
 	
 	}
+
+#tableoverflow {
+	visibility: hidden;
+}
 
 #rightpanel {
 	width: 318px;
@@ -92,13 +104,23 @@
 	width: 350px;
 }
 .leftpanelhead {
-	width: 560px;
+	/*width: 100%;*/
+}
+
+.submitButton {
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	padding: 8px;
 }
 
 select#smallselect {
 	width: 208px;
 }
 
+label.error {
+	display: block;
+	color: #f00;
+}
 
 .stripe {
 background-color: #0F242B;
@@ -124,7 +146,7 @@ border-bottom: 1px solid white;
 }
 
 #content-suggest #leftbit {
-	height: 3em;
+	height: 2em;
 }
 
 #content-challenge, #content-suggest, #content-request {

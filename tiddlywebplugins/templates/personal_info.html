@@ -1,0 +1,81 @@
+<div class="rightpanelhead" id="personal_info">
+	<h2>information</h2>
+	<div class="stripe">
+		{% if commonVars.usersign.name == "GUEST" %}
+		<p>We'd like to know who you are!</p>
+		{% else %}
+		<p>Your account details are shown below</p>
+		{% endif %}
+	</div>
+	<div class="right lightbluebox lightblueborder" id="rightpanel">
+		{% if commonVars.usersign.name == "GUEST" %}
+		<div>
+			<label for="name">Your name</label>
+			<input class="required" type="text" name="name" id="name" size="35"/>
+		</div>
+		<div>
+			<label for="email">Your email address</label>
+			<input class="required email" type="text" name="email" id="email" size="35"/>
+		</div>
+		<div>
+			<label for="country">Your country</label>
+			<input class="required" type="text" name="country" id="country" size="35" />
+		</div>
+		<div>
+			<label for="company">Your company <span>(Optional)</span></label>
+			<input type="text" name="company" size="35"/>
+		</div>					
+		{% else %}
+		{% set name = commonVars.usersign.fields.name %}
+		{% set email = commonVars.usersign.name %}
+		{% set country = commonVars.usersign.fields.country %}
+		{% set company = commonVars.usersign.fields.company %}
+		<div class="lightpanel">
+			<div>
+				<span>Name:</span>
+				<input type="hidden" name="name" value="{{name}}" />
+				<span class="thick">{% if name -%}
+					{{name}}{%else%}(not provided)
+				{%-endif%}</span>
+			</div>
+			<div>
+				<span>Email address:</span>
+				<input type="hidden" name="email" value="{{email}}" />
+				<span class="thick">{% if email -%}
+					{{email}}{%else%}(not provided)
+				{%-endif%}</span>
+			</div>
+			<div>
+				<span>Country:</span>
+				<input type="hidden" name="country" value="{{country}}" />
+				<span class="thick">{% if country -%}
+					{{country}}{%else%}(not provided)
+				{%-endif%}</span>
+			</div>
+			<div>
+				<span>Company (Optional):</span>
+				<input type="hidden" name="company" value="{{company}}" />
+				<span class="thick">{% if company -%}
+					{{company}}{%else%}(not provided)
+				{%-endif%}</span>
+			</div>
+		</div>
+		{% endif %}
+		{% if commonVars.usersign.name == "GUEST" %}
+		<div>Are you human?</div>
+		<div id="recaptcha">
+			<!--<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29"></script>-->
+			<noscript>
+				<iframe src="http://api.recaptcha.net/noscript?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29" height="300" width="500" frameborder="0"></iframe><br />
+				<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+				<input type='hidden' name='recaptcha_response_field' value='manual_challenge' />
+			</noscript>
+		</div>
+		{% if captcha.failure %}
+		<div class="captcha_error">
+			<p>Whoops! I think you made a mistake with the CAPTCHA. Please try again.</p>
+		</div>
+		{% endif %}
+		{% endif %}
+	</div>
+</div>

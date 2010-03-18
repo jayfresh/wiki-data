@@ -31,7 +31,7 @@ function redraw() { // IE6/7 position:relative elements not moving fix
 		$('#columnPicker').css('display','none');
 		$('#columnPicker').css('display','block');
 	}
-};
+}
 function addAdvSearchLine() {
 	var container = '#advancedSearchContainer';
 	
@@ -94,6 +94,61 @@ function addAdvSearchLine() {
 	}
 	redraw();
 	return $row;
+}
+function overflowTable(container,overflowTarget) {
+	/* copy the entire table,
+	   calculate the breaking point,
+	   remove everything before the breaking point in the overflow column,
+	   remove everything after the breaking point in the original column
+	*/
+	var $container = $(container), $overflowTarget = $(overflowTarget);
+	if(!$container.length || !$overflowTarget.length) {
+		return;
+	}
+	var breakingPoint = Math.floor($(container).find('tr').length / 2);
+	var $point = $(overflowTarget).append($(container).html()).find('tr').eq(breakingPoint);
+	$point.prevAll().remove();
+	$point.closest('table').prevAll().remove();
+	$point = $(container).find('tr').eq(breakingPoint-1);
+	$point.nextAll().remove();
+	$point.closest('table').nextAll().remove();
+}
+function makeCaptcha() {
+	Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
+		theme: 'red',
+		callback: Recaptcha.focus_response_field
+	}); 
+}
+function makeModal(idSelector) {
+	var $origForm = $('#recordForm'); // shouldn't be a problem until you want to use more than one form on a page
+	$('body').prepend('<div id="modal"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"><form id="tempForm"></form></div></div></div></div></div></div>');
+	var $moved = $(idSelector).appendTo($('#modal #tempForm'));
+	$('#tempForm').validate();
+	$('#submitButton').clone().attr('id','submitButtonClone').appendTo($(idSelector)).click(function(e) {
+		e.preventDefault();
+		if(!$('#tempForm').valid()) {
+			return;
+		}
+		$moved.find('input').each(function() {
+			$('<input type="hidden" name="'+$(this).attr('name')+'" value="'+$(this).val()+'" />').appendTo($origForm);
+		});
+		$origForm.get(0).submit();
+	});
+	$('<a class="margintop left">Return to form</a>').appendTo($(idSelector)).css({
+		'marginRight': '8px',
+		'marginLeft': '8px'
+	}).click(function(e) {
+		e.preventDefault();
+		$('html').removeClass('modal');
+	});
+	$('#submitButton').click(function(e) {
+		e.preventDefault();
+		if(!$origForm.valid()) {
+			return;
+		}
+		$('#modal .overlay-decorator, #modal .overlay-wrap').css('top',$(window).scrollTop());
+		$('html').addClass('modal');
+	});
 }
 $(document).ready(function() {
 	// overwrite default fields with dynamically generated list
@@ -159,20 +214,29 @@ $(document).ready(function() {
 			$(this).text(ISO_3166.countries.iso2name[$(this).text()]);
 		});
 	}
-	if($('#suggest_new, #challenge, #request').length!==0) {
+	if($('#recordForm').length!==0) {
 		DependentInputs.addDependency(function($row,changed) {
 			if(changed==="field" && $row.field.attr("for")==="country") {
 				$row.valueMap = ISO_3166.countries.name2iso;
 				return DependentInputs.values.countries;
 			}
 		});
-		if($('table.fields').length) {
+		overflowTable('#leftpanel','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
+		if($('table.fields label').length) {
 			DependentInputs.addRows('table.fields',"label",":input","tr");
 		}
 		if($('div.right label[for=country]+input').length) {
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
 		}
-		var $hiddenWhileRendering = $('table.fields, div.right');
+		if($('#recaptcha').length) {
+			makeCaptcha();
+		}
+		makeModal('#personal_info');
+		$('#recordForm').validate();
+		if($('div.captcha_error').length) {
+			$('#submitButton').click();
+		}
+		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow');
 		if($hiddenWhileRendering.length) {
 			$hiddenWhileRendering.css("visibility","visible");
 		}

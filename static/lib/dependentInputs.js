@@ -26,7 +26,7 @@ DependentInputs = {
 	makeSelect: function($container,values,attrs,addDecoy) {
 		var $select = $("<select></select>");
 		if(addDecoy) {
-			$select.append($("<option>"+this.decoyValue+"</option>"));
+			$select.append($("<option value=''>"+this.decoyValue+"</option>"));
 		}
 		for(var i=0; i<values.length; i++) {
 			$select.append($("<option>"+values[i]+"</option>"));
@@ -378,8 +378,10 @@ DependentInputs.addDependency(function($row,changed) {
 DependentInputs.addDependency(function($row,changed) {
 	if(changed==="value") {
 		var inpVal = $row.val.val();
-		var mappedVal = $row.valueMap[inpVal] || "";
-		$row.find('input:hidden').eq(0).val(mappedVal);
+		if($row.valueMap) {
+			var mappedVal = $row.valueMap[inpVal] || "";
+			$row.find('input:hidden').eq(0).val(mappedVal);
+		}
 	}
 });
 

@@ -16,87 +16,16 @@
 	{% else %}
 	<div id="leftbit" class="padded notIE"></div>
 	<div class="wrap relative z1">
-		<form method="post" action="/verify" id="request">
-			<div class="right rightpanelhead">
-				<h2>information</h2>
-				<div class="stripe">
-					<p>We'd like to know who you are!</p>
-				</div>
-				<div class="right lightbluebox lightblueborder" id="rightpanel" style="visibility: visible;">
-					{% if commonVars.usersign.name == "GUEST" %}
-					<label for="name">Your name</label>
-					<input type="text" name="name" id="name" size="35"/>
-					<label for="email">Your email address</label>
-					<input type="text" name="email" id="email" size="35"/>
-					<label for="country">Your country</label>
-					<input type="text" name="country" id="country" size="35" />
-					<label for="company">Your company <span>(Optional)</span></label>
-					<input type="text" name="company" size="35"/>
-					{% else %}
-					{% set name = commonVars.usersign.fields.name %}
-					{% set email = commonVars.usersign.name %}
-					{% set country = commonVars.usersign.fields.country %}
-					{% set company = commonVars.usersign.fields.company %}
-					<div class="lightpanel">
-						<div>
-							<span>Name:</span>
-							<input type="hidden" name="name" value="{{name}}" />
-							<span class="thick">{% if name -%}
-								{{name}}{%else%}(not provided)
-							{%-endif%}</span>
-						</div>
-						<div>
-							<span>Email address:</span>
-							<input type="hidden" name="email" value="{{email}}" />
-							<span class="thick">{% if email -%}
-								{{email}}{%else%}(not provided)
-							{%-endif%}</span>
-						</div>
-						<div>
-							<span>Country:</span>
-							<input type="hidden" name="country" value="{{country}}" />
-							<span class="thick">{% if country -%}
-								{{country}}{%else%}(not provided)
-							{%-endif%}</span>
-						</div>
-						<div>
-							<span>Company (Optional):</span>
-							<input type="hidden" name="company" value="{{company}}" />
-							<span class="thick">{% if company -%}
-								{{company}}{%else%}(not provided)
-							{%-endif%}</span>
-						</div>
-					</div>
-					{% endif %}
-					<input type="hidden" value="request" name="requestType"/>
-					<input type="hidden" name="avid" value="{{tiddler.title}}" />
-					<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
-					{% if commonVars.usersign.name == "GUEST" %}
-					<div>Are you human?</div>
-					<script src="http://api.recaptcha.net/challenge?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29" type="text/javascript"/></script>
-					<noscript>
-						<iframe src="http://api.recaptcha.net/noscript?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29" height="300" width="500" frameborder="0"></iframe><br />
-						<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
-						<input type='hidden' name='recaptcha_response_field' value='manual_challenge' />
-					</noscript>
-					{% if captcha.failure %}
-					<div class="captcha_error">
-						<p>Whoops! I think you made a mistake with the CAPTCHA. Please try again.</p>
-					</div>
-					{% endif %}
-					{% endif %}
-				</div>
-				<input id='submit' class="darkgreen lightborder whitetext caps margintop" type="submit" value="Submit request"/>
-			</div>
-			<div class="left leftpanelhead">		
+		<form method="post" action="/verify" id="recordForm">
+			<div class="left leftpanelhead wrap">		
 				<h2>Request More Information</h2>
 				<div class="stripe noleftborder">
 					<p>These are the extra data fields you are requesting for {{tiddler.title}}</p>
 				</div>
-				<div class="left lightbluebox lightblueborder" id="leftpanel">
+				<div class="left lightbluebox lightblueborder leftpanel" id="leftpanel">
 					<p class="entity-name"><a href="/bags/avox/tiddlers/{{tiddler.title}}">{{tiddler.fields.legal_name}}</a></p>
 					<h3>Registered Address</h3>
-					<table>
+					<table class="fields">
 						<tbody>
 							<tr>
 								<td><span>Registered Agent Name</span></td>
@@ -121,7 +50,7 @@
 						</tbody>
 					</table>
 					<h3>Entity Information</h3>
-					<table>
+					<table class="fields">
 						<tbody>
 							<tr>
 								<td><span>Date of Incorporation</span></td>
@@ -134,7 +63,7 @@
 						</tbody>
 					</table>
 					<h3>Identifiers</h3>
-					<table>
+					<table class="fields">
 						<tbody>
 							<tr>
 								<td><span>Registration Number</span></td>
@@ -151,7 +80,7 @@
 						</tbody>
 					</table>
 					<h3>Industrial Classifications</h3>
-					<table>
+					<table class="fields">
 						<tbody>
 							<tr>
 								<td><span>US SIC Code & Description</span></td>
@@ -160,7 +89,7 @@
 						</tbody>
 					</table>
 					<h3>Hierarchy Information</h3>
-					<table>
+					<table class="fields">
 						<tbody>
 							<tr>
 								<td><span>Entity Type</span></td>
@@ -177,7 +106,15 @@
 						</tbody>
 					</table>
 				</div>
+				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
+				<div>
+					<input type="hidden" value="request" name="requestType"/>
+					<input type="hidden" name="avid" value="{{tiddler.title}}" />
+					<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
+					<input id='submitButton' class="right submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit request"/>
+				</div>
 			</div>
+			{% include 'personal_info.html' %}
 		</form>
 	</div>
 	<br class="clearboth" />
