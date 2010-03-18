@@ -2,7 +2,7 @@ import logging
 from tiddlywebplugins.wikidata import recordFields
 from tiddlywebplugins.wikidata.sendEmail import send
 
-def emailAvox(query):
+def emailAvox(query, domain='wiki-data.com'):
     requestType = query['requestType'][0]
     name = query['name'][0]
     email = query['email'][0]
@@ -44,7 +44,7 @@ def emailAvox(query):
                 pass
     elif requestType == 'suggest_new':
         to = ['adam.edwards@avox.info', 'daniel.dunn@avox.info', 'paul.barlow@avox.info', 'kate.young@avox.info', 'brian.cole@avox.info', 'ken.price@avox.info', 'jnthnlstr@googlemail.com']
-        subject = 'Wiki-data AVID record suggestion'
+        subject = domain+' AVID record suggestion'
         body = """Submittor info
 --------------
 Name: %s
@@ -66,4 +66,4 @@ Record info
         subject = 'Unknown contact type'
         body = 'Query: %s' % repr(query)
     logging.debug('to: %s , subject: %s body: %s', repr(to), subject, body)
-    send(to, subject=subject, body=body)
+    send(to, subject=subject, body=body, from_='avox@'+domain)

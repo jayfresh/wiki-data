@@ -93,8 +93,16 @@ def env(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/plain')])
     return [pformat(environ)]
 
+def get_domain(host):
+    hosts = host.split('.')
+    hostsLen = len(hosts)
+    if(hostsLen > 1):
+        return hosts[hostsLen-2]+'.'+hosts[hostsLen-1]
+    else:
+        return hosts[0]
 
 def register(environ, start_response):
+    domain = get_domain(environ['HTTP_HOST'])
     query = environ['tiddlyweb.query']
     name = query.get('name', [None])[0]
     company = query.get('company', [None])[0]
@@ -113,7 +121,7 @@ company: %s
 country: %s
 """ % (name, email, company, country)
     try:
-        send_email(to_address, subject=subject, body=body)
+        send_email(to_address, subject=subject, body=body, from_='avox@'+domain)
     except socket.error:
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
     raise HTTP303(server_base_url(environ) + '/pages/registered.html')
@@ -122,6 +130,7 @@ country: %s
 def verify(environ, start_response):
 
     logging.debug(environ['tiddlyweb.query'])
+    domain = environ['HTTP_HOST']
     try:
         redirect = environ['tiddlyweb.query']['recaptcha_redirect'][0]
     except (KeyError, IndexError):
@@ -149,7 +158,7 @@ def verify(environ, start_response):
     
     if notSpam:
         try:
-            emailAvox(environ['tiddlyweb.query'])
+            emailAvox(environ['tiddlyweb.query'],domain=domain)
             valid = 1
         except KeyError as detail: # the hook for server-side validation
             responseVars['formError'] = detail.args[0]
@@ -339,6 +348,7 @@ def create_tier2_user(environ, start_response):
             expiration=expiration, role='tier2')
 
 def _create_user(environ, start_response, creation=0, expiration=0, role='tier1'):
+    domain = environ['HTTP_HOST']
     if creation == 0:
         creation = time.time()
     store = environ['tiddlyweb.store']
@@ -380,7 +390,7 @@ def _create_user(environ, start_response, creation=0, expiration=0, role='tier1'
     store.put(tiddler)
 
     to_address = email
-    subject = "Wiki-Data user info"
+    subject = domain+" user info"
     body = """
 Here's your info:
 Username: %s
@@ -388,7 +398,7 @@ Password: %s
 """ % (email, password)
     query_string = '?email=%s' % to_address
     try:
-        send_email(to_address, subject=subject, body=body)
+        send_email(to_address, subject=subject, body=body, from_='avox@'+domain)
         query_string += '&success=1&role=%s' % role
         raise HTTP303(server_base_url(environ)+'/pages/new_account'+query_string)
     except socket.error:
