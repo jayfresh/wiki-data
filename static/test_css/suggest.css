@@ -43,7 +43,6 @@ table.fields {
 .leftpanel input, #rightpanel input, .panel input {
 	width: 200px;
 	height: 21px;
-	margin-bottom: 12px;
 	font-size: 1em;
 	}
 
@@ -111,6 +110,7 @@ table.fields {
 	-moz-border-radius: 0.5em;
 	-webkit-border-radius: 0.5em;
 	padding: 8px;
+	cursor: pointer;
 }
 
 select#smallselect {

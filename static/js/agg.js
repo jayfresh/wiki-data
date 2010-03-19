@@ -2368,11 +2368,11 @@ function makeModal(idSelector) {
 		});
 		$origForm.get(0).submit();
 	});
-	$('<a class="margintop left">Return to form</a>').appendTo($(idSelector)).css({
-		'marginRight': '8px',
-		'marginLeft': '8px'
-	}).click(function(e) {
-		e.preventDefault();
+	$('<button>Return to form</button>').appendTo($(idSelector))
+	.addClass($('#submitButton').get(0).className)
+	.css({
+		float: 'left'
+	}).click(function() {
 		$('html').removeClass('modal');
 	});
 	$('#submitButton').click(function(e) {
@@ -2467,6 +2467,20 @@ $(document).ready(function() {
 		}
 		makeModal('#personal_info');
 		$('#recordForm').validate();
+		/* JRL: maybe I'll need to work the operational_state validation into the dependentInputs handling, since the state drop-down replaces the input, losing the validation handler
+		var trigger_countries = ['USA'];
+		$('#recordForm').validate({
+			rules: {
+				operational_state: {
+					required: {
+						depends: function(element) {
+							console.log('checking');
+							return $.inArray($('#operational_country').val(),trigger_countries);
+						}
+					}
+				}
+			}
+		});*/
 		if($('div.captcha_error').length) {
 			$('#submitButton').click();
 		}
