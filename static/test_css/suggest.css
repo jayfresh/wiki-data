@@ -109,6 +109,7 @@ table.fields {
 	-webkit-border-radius: 0.5em;
 	padding: 8px;
 	cursor: pointer;
+	overflow: visible;
 }
 
 select#smallselect {
