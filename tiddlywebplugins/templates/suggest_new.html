@@ -57,8 +57,8 @@
 								<td><input class="required" type="text" size="35" name="legal_name" /></td>
 							</tr>
 							<tr>
-								<td colspan="2"><label for="operational_country">Operational Country</label>
-								<input class="required" id="operational_country" type="text" size="35" name="operational_country" /></td>
+								<td><label for="operational_country">Operational Country</label></td>
+								<td><input class="required" id="operational_country" type="text" size="35" name="operational_country" /></td>
 							</tr>
 							<tr>
 								<td><label for="operational_state">Operational State</label></td>
@@ -80,8 +80,8 @@
 								<option value="Ultimate Parent">Ultimate Parent</option>
 							</select></td>
 							{% elif field == 'registered_country' %}
-							<td colspan="2"><label for="{{field}}">Registered Country</label>
-							<input type="text" size="35" name="{{field}}" /></td>
+							<td><label for="{{field}}">Registered Country</label></td>
+							<td><input type="text" size="35" name="{{field}}" /></td>
 							{% else %}
 							<td><label for="{{field}}">{{label}}</label></td>
 							<td><input type="text" size="35" name="{{field}}" /></td>
