@@ -110,6 +110,8 @@ table.fields {
 	padding: 8px;
 	cursor: pointer;
 	overflow: visible;
+	height: 3em;
+	margin-bottom: 5px;
 }
 
 select#smallselect {
