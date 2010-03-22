@@ -22,7 +22,7 @@
 				<div class="stripe noleftborder">
 					<p>These are the extra data fields you are requesting for {{tiddler.title}}</p>
 				</div>
-				<div class="left lightbluebox lightblueborder leftpanel">
+				<div class="left lightbluebox lightblueborder leftpanel" id="fieldsColumn">
 					<p class="entity-name"><a href="/bags/avox/tiddlers/{{tiddler.title}}">{{tiddler.fields.legal_name}}</a></p>
 					<h3>Registered Address</h3>
 					<table class="fields">
@@ -107,6 +107,7 @@
 					</table>
 				</div>
 				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
+				<br class="clearboth" />
 				<div>
 					<input type="hidden" value="request" name="requestType"/>
 					<input type="hidden" name="avid" value="{{tiddler.title}}" />

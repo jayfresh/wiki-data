@@ -46,11 +46,7 @@
 				<div class="stripe noleftborder">
 					<p>Please correct any details you would like to challenge for AVID {{tiddler.title}}</p>
 				</div>
-				<div class="left lightbluebox lightblueborder leftpanel">
-					<div>
-						<label for="source">(Optional) What is your source for this? Please include URL and/or sources used. We will use this to validate your challenge.</label>
-						<textarea cols="35" rows="5" name="source" class="fullwidth"></textarea>
-					</div>
+				<div class="left lightbluebox lightblueborder leftpanel" id="fieldsColumn">
 					<h3>Entity Name</h3>
 					<table class="fields">
 						<tbody>
@@ -133,8 +129,14 @@
 							{% endfor %}
 						</tbody>
 					</table>
+					<h3>Source (optional)</h3>
+					<div>
+						<label for="source">What is your source for this challenge? Please include URL and/or sources used. We will use this to validate your challenge.</label>
+						<textarea cols="35" rows="5" name="source" class="fullwidth"></textarea>
+					</div>
 				</div>
 				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
+				<br class="clearboth" />
 				<div>
 					<input type="hidden" name="requestType" value="challenge" />
 					<input type="hidden" name="avid" value="{{tiddler.title}}" />

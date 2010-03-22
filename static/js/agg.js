@@ -2336,6 +2336,7 @@ function overflowTable(container,overflowTarget) {
 	   remove everything before the breaking point in the overflow column,
 	   remove everything after the breaking point in the original column
 	*/
+	try {
 	var $container = $(container), $overflowTarget = $(overflowTarget);
 	if(!$container.length || !$overflowTarget.length) {
 		return;
@@ -2347,12 +2348,17 @@ function overflowTable(container,overflowTarget) {
 	$point = $(container).find('tr').eq(breakingPoint-1);
 	$point.nextAll().remove();
 	$point.closest('table').nextAll().remove();
+	} catch(ex) {
+		console.log(ex);
+	}
 }
 function makeCaptcha() {
-	Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
-		theme: 'red',
-		callback: Recaptcha.focus_response_field
-	}); 
+	if($('#recaptcha').length) {
+		Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
+			theme: 'red',
+			callback: Recaptcha.focus_response_field
+		});
+	}
 }
 function makeModalAndSetValidator(idSelector) {
 	var $origForm = $('#recordForm'); // shouldn't be a problem until you want to use more than one form on a page
@@ -2373,7 +2379,8 @@ function makeModalAndSetValidator(idSelector) {
 	.addClass($('#submitButton').get(0).className)
 	.css({
 		float: 'left'
-	}).click(function() {
+	}).click(function(e) {
+		e.preventDefault();
 		$('html').removeClass('modal');
 	});
 	$('#submitButton').click(function(e) {
@@ -2475,7 +2482,7 @@ $(document).ready(function() {
 				return DependentInputs.values.countries;
 			}
 		});
-		overflowTable('#leftpanel','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
+		overflowTable('#fieldsColumn','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
 		if($('table.fields label').length) {
 			DependentInputs.addRows('table.fields',"label",":input","tr");
 		}
