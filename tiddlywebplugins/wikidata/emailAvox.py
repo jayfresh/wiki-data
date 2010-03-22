@@ -3,6 +3,7 @@ from tiddlywebplugins.wikidata import recordFields
 from tiddlywebplugins.wikidata.sendEmail import send
 
 def emailAvox(query, domain='wiki-data.com'):
+    domainStem = domain.split('.')[0]
     requestType = query['requestType'][0]
     name = query['name'][0]
     email = query['email'][0]
@@ -12,7 +13,7 @@ def emailAvox(query, domain='wiki-data.com'):
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]
         additional_info = query.get('additional_info', [''])[0]
-        to = ['addadatarecord.wiki-data@avox.info', 'jnthnlstr@googlemail.com']
+        to = ['addadatarecord.'+domain+'@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Request for more information'
         body = 'SPECIFIC REQUEST re: additional information request\n' \
             'for '+legal_name+' (AVID = '+avid+')\n'
@@ -26,7 +27,7 @@ def emailAvox(query, domain='wiki-data.com'):
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]
         source = query['source'][0]
-        to = ['foundanerror.wiki-data@avox.info', 'jnthnlstr@googlemail.com']
+        to = ['foundanerror'+domain+'@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Challenge record'
         body = 'SPECIFIC REQUEST re: correction\n' \
             'for '+legal_name+' (AVID = '+avid+')\n' \
