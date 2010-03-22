@@ -2504,6 +2504,29 @@ $(document).ready(function() {
 			return false;
 		});
 	}
+	if($('#registerform').length) {
+		/* JRL: in search of a way to remove the company field error when independent checkbox is toggled
+		var onclick_old = $.validator.defaults.onclick;
+		console.log(onclick_old);
+		$.validator.defaults.onclick = function() {
+			console.log('onclick');
+			$('#company').focus().blur();
+			onclick_old.apply(this,arguments);
+		};*/
+		$('#registerform').validate({
+			rules: {
+				company: {
+					required: {
+						depends: function(element) {
+							return $("#independent:unchecked").length;
+						}
+					}
+				}
+			}
+			//focusCleanup: true,
+			//focusInvalid: false
+		});
+	}
 	// now show hidden things
 	$('.onlyjs').css('visibility','visible');
 });
