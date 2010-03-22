@@ -119,7 +119,7 @@ function makeCaptcha() {
 		callback: Recaptcha.focus_response_field
 	}); 
 }
-function makeModal(idSelector) {
+function makeModalAndSetValidator(idSelector) {
 	var $origForm = $('#recordForm'); // shouldn't be a problem until you want to use more than one form on a page
 	$('body').prepend('<div id="modal"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"><form id="tempForm"></form></div></div></div></div></div></div>');
 	var $moved = $(idSelector).appendTo($('#modal #tempForm'));
@@ -143,11 +143,30 @@ function makeModal(idSelector) {
 	});
 	$('#submitButton').click(function(e) {
 		e.preventDefault();
+		/* add operational state validation before validating form */
+		var trigger_countries = ['United States'];
+		$origForm.validate({
+			rules: {
+				_ignore_operational_state: {
+					required: {
+						depends: function(element) {
+							var $r = $.map(DependentInputs.rows, function($row) {
+								if($row.field.val()==="Operational Country") {
+									return $row;
+								}
+							})[0];
+							return $.inArray($r.val.val(),trigger_countries) >= 0 ? true : false;
+						}
+					}
+				}
+			}
+		});
 		if(!$origForm.valid()) {
 			return;
 		}
 		$('#modal .overlay-decorator, #modal .overlay-wrap').css('top',$(window).scrollTop());
 		$('html').addClass('modal');
+		makeCaptcha();
 	});
 }
 $(document).ready(function() {
@@ -228,25 +247,7 @@ $(document).ready(function() {
 		if($('div.right label[for=country]+input').length) {
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
 		}
-		if($('#recaptcha').length) {
-			makeCaptcha();
-		}
-		makeModal('#personal_info');
-		$('#recordForm').validate();
-		/* JRL: maybe I'll need to work the operational_state validation into the dependentInputs handling, since the state drop-down replaces the input, losing the validation handler
-		var trigger_countries = ['USA'];
-		$('#recordForm').validate({
-			rules: {
-				operational_state: {
-					required: {
-						depends: function(element) {
-							console.log('checking');
-							return $.inArray($('#operational_country').val(),trigger_countries);
-						}
-					}
-				}
-			}
-		});*/
+		makeModalAndSetValidator('#personal_info');
 		if($('div.captcha_error').length) {
 			$('#submitButton').click();
 		}

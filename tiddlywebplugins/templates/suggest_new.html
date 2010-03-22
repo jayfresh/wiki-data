@@ -61,7 +61,7 @@
 								<td><input class="required" id="operational_country" type="text" size="35" name="operational_country" /></td>
 							</tr>
 							<tr>
-								<td><label for="operational_state">Operational State</label></td>
+								<td><label for="operational_state">Operational State (USA only)</label></td>
 								<td><input type="text" size="35" name="operational_state" /></td>
 							</tr>
 						</tbody>
@@ -73,7 +73,7 @@
 							{% if field == 'entity_type' %}
 							<td><label for="{{field}}">{{label}}</label></td>
 							<td><select name="{{field}}" id="smallselect">
-								<option value="Null">Null</option>
+								<option value="">Please select...</option>
 								<option value="Branch">Branch</option>
 								<option value="Division">Division</option>
 								<option value="Subsidiary">Subsidiary</option>

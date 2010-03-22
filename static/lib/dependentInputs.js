@@ -114,7 +114,7 @@ DependentInputs = {
 			$row.val = $val;
 			$row.val.addClass(this.valClass);
 			n = DependentInputs.rows.push($row)-1;
-			this.addChangeHandler($row,n);
+			//this.addChangeHandler($row,n); // JRL - removed because it seems to be superfluous in the current use cases, and causes a problem with double event handlers being added to select boxes; in the event that I want to convert a row that already has a drop-down field, I'll probably want to add this line back in, but using $row.field as the first argument
 		}
 		this.checkAll(n,"field");
 		return n;
@@ -243,6 +243,7 @@ DependentInputs = {
 			});
 			$row.val.replaceWith($inp);
 			$row.val = $inp;
+			//$inp.eq(0).focus().blur(); // if something is watching the drop-down, this will make sure it gets a change event, but bound to the blank text input that has replaced it
 			$row.val.addClass(className);
 			if($row.button) {
 				$row.button.appendTo($row);
