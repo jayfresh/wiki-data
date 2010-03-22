@@ -40,9 +40,11 @@
                             name="company" size="40" />
                     </div>
                     <div>
-                        <label for="tier">Tier:</label>&nbsp;<input
-                        type="text" id="tier" name="tier"
-                        value="{{ form.tier }}" size="6" />
+                        <label for="tier">Tier:</label>&nbsp;<select
+                        id="tier" name="tier">
+                        	<option value="tier1" {% if form.tier == 'tier1' %}selected="true"{% endif %}>Tier 1 - Guest</option>
+                        	<option value="tier2" {% if form.tier == 'tier2' %}selected="true"{% endif %}>Tier 2 - Subscriber</option>
+                        </select>
                     </div>
                     <div>
                         <label for="expiry">Expiration (days):</label>&nbsp;<input
