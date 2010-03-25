@@ -2493,7 +2493,7 @@ $(document).ready(function() {
 		if($('div.captcha_error').length) {
 			$('#submitButton').click();
 		}
-		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow, #personal_info');
+		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow');
 		if($hiddenWhileRendering.length) {
 			$hiddenWhileRendering.css("visibility","visible");
 		}

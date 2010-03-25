@@ -46,8 +46,8 @@ table.fields {
 	font-size: 1em;
 	}
 
-.js #personal_info {
-	visibility: hidden;
+.js #main #personal_info {
+	display: none; /* the personal_info box should not display before it is moved out of #main to the modal dialogue */
 }
 
 #rightpanel label, .panel label {
