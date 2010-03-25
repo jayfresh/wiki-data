@@ -47,7 +47,7 @@ table.fields {
 	}
 
 .js #personal_info {
-	/*visibility: hidden;*/
+	visibility: hidden;
 }
 
 #rightpanel label, .panel label {

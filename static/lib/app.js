@@ -258,7 +258,7 @@ $(document).ready(function() {
 		if($('div.captcha_error').length) {
 			$('#submitButton').click();
 		}
-		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow');
+		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow, #personal_info');
 		if($hiddenWhileRendering.length) {
 			$hiddenWhileRendering.css("visibility","visible");
 		}

@@ -1,3 +1,3 @@
 #!/bin/sh
-scp $1 avox@217.9.192.10:~ && ssh avox@217.9.192.10 "sudo pip install -U --no-deps $1"
+scp $1 avox@217.9.192.10:~/dist && ssh avox@217.9.192.10 "sudo pip install -U --no-deps $1 && sudo /etc/init.d/apache2 restart"
 
