@@ -138,7 +138,20 @@ def verify(environ, start_response):
     commonVars = templating.common_vars(environ)
     responseVars = {}
     notSpam = False
+    query = environ['tiddlyweb.query']
+    formErrors = []
     if commonVars['usersign']['name'] == 'GUEST':
+        # check personal info
+        name = query['name'][0]
+        if name == '':
+            formErrors.append('"name"')
+        email = query['email'][0]
+        if email == '':
+            formErrors.append('"email"')
+        country = query['country'][0]
+        if country == '':
+            formErrors.append('"country"')
+        # check captcha
         challenge_field = environ['tiddlyweb.query']['recaptcha_challenge_field'][0]
         logging.debug('challenge_field: '+challenge_field)
         response_field = environ['tiddlyweb.query']['recaptcha_response_field'][0]
@@ -155,16 +168,39 @@ def verify(environ, start_response):
             responseVars['captcha'] = 0
     else:
         notSpam = True
+
+    #check request-specific conditions
+    requestType = query['requestType'][0]
+    if requestType == 'suggest_new':
+        legal_name = query['legal_name'][0]
+        if legal_name == '':
+            formErrors.append('"legal_name"')
+        operational_country = query['operational_country'][0]
+        operational_state = query['operational_state'][0]
+        if operational_country == '':
+            formErrors.append('"operational_country"')
+        elif operational_country == 'USA' and operational_state == '':
+            formErrors.append('"operational_state"')
     
-    if notSpam:
+    #create the formErrors url parameter if there are any
+    validForm = True
+    formErrors = ','.join(formErrors)
+    logging.debug('formErrors: '+formErrors)
+    if formErrors != '':
+        responseVars['formError'] = formErrors
+        validForm = False
+    
+    # email Avox now we have determined the form is correct
+    if notSpam and validForm:
         try:
-            emailAvox(environ['tiddlyweb.query'],domain=domain)
-            valid = 1
-        except KeyError as detail: # the hook for server-side validation
+            emailAvox(query,domain=domain)
+            emailSuccess = 1
+        except KeyError as detail: # the hook for server-side validation, not being used yet (see formError usage above)
             responseVars['formError'] = detail.args[0]
-            valid = 0
+            emailSuccess = 0
     
-    if notSpam == False or valid == 0 or (responseVars.has_key('captcha') and responseVars['captcha'] == 0):
+    # JRL: I think the checking for captcha key is unneccessary because notSpam would be False if that key was present
+    if notSpam == False or validForm == False or emailSuccess == 0 or (responseVars.has_key('captcha') and responseVars['captcha'] == 0):
         responseVars['success'] = 0
     else:
         responseVars['success'] = 1

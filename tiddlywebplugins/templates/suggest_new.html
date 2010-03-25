@@ -27,6 +27,7 @@
 	('registration_number__jurisdiction_', 'Registration Number (Jurisdiction)')
 ] %}
 {% set captcha = commonVars.captcha %}
+{% set query = commonVars.query %}
 <div id="pagenav">		
 	<ul>
 		<li><a href="/index.html" class="lightborder darkgreen caps">Home</a></li>
@@ -35,7 +36,7 @@
 </div>
 
 <div id="content-suggest">
-	{% if commonVars.query['success'] and commonVars.query['success'][0] == '1' %}
+	{% if query['success'] and query['success'][0] == '1' %}
 	<div class="wrap">
 		<p>Thanks! We'll be in touch shortly.</p>
 	</div>
@@ -54,15 +55,27 @@
 						<tbody>
 							<tr>
 								<td><label for="legal_name">Legal Name</label></td>
-								<td><input class="required" type="text" size="35" name="legal_name" /></td>
+								<td><input class="required" type="text" size="35" name="legal_name" />
+								{%- if query['formError'] and '"legal_name"' in query['formError'][0] -%}
+								<label for="legal_name" generated="true" class="error">This field is required.</label>
+								{%- endif -%}
+								</td>
 							</tr>
 							<tr>
 								<td><label for="operational_country">Operational Country</label></td>
-								<td><input class="required" id="operational_country" type="text" size="35" name="operational_country" /></td>
+								<td><input class="required" id="operational_country" type="text" size="35" name="operational_country" />
+								{%- if query['formError'] and '"operational_country"' in query['formError'][0] -%}
+								<label for="operational_country" generated="true" class="error">This field is required.</label>
+								{%- endif -%}
+								</td>
 							</tr>
 							<tr>
 								<td><label for="operational_state">Operational State (USA only)</label></td>
-								<td><input type="text" size="35" name="operational_state" /></td>
+								<td><input type="text" size="35" name="operational_state" />
+								{%- if query['formError'] and '"operational_state"' in query['formError'][0] -%}
+								<label for="operational_state" generated="true" class="error">This field is required.</label>
+								{%- endif -%}
+								</td>
 							</tr>
 						</tbody>
 					</table>

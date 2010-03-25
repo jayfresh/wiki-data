@@ -2484,13 +2484,13 @@ $(document).ready(function() {
 		});
 		overflowTable('#fieldsColumn','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
 		if($('table.fields label').length) {
-			DependentInputs.addRows('table.fields',"label",":input","tr");
+			DependentInputs.addRows('table.fields',"label[class!=error]",":input","tr");
 		}
 		if($('div.right label[for=country]+input').length) {
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
 		}
 		makeModalAndSetValidator('#personal_info');
-		if($('div.captcha_error').length) {
+		if($('div.captcha_error, label.error').length) {
 			$('#submitButton').click();
 		}
 		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow');
