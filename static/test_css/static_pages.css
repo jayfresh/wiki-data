@@ -56,6 +56,12 @@
 	line-height: 133%;
 }
 
+.notice { /* a combo of the #notice and .miniwrap rules above */
+	background-color: #76BEBE;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
 #loginform {
 	padding: 10px;
 }
