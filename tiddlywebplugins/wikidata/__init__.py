@@ -130,7 +130,7 @@ country: %s
 def verify(environ, start_response):
 
     logging.debug(environ['tiddlyweb.query'])
-    domain = environ['HTTP_HOST']
+    domain = get_domain(environ['HTTP_HOST'])
     try:
         redirect = environ['tiddlyweb.query']['recaptcha_redirect'][0]
     except (KeyError, IndexError):
@@ -348,7 +348,7 @@ def create_tier2_user(environ, start_response):
             expiration=expiration, role='tier2')
 
 def _create_user(environ, start_response, creation=0, expiration=0, role='tier1'):
-    domain = environ['HTTP_HOST']
+    domain = get_domain(environ['HTTP_HOST'])
     if creation == 0:
         creation = time.time()
     store = environ['tiddlyweb.store']

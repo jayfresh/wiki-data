@@ -67,4 +67,4 @@ Record info
         subject = 'Unknown contact type'
         body = 'Query: %s' % repr(query)
     logging.debug('to: %s , subject: %s body: %s', repr(to), subject, body)
-    send(to, subject=subject, body=body, from_='avox@'+domain)
+    send(to, subject=subject, body=body, from_='avox@'+domainStem)
