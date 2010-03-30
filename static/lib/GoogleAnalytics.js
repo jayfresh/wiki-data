@@ -1,5 +1,5 @@
 /* Google Analytics */
-var gAnalyticsTracker = window.location.host.indexOf("wiki-data.com")!==-1 ? "UA-7537948-1" : "UA-13045628-1";
+var gAnalyticsTracker = window.location.host.indexOf("wiki-data.com")!==-1 ? "UA-7537948-3" : "UA-13045628-1";
 $(document).ready(function() {
 	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 	gaJsHost += "google-analytics.com/ga.js";
