@@ -62,15 +62,15 @@
 	margin-bottom: 10px;
 }
 
-#loginform {
+#loginform, #updateform {
 	padding: 10px;
 }
 
-#loginform div {
+#loginform div, #updateform div {
 	margin-bottom: 10px;
 }
 
-#loginform div label {
+#loginform div label, #updateform div label {
 	width: 170px;
 	float: left;
 }
