@@ -14,3 +14,7 @@ cursor: pointer;
 .notIE {
 	visibility: hidden;
 }
+
+#registerform div.panel { /* to fix box height in IE6 */
+	zoom: 1;
+}
