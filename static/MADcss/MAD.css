@@ -39,8 +39,8 @@ h1 {
 	left:0px;
 	top:0px;
 	z-index:4;
-	height:130px;
-	width:130px;
+	height:150px;
+	width:150px;
 	background:url("/static/test_images/systems_city.gif") top left no-repeat;
 	border: 0;
 }
