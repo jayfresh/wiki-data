@@ -6,3 +6,17 @@ implemented in packages such as tiddlywebplugins.hoster and
 tiddlywebplugs.tiddlydocs.
 
 - cdent
+
+Deployment notes:
+
+Test:
+> make dist
+> git push origin master
+> script/update_remote_test
+> script/deploy_test dist/<filename created by make dist>
+
+Prod:
+> make dist
+> git push origin master
+> script/update_remote_prod
+> script/deploy_prod dist/<filename created by make dist>
