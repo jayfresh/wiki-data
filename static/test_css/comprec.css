@@ -13,7 +13,7 @@
 }*/
 #tabscontainer {
 	position:relative;
-	top: 20px;
+	top: 10px;
 }
 .tab {
 	width:127px;
@@ -111,6 +111,9 @@ a.button:hover {
 }
 
 .buttcontainer {text-align:right;width:925px;margin:10px 10px 20px 10px;}
+.buttcontainer a.button {
+	line-height: 2.5em;
+}
 .comprec {font-size:35pt;text-transform:uppercase;letter-spacing:2pt;margin-top:35px;color:black;}
 
 .js .hide {
