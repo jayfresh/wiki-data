@@ -182,6 +182,28 @@
 		</div>
 		{% endif %}
 
+		<div class='record'>
+			<div class='tab'>
+				<h3>Hierarchy Information</h3>				
+			</div>
+			<div class='entitycontent'>
+				<table>
+					<tbody>
+						{% if tiddler.fields['entity_type'] -%}
+						<tr>
+							<td class='labelwidth'>
+								<label>Entity Type:</label>
+							</td>
+							<td>
+								<span class="entity_type">{{ tiddler.fields['entity_type'] }}</span>
+							</td>
+						</tr>
+						{%- endif %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
 		<!--<div class='record'>
 			<div class='tab '>
 				<h3>Registered Address</h3>				
