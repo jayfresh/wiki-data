@@ -34,7 +34,8 @@ config = {
              'operational_city',
              'operational_state',
              'operational_country',
-             'operational_postcode'
+             'operational_postcode',
+             'entity_type'
         ],
         'mappingsql.default_search_fields': [
              'legal_name',
