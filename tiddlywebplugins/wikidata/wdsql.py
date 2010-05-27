@@ -3,7 +3,11 @@ Map the mappingsql store into the wikidata namespace
 so we can override _determine_user_access in a subclass.
 """
 
-from tiddlywebplugins.mappingsql import Store as MappingSQLStore
+import logging
+
+from tiddlywebplugins.mappingsql import (
+        Store as MappingSQLStore, query_dict_to_search_tuple,
+        sTiddler, Tiddler)
 
 
 class Store(MappingSQLStore):
