@@ -80,8 +80,8 @@ class Store(MappingSQLStore):
                 query = query.filter(sTiddler.taster=='Y')
             if not branches:
                 query = query.filter(
-                        sTiddler.entity_type != 'SLE').filter(
-                                sTiddler.entity_type != 'BRA')
+                        sTiddler.entity_type!='SLE').filter(
+                                sTiddler.entity_type!='BRA')
             access_count = query.count()
             logging.debug('access_count is: %s', access_count)
             self.environ['tiddlyweb.mappingsql.access_count'] = access_count
