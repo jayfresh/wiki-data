@@ -83,6 +83,13 @@ class Store(MappingSQLStore):
         except KeyError:
             slice_index = 0
 
+        # Are we going to be searching branches?
+        try:
+            branches = query.get('branches', False)
+            del query['branches']
+        except KeyError:
+            pass
+
         query_string, fields = query_dict_to_search_tuple(
                 self.environ.get('tiddlyweb.query', {}))
 
@@ -124,6 +131,10 @@ class Store(MappingSQLStore):
                         'mappingsql.tasters', False)
             if full_access == 1:
                 query = query.filter(sTiddler.taster=='Y')
+            if not branches:
+                query = query.filter(
+                        sTiddler.entity_type!='SLE').filter(
+                                sTiddler.entity_type!='BRA')
             access_count = query.count()
             logging.debug('access_count is: %s', access_count)
             self.environ['tiddlyweb.mappingsql.access_count'] = access_count

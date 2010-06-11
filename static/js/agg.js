@@ -2436,6 +2436,9 @@ $(document).ready(function() {
 	var q = window.location.search;
 	if(q) {
 		var params = parseQueryString(q);
+                if(params.branches) {
+                    $('#branches').attr('checked', true);
+                }
 		if(params.q) {
 			$('#company_search_box').val(params.q.join(" "));
 		}
