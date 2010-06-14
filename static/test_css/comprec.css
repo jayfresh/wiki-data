@@ -110,8 +110,8 @@ a.button:hover {
 	border: 1px solid #487C89;
 }
 
-.buttcontainer {text-align:right;width:925px;margin:10px 10px 20px 10px;}
-.buttcontainer span.left {text-align: left;}
+.buttcontainer {text-align:right;width:925px;margin:10px 10px 20px 0px;}
+.buttcontainer span.left {text-align: left; line-height: 1.2em;}
 .buttcontainer a.button {
 	line-height: 2.5em;
 }
