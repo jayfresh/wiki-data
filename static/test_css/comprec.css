@@ -111,6 +111,7 @@ a.button:hover {
 }
 
 .buttcontainer {text-align:right;width:925px;margin:10px 10px 20px 10px;}
+.buttcontainer span.left {text-align: left;}
 .buttcontainer a.button {
 	line-height: 2.5em;
 }
