@@ -15,7 +15,7 @@ var entity_name_map = {
 	"TP": "Ultimate Parent",
 	"LE": "Subsidiary",
 	"SLE": "Branch",
-	"DIV": "Division"
+	"BRA": "Branch"
 };
 var aoColumnsRenderMap = {
 	"registered_country": function(data) {

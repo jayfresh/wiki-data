@@ -2609,7 +2609,7 @@ $(document).ready(function() {
 			"TP": "Ultimate Parent",
 			"LE": "Subsidiary",
 			"SLE": "Branch",
-			"DIV": "Division"
+			"BRA": "Branch"
 		};
 		var entity_code = $('.entity_type').text();
 		if(entity_code) {
@@ -7407,7 +7407,7 @@ var entity_name_map = {
 	"TP": "Ultimate Parent",
 	"LE": "Subsidiary",
 	"SLE": "Branch",
-	"DIV": "Division"
+	"BRA": "Branch"
 };
 var aoColumnsRenderMap = {
 	"registered_country": function(data) {
