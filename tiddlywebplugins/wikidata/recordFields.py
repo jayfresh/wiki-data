@@ -5,7 +5,7 @@ recordFields = [
 ('avid', 'AVID', 'Avox identifier'),
 #('avox_match_status', 'Avox Match Status', 'Match, Enrich, Collide against Client data'),
 #('avox_entity_class', 'Avox Entity Class', 'Classification of entity. EG Corp, Bank etc.'),
-('avox_entity_type', 'Avox Entity Type', 'Type of entity within hierarchy, e.g. Ultimate Parent'),
+#('avox_entity_type', 'Avox Entity Type', 'Type of entity within hierarchy, e.g. Ultimate Parent'),
 #('record_source', 'Record Source', 'Source from which data was obtained (used in Avox audit trail) - free format text'),
 ('legal_name', 'Legal Name', 'Legal name as per the registration document'),
 ('previous_name_s_', 'Previous Name(s)', 'Previous legal names - Delimited by | if multiple values'),
