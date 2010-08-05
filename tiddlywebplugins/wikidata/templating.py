@@ -11,6 +11,8 @@ def common_vars(environ):
     """
     fields = getFields(environ)
     usersign = environ['tiddlyweb.usersign']
+    if not 'fields' in usersign:
+        usersign['fields'] = {'name': ''}
     captcha = process_captcha(environ)
     query = environ['tiddlyweb.query']
 
