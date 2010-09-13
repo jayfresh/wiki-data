@@ -20,6 +20,9 @@ EXTRACTDIR=${2:-/home/avox/wikidata/avoxjson-s/dataextracts}
 ## XXX not done!!!
 EXTRACTFILE=${1:?"filename required"}
 
+# if the file is not there exit
+[ -f $EXTRACTFILE ]
+
 # If this is a full file, delete all the existing entries.
 echo $EXTRACTFILE | grep 'wiki_full' && echo "delete from $DATATABLE;" \
     | mysql -u $DATAUSER $DATABASE
