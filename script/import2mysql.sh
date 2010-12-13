@@ -1,5 +1,6 @@
 #!/bin/sh -e
 # as root
+# get the data file from the remote server
 # copy in the data file to /var/lib/mysql/avox as avox.txt
 # then in /var/lib/mysql/avox run
 # mysqlimport -u avox -r --fields-terminated-by='~' avox avox.txt
@@ -14,14 +15,27 @@ DATAUSER=avox
 DATATABLE=avox
 DATAFILE=avox.txt
 DATADIR=/var/lib/mysql/avox
-EXTRACTDIR=${2:-/home/avox/wikidata/avoxjson-s/dataextracts}
+EXTRACTDIR=/home/avox/dataextracts
+
+## calculate date
+TODAY=`date +%Y%m%d`
 
 ## calculate extract
-## XXX not done!!!
-EXTRACTFILE=${1:?"filename required"}
+FULLEXTRACTFILE="wiki_full$TODAY.txt"
+DELTAEXTRACTFILE="wiki_delta$TODAY.txt"
+EXTRACTFILE="nofile$TODAY.txt"
+
+cd $EXTRACTDIR && 
+sftp wiki_mad_admin@193.29.79.42:$FULLEXTRACTFILE \
+	&& export EXTRACTFILE=$FULLEXTRACTFILE \
+|| sftp wiki_mad_admin@193.29.79.42:$DELTAEXTRACTFILE \
+	&& export EXTRACTFILE=$DELTAEXTRACTFILE 
 
 # if the file is not there exit
 [ -f $EXTRACTDIR/$EXTRACTFILE ]
+
+# set perms otherwise things go funkity
+chmod 644 $EXTRACTDIR/$EXTRACTFILE
 
 # If this is a full file, delete all the existing entries.
 echo $EXTRACTFILE | grep 'wiki_full' && echo "delete from $DATATABLE;" \
