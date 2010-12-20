@@ -21,15 +21,16 @@ EXTRACTDIR=/home/avox/dataextracts
 TODAY=`date +%Y%m%d`
 
 ## calculate extract
-FULLEXTRACTFILE="wiki_full$TODAY.txt"
+FULLSTUB="wiki_full$TODAY.txt"
+FULLEXTRACTFILE="${1:-$FULLSTUB}"
 DELTAEXTRACTFILE="wiki_delta$TODAY.txt"
 EXTRACTFILE="nofile$TODAY.txt"
 
-cd $EXTRACTDIR && 
-sftp wiki_mad_admin@193.29.79.42:$FULLEXTRACTFILE \
-	&& export EXTRACTFILE=$FULLEXTRACTFILE \
-|| sftp wiki_mad_admin@193.29.79.42:$DELTAEXTRACTFILE \
-	&& export EXTRACTFILE=$DELTAEXTRACTFILE 
+cd $EXTRACTDIR
+EXTRACTFILE=$( (sftp wiki_mad_admin@193.29.79.42:$FULLEXTRACTFILE \
+	&& echo $FULLEXTRACTFILE ) \
+|| (sftp wiki_mad_admin@193.29.79.42:$DELTAEXTRACTFILE \
+	&& echo $DELTAEXTRACTFILE ) )
 
 # if the file is not there exit
 [ -f $EXTRACTDIR/$EXTRACTFILE ]
