@@ -27,10 +27,10 @@ DELTAEXTRACTFILE="wiki_delta$TODAY.txt"
 EXTRACTFILE="nofile$TODAY.txt"
 
 cd $EXTRACTDIR
-EXTRACTFILE=$( (sftp wiki_mad_admin@193.29.79.42:$FULLEXTRACTFILE \
-	&& echo $FULLEXTRACTFILE ) \
-|| (sftp wiki_mad_admin@193.29.79.42:$DELTAEXTRACTFILE \
-	&& echo $DELTAEXTRACTFILE ) )
+EXTRACTFILE=$( (sftp wiki_mad_admin@193.29.79.42:$FULLEXTRACTFILE >/dev/null \
+	&& echo -n $FULLEXTRACTFILE)  \
+|| (sftp wiki_mad_admin@193.29.79.42:$DELTAEXTRACTFILE >/dev/null \
+	&& echo -n $DELTAEXTRACTFILE)  )
 
 # if the file is not there exit
 [ -f $EXTRACTDIR/$EXTRACTFILE ]
