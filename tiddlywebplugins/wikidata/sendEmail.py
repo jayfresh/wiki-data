@@ -7,7 +7,7 @@ def send(to, subject='', body='', from_='avox@wiki-data.com'):
     if isinstance(to, basestring):
         to = [to]
 
-    msg = MIMEText(body)
+    msg = MIMEText(body.encode('utf8', 'replace'), 'plain', 'utf8')
 
     msg['Subject'] = subject
 
