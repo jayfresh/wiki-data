@@ -66,3 +66,12 @@ def test_query_with_fields():
     assert len(tiddlers) == 3
 
     assert [tiddler.title for tiddler in tiddlers] == ['2241075', '2408280', '4140665']
+
+def test_query_with_index():
+    set_query_string('q=bank&avid=&adv_1_field=Operational+City&adv_1_value=London&adv_2_field=Operational+Country&adv_2_value=GBR&index=1')
+
+    tiddlers = list(store.search(''))
+
+    assert len(tiddlers) == 2
+
+    assert [tiddler.title for tiddler in tiddlers] == ['2408280', '4140665']
