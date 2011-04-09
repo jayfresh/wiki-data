@@ -13,6 +13,7 @@
 			<ol>
 				<li><a href="#search_request">Search request</a></li>
 				<li><ol>
+					<!--<li><a href="#authentication">Authentiction</a></li>-->
 					<li><a href="#jsonp_requests">JSONP requests</a></li>
 					<li><a href="#open_fields">Open fields</a></li>
 					<li><a href="#developer_fields">Private fields</a></li>
@@ -53,6 +54,25 @@
 					</tr>
 				</tbody>
 			</table>
+			<!--<a name="authentication"><h4>Authentication</h4></a>
+			<p>If you send authenticated API calls to challenge records, suggest new records or request more information on a record, you bypass the need to fill in a CAPTCHA each time you make the request. You can do this with either HTTP Basic Authentication or cookies. The authentication cookie is <code>tiddlyweb_user</code>.</p>
+			<p>Examples using the curl command-line tool:</p>
+			<pre><code>Using HTTP Basic Authentication
+
+curl -X GET -u <username>:<password> \
+  http://www.myavoxdata.com/bags/avox/tiddlers/16835057.json
+
+Using cookies
+
+1) First use curl to post a username and password to the
+login form's URL and store a cookie for it locally:
+curl --cookie-jar cookies.txt -d \
+  "username=<username>&password=<password>&submit=submit" \
+  http://www.myavoxdata.com/challenge/tiddlywebplugins.wikidata.loginform
+
+2) Pass the created cookie to subsequent API calls:
+curl --cookie cookies.txt -X GET \
+  http://www.myavoxdata.com/bags/avox/tiddlers/16835057.json</code></pre>-->
 			<a name="jsonp_requests"><h4>JSONP requests</h4></a>
 			<p>You can make cross-domain JSON search requests by specifying a <code>jsonp_callback</code> parameter in the query string. This wraps the returned data with a function call to whatever you choose as the value of the <code>jsonp_callback</code> parameter.</p>
 			<p>The API understands query string parameters delimited by either "&" or ";" characters, so both these requests are equivalent:</p>
