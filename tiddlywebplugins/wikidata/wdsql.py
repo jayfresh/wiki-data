@@ -91,8 +91,7 @@ class Store(MappingSQLStore):
             stiddlers = []
 
         bag_name = self.environ['tiddlyweb.config']['mappingsql.bag']
-        tiddlers =  (Tiddler(
-            unicode(getattr(stiddler, self.id_column)), bag_name)
-            for stiddler in stiddlers)
 
-        return tiddlers
+        for stiddler in stiddlers:
+            yield Tiddler(unicode(getattr(stiddler, self.id_column)),
+                bag_name)
