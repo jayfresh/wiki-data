@@ -72,6 +72,12 @@ CREATE TABLE IF NOT EXISTS avox (
 	ultimate_parent_notes VARCHAR(256),
 	general_notes VARCHAR(256),
 	taster CHAR(1),
-	PRIMARY KEY (avid)
+	PRIMARY KEY (avid),
+	KEY entity_type (entity_type),
+	KEY operational_city (operational_city),
+	KEY operational_country (operational_country),
+	KEY operational_postcode (operational_postcode),
+	KEY operational_state (operational_state),
+	KEY trading_status (trading_status)
 )
 CHARACTER SET utf8;
