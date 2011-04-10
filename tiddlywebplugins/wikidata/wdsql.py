@@ -10,6 +10,11 @@ from tiddlywebplugins.mappingsql import (
         Store as MappingSQLStore, query_dict_to_search_tuple,
         sTiddler, or_)
 
+from sqlalchemy.sql.expression import literal_column
+
+#logging.basicConfig()
+#logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+
 
 class Store(MappingSQLStore):
     """
@@ -48,8 +53,19 @@ class Store(MappingSQLStore):
         except KeyError:
             pass
 
+        # What version search are we doing?
+        try:
+            version = int(query.get('v', ['1'])[0])
+        except ValueError:
+            version = 1
+
         query_string, fields = query_dict_to_search_tuple(
                 self.environ.get('tiddlyweb.query', {}))
+        if version == 2:
+            if query_string.startswith('""'):
+                query_string = '"' + query_string.rstrip('"').lstrip('"') + '"'
+            else:
+                query_string = query_string.rstrip('"').lstrip('"')
 
         query = self.session.query(getattr(sTiddler, self.id_column))
         have_query = False
@@ -57,11 +73,17 @@ class Store(MappingSQLStore):
         if query_string:
             if self.environ['tiddlyweb.config'].get(
                     'mappingsql.full_text', False):
-                query = (query.filter(
-                        'MATCH(%s) AGAINST(:query in boolean mode)'
-                        % ','.join(self.environ['tiddlyweb.config']
-                            ['mappingsql.default_search_fields']))
-                        .params(query=query_string))
+                search_fields = ','.join((self.environ['tiddlyweb.config']
+                        ['mappingsql.default_search_fields']))
+                query = query.filter(
+                    "MATCH(%s) AGAINST('%s' in boolean mode)"
+                    % (search_fields, query_string))
+                if version == 2:
+                    expression = literal_column("((MATCH(%s) AGAINST('%s')) + "
+                        "(1.3 * MATCH(legal_name) AGAINST('%s')))"
+                        % (search_fields, query_string,
+                            query_string)).label('relevance')
+                    query = query.add_columns(expression).order_by('relevance desc')
             else:
                 # XXX: id and modifier fields are not guaranteed to be
                 # present. i.e. this code is wrong!

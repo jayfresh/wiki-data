@@ -27,6 +27,8 @@ def setup_module(module):
 
 def populate():
     os.system('mysql avox < dataextracts/miniwiki.dump')
+    os.system('echo "create fulltext index fx on avox(legal_name,previous_name_s_,trades_as_name_s_);" |mysql avox')
+    os.system('echo "create fulltext index ft on avox(legal_name);" |mysql avox')
 
 def set_query_string(string):
     environ['tiddlyweb.query'] = {}
@@ -75,3 +77,35 @@ def test_query_with_index():
     assert len(tiddlers) == 2
 
     assert [tiddler.title for tiddler in tiddlers] == ['2408280', '4140665']
+
+def test_relevance():
+    set_query_string('q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    names = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        names.append(tiddler.fields['legal_name'])
+
+    set_query_string('v=2;q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    rnames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        rnames.append(tiddler.fields['legal_name'])
+
+    assert names != rnames
+
+    set_query_string('v=2;q=%22australia+pty%22')
+
+    tiddlers = list(store.search(''))
+
+    qnames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        qnames.append(tiddler.fields['legal_name'])
+
+    assert rnames != qnames
