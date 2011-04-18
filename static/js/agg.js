@@ -2240,6 +2240,7 @@ $('a[href^="/search"]').each(function() {
 	var href = $(this).attr('href');
 	$(this).attr('href', href.replace("/search", "/pages/ajax_search"));
 });*/
+// TO-DO: if the branches parameter is missing, but there is a query, then uncheck the branches checkbox (which is checked by default)
 function parseQueryString(q) {
 	var params = {};
 	if(q.charAt(0)==="?") {
@@ -2261,6 +2262,7 @@ function parseQueryString(q) {
 	}
 	return params;
 }
+// TO-DO: see where this is used on redesign
 function redraw() { // IE6/7 position:relative elements not moving fix
 	if($.browser.msie) {
 		$('#columnPicker').css('display','none');
@@ -2419,11 +2421,13 @@ $(document).ready(function() {
 		DependentInputs.fields.push(pair[1]);
 	});
 	// set advanced search on a slider
-	$('#search .advanced').click(function() {
+	$('#searchBox button').click(function(e) {
+		e.preventDefault();
 		addAdvSearchLine();
 		return false;
 	});
-	$('#tableinfo .filter a').click(function() {
+	$('.tableinfo a.addFilter').click(function(e) {
+		e.preventDefault();
 		addAdvSearchLine();
 		return false;
 	});
@@ -2440,7 +2444,7 @@ $(document).ready(function() {
 			$('#branches').attr('checked', true);
 		}
 		if(params.q) {
-			$('#company_search_box').val(params.q.join(" "));
+			$('#query').val(params.q.join(" "));
 		}
 		for(var i in params) {
 			if(i.match(/adv_\d{1,2}_field/)) {
@@ -2501,6 +2505,7 @@ $(document).ready(function() {
 			$hiddenWhileRendering.css("visibility","visible");
 		}
 	}
+	// TO-DO: remove if the new design doesn't have any of the back buttons
 	if($('#backnav').length) {
 		$('#backnav').click(function() {
 			window.history.go(-1);
@@ -2531,6 +2536,7 @@ $(document).ready(function() {
 		});
 	}
 	// now show hidden things
+	// TO-DO: see whether the onlyjs things are even hidden
 	$('.onlyjs').css('visibility','visible');
 });
 /* to move tabs into a clickable tab interface */
@@ -4692,7 +4698,6 @@ $(document).ready(function() {
 					}
 					
 					$(oSettings.aoColumns[i].nTh).click( function (e) {
-						$('body').prepend('clicked header '); //JRL: debug
 						var iDataIndex;
 						/* Find which column we are sorting on - can't use index() due to colspan etc */
 						for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
@@ -7462,10 +7467,10 @@ $(document).ready(function() {
 		aoColumns.push(options);
 	}
 	aoColumns.push(
-		{ sClass: "center" }, // challenge
-		{ sClass: "center" }  // request more information
+		{ sClass: "center", bSortable: false }, // challenge
+		{ sClass: "center", bSortable: false }  // request more information
 	);
-	var $table = $('#recordsTable');
+	var $table = $('#resultsTable');
 	if($table.length!==0) {
 		options = {
 			bAutoWidth: false,
@@ -7498,59 +7503,59 @@ $(document).ready(function() {
 				}
 				oTable.fixedHeader.fnUpdate();
 			}
-			$('#table').css('visibility',"visible");
-			$.fn.dragColumns('#recordsTable');
+			function toggleColumn(col) {
+				if(columns[col].bVisible) {
+					oTable.fnSetColumnVis(col, false);
+				} else {
+					oTable.fnSetColumnVis(col, true);
+				}
+				oTable.fixedHeader.fnUpdate();
+			}
+			$('#table').css('visibility',"visible"); // TO-DO: see if the table is even hidden first
+			$.fn.dragColumns('#resultsTable');
 			oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
 			columns = oTable.fnSettings().aoColumns;
-			$('#recordsTable tfoot th').live("click",function() {
-				var i = $('#recordsTable tfoot th').index(this);
-				var head = $('#recordsTable thead th')[i];
+			/* there is no tfoot in the new design
+			$('#resultsTable tfoot th').live("click",function() {
+				var i = $('#resultsTable tfoot th').index(this);
+				var head = $('#resultsTable thead th')[i];
 				var title = head.innerHTML;
 				var titles = getTitles();
 				var pos = $.inArray(title, titles);
 				hideColumn(pos);
 				return false;
 			});
-			var $labels = $('#columnPicker span.label');
-			var $controls = $('#columnPicker span.controls');
+			*/
+			// TO-DO: rework this from here
+			/*
+				- update the list to check boxes for visible columns
+				- on change, make column in/visible
+			*/
+			var $labels = $('#columnPicker span.controls label');
+			var $controls = $('#columnPicker span.controls input');
 			var updateControlList = function() {
 				var titles = getTitles();
 				$labels.each(function(i) {
-					$(this).text(titles[i]);
+					// JRL debug - TO-DO: see if this is necessary $(this).text(titles[i]);
 				});
 				$controls.each(function(i) {
 					if(!columns[i].bVisible) {
-						$(this).addClass("invisible");
-						$(this).removeClass("visible");
+						$(this).attr("checked", "");
 					} else {
-						$(this).removeClass("invisible");
-						$(this).addClass("visible");
+						$(this).attr("checked", "checked");
 					}
 				});
 			};
-			$('#columnPicker .hideControl').click(function() {
-				var i = $('#columnPicker .hideControl').index(this);
+			updateControlList();
+			$controls.click(function() {
+				var i = $controls.index(this);
 				var label = $labels[i].innerHTML;
 				var titles = getTitles();
 				var pos = $.inArray(label, titles);
-				hideColumn(pos);
-				updateControlList();
-				return false;
+				toggleColumn(pos);
 			});
-			$('#columnPicker .showControl').click(function() {
-				var i = $('#columnPicker .showControl').index(this);
-				var label = $labels[i].innerHTML;
-				var titles = getTitles();
-				var pos = $.inArray(label, titles);
-				showColumn(pos);
-				updateControlList();
-				return false;
-			});
-			var colToggle = function() {
-				updateControlList();
-				$('#columnPicker #cols').toggle();
-			};
-			$('#pickerControl').click(colToggle);
+			// ...to here
+			
 			var getPagingLink = function(elem) {
 				var label = $(elem).text();
 				var direction = label==="next" ? 1 : -1;

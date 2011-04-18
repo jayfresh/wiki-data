@@ -70,10 +70,10 @@ $(document).ready(function() {
 		aoColumns.push(options);
 	}
 	aoColumns.push(
-		{ sClass: "center" }, // challenge
-		{ sClass: "center" }  // request more information
+		{ sClass: "center", bSortable: false }, // challenge
+		{ sClass: "center", bSortable: false }  // request more information
 	);
-	var $table = $('#recordsTable');
+	var $table = $('#resultsTable');
 	if($table.length!==0) {
 		options = {
 			bAutoWidth: false,
@@ -106,59 +106,59 @@ $(document).ready(function() {
 				}
 				oTable.fixedHeader.fnUpdate();
 			}
-			$('#table').css('visibility',"visible");
-			$.fn.dragColumns('#recordsTable');
+			function toggleColumn(col) {
+				if(columns[col].bVisible) {
+					oTable.fnSetColumnVis(col, false);
+				} else {
+					oTable.fnSetColumnVis(col, true);
+				}
+				oTable.fixedHeader.fnUpdate();
+			}
+			$('#table').css('visibility',"visible"); // TO-DO: see if the table is even hidden first
+			$.fn.dragColumns('#resultsTable');
 			oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
 			columns = oTable.fnSettings().aoColumns;
-			$('#recordsTable tfoot th').live("click",function() {
-				var i = $('#recordsTable tfoot th').index(this);
-				var head = $('#recordsTable thead th')[i];
+			/* there is no tfoot in the new design
+			$('#resultsTable tfoot th').live("click",function() {
+				var i = $('#resultsTable tfoot th').index(this);
+				var head = $('#resultsTable thead th')[i];
 				var title = head.innerHTML;
 				var titles = getTitles();
 				var pos = $.inArray(title, titles);
 				hideColumn(pos);
 				return false;
 			});
-			var $labels = $('#columnPicker span.label');
-			var $controls = $('#columnPicker span.controls');
+			*/
+			// TO-DO: rework this from here
+			/*
+				- update the list to check boxes for visible columns
+				- on change, make column in/visible
+			*/
+			var $labels = $('#columnPicker span.controls label');
+			var $controls = $('#columnPicker span.controls input');
 			var updateControlList = function() {
 				var titles = getTitles();
 				$labels.each(function(i) {
-					$(this).text(titles[i]);
+					// JRL debug - TO-DO: see if this is necessary $(this).text(titles[i]);
 				});
 				$controls.each(function(i) {
 					if(!columns[i].bVisible) {
-						$(this).addClass("invisible");
-						$(this).removeClass("visible");
+						$(this).attr("checked", "");
 					} else {
-						$(this).removeClass("invisible");
-						$(this).addClass("visible");
+						$(this).attr("checked", "checked");
 					}
 				});
 			};
-			$('#columnPicker .hideControl').click(function() {
-				var i = $('#columnPicker .hideControl').index(this);
+			updateControlList();
+			$controls.click(function() {
+				var i = $controls.index(this);
 				var label = $labels[i].innerHTML;
 				var titles = getTitles();
 				var pos = $.inArray(label, titles);
-				hideColumn(pos);
-				updateControlList();
-				return false;
+				toggleColumn(pos);
 			});
-			$('#columnPicker .showControl').click(function() {
-				var i = $('#columnPicker .showControl').index(this);
-				var label = $labels[i].innerHTML;
-				var titles = getTitles();
-				var pos = $.inArray(label, titles);
-				showColumn(pos);
-				updateControlList();
-				return false;
-			});
-			var colToggle = function() {
-				updateControlList();
-				$('#columnPicker #cols').toggle();
-			};
-			$('#pickerControl').click(colToggle);
+			// ...to here
+			
 			var getPagingLink = function(elem) {
 				var label = $(elem).text();
 				var direction = label==="next" ? 1 : -1;

@@ -5,6 +5,7 @@ $('a[href^="/search"]').each(function() {
 	var href = $(this).attr('href');
 	$(this).attr('href', href.replace("/search", "/pages/ajax_search"));
 });*/
+// TO-DO: if the branches parameter is missing, but there is a query, then uncheck the branches checkbox (which is checked by default)
 function parseQueryString(q) {
 	var params = {};
 	if(q.charAt(0)==="?") {
@@ -26,6 +27,7 @@ function parseQueryString(q) {
 	}
 	return params;
 }
+// TO-DO: see where this is used on redesign
 function redraw() { // IE6/7 position:relative elements not moving fix
 	if($.browser.msie) {
 		$('#columnPicker').css('display','none');
@@ -184,11 +186,13 @@ $(document).ready(function() {
 		DependentInputs.fields.push(pair[1]);
 	});
 	// set advanced search on a slider
-	$('#search .advanced').click(function() {
+	$('#searchBox button').click(function(e) {
+		e.preventDefault();
 		addAdvSearchLine();
 		return false;
 	});
-	$('#tableinfo .filter a').click(function() {
+	$('.tableinfo a.addFilter').click(function(e) {
+		e.preventDefault();
 		addAdvSearchLine();
 		return false;
 	});
@@ -205,7 +209,7 @@ $(document).ready(function() {
 			$('#branches').attr('checked', true);
 		}
 		if(params.q) {
-			$('#company_search_box').val(params.q.join(" "));
+			$('#query').val(params.q.join(" "));
 		}
 		for(var i in params) {
 			if(i.match(/adv_\d{1,2}_field/)) {
@@ -266,6 +270,7 @@ $(document).ready(function() {
 			$hiddenWhileRendering.css("visibility","visible");
 		}
 	}
+	// TO-DO: remove if the new design doesn't have any of the back buttons
 	if($('#backnav').length) {
 		$('#backnav').click(function() {
 			window.history.go(-1);
@@ -296,5 +301,6 @@ $(document).ready(function() {
 		});
 	}
 	// now show hidden things
+	// TO-DO: see whether the onlyjs things are even hidden
 	$('.onlyjs').css('visibility','visible');
 });

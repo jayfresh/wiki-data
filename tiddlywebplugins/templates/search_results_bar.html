@@ -5,7 +5,7 @@
 {% set count_to_end = resultcount - to %}
 <div class="tableinfo top grid12col">
 	{% if resultcount == 0 -%}
-	<span class="left">There are no results - try <a href="javascript:;">adding a filter</a> to include other fields in your search or <a href="/pages/suggest_new.html">register an entity</a></span>
+	<span class="left">There are no results - try <a href="#" class="addFilter">adding a filter</a> to include other fields in your search or <a href="/pages/suggest_new.html">register an entity</a></span>
 	{%- else -%}
 		<span id="pageDistance">{{pageDistance}}</span>
 		{%- if queryIndex == 0 -%}
@@ -17,7 +17,7 @@
 		There is 1 result
 		{%- else -%}
 		There are {{resultcount}} results, showing results {{from}} to {{to}}
-		{%- endif -%} - <a href="#">add a filter</a>?</span>
+		{%- endif -%} - <a href="#" class="addFilter">add a filter</a>?</span>
 		{%- if count_to_end == 0 -%}
 			<a href="#" class="right pagebutton inactive"><span></span>next</a>
 		{%- else -%}

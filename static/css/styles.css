@@ -278,7 +278,7 @@ a:hover {
 	float: left;
 }
 
-#searchBox #query, #searchBox #branches {
+#searchBox #query, #searchBox #branches, #advancedSearchContainer input {
 	border: 1px solid #D5D5D5;
     margin: 3px 0 10px 5px;
 }
@@ -325,6 +325,7 @@ a:hover {
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 3px;
+	float: right;
 }
 
 #testBorder {
@@ -333,6 +334,14 @@ a:hover {
 	border-top: 10px solid #F0F0F0;
 	border-left: 10px solid #FF6E42;
 	border-bottom: 10px solid #F0F0F0;
+	float: right;
+	clear: both;
+	margin-right: 15px;
+}
+
+.advSearchLineField, .advSearchLineValue {
+	width: 220px; /* .grid3col */
+	margin-right: 20px; /* .marginright */
 }
 
 /*=================================== Table */
@@ -478,7 +487,7 @@ a:hover {
 }
 
 
-table#resultsTable {
+table#resultsTable, table#resultsTable_Cloned {
 	font-size: 0.8em;
 	line-height: 1.2em;
 	width: 940px;
@@ -486,27 +495,31 @@ table#resultsTable {
 	margin-bottom: 5px;
 }
 
-table#resultsTable thead tr {
+table#resultsTable thead tr, table#resultsTable_Cloned thead tr {
 	background-color: #3c3c3c;
 	color: white;
 }
 
-table#resultsTable thead tr th {
+table#resultsTable thead tr th, table#resultsTable_Cloned thead tr th {
 	background-image: url(../images/table-header-arrow.gif);
 	background-repeat: no-repeat;
 	background-position: 6px 5px;
 	padding: 5px 5px 5px 15px;
 }
 
-table#resultsTable thead tr th.ascending {
+th.sorting_asc, th.sorting_desc, th.sorting {
+	cursor: pointer;
+}
+
+table#resultsTable thead tr th.sorting_asc, table#resultsTable_Cloned thead tr th.sorting_asc {
 	background-image: url(../images/table-header-arrow-up.gif);
 }
 
-table#resultsTable thead tr th.descending {
+table#resultsTable thead tr th.sorting_desc, table#resultsTable_Cloned thead tr th.sorting_desc {
 	background-image: url(../images/table-header-arrow-down.gif);
 }
 
-table#resultsTable thead tr th.noOrder {
+table#resultsTable thead tr th.noOrder, table#resultsTable_Cloned thead tr th.noOrder {
 	background-image:none;
 }
 
