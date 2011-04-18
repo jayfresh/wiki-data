@@ -5,15 +5,23 @@ for future expansion.
 
 import logging
 
-from tiddlywebplugins.mappingsql import (
-        Store as MappingSQLStore, query_dict_to_search_tuple,
-        sTiddler, NoResultFound, Tiddler)
-
 from tiddlyweb.model.policy import ForbiddenError, UserRequiredError
+from tiddlyweb.store import NoTiddlerError
+
+from tiddlywebplugins.wikidata.wdsql import (Store as MappingSQLStore,
+        sTiddler)
+
+from tiddlywebplugins.mappingsql import NoResultFound
+
 
 
 class Store(MappingSQLStore):
-    
+    """
+    A MAD specific subclass of the wdsql store. This provides
+    special query access as in wdsql, but also user level access
+    control in search and tiddler_get.
+    """
+
     def _determine_user_access(self):
         """
         For now we return true if the user is authenticated.
@@ -29,24 +37,24 @@ class Store(MappingSQLStore):
         if 'tier1' in current_user['roles']:
             return 1
         raise ForbiddenError('Tiered access required for this action.')
-    
+
     def tiddler_get(self, tiddler):
+        """
+        Get tiddlers with limited view on the fields.
+        """
         full_access = self._determine_user_access()
         open_fields = self.environ[
                 'tiddlyweb.config'].get(
                         'mappingsql.open_fields', [])
-        tasters = self.environ[
-                'tiddlyweb.config'].get(
-                        'mappingsql.tasters', False)
         self._validate_bag_name(tiddler.bag)
         try:
             if full_access == 1:
-                stiddler = self.session.query(sTiddler).filter(
-                        getattr(sTiddler, self.id_column)==tiddler.title).filter(
-                                sTiddler.taster=='Y').one()
+                stiddler = (self.session.query(sTiddler).filter(
+                    getattr(sTiddler, self.id_column) == tiddler.title)
+                    .filter(sTiddler.taster == 'Y').one())
             elif full_access == 2:
-                stiddler = self.session.query(sTiddler).filter(
-                        getattr(sTiddler, self.id_column)==tiddler.title).one()
+                stiddler = (self.session.query(sTiddler).filter(
+                    getattr(sTiddler, self.id_column) == tiddler.title).one())
             else:
                 raise ForbiddenError('incorrect user access')
         except NoResultFound, exc:
@@ -68,84 +76,39 @@ class Store(MappingSQLStore):
             tiddler.text = ''
         return tiddler
 
-    def search(self, search_query=''):
-        full_access = self._determine_user_access()
-        logging.debug('full_access: '+str(full_access))
-        open_fields = self.environ[
-                'tiddlyweb.config'].get(
-                        'mappingsql.open_fields', [])
+    def run_query(self, query, branches, full_access, slice_index):
+        """
+        Run the query, modified by access controls.
+        """
+        limit = self.environ['tiddlyweb.config'].get(
+                'mappingsql.limit', 50)
+        if not branches:
+            query = query.filter(
+                    sTiddler.entity_type != 'SLE').filter(
+                            sTiddler.entity_type != 'BRA')
+        count = query.count()
+        logging.debug('count is: %s', count)
+        self.environ['tiddlyweb.mappingsql.count'] = count
+        if full_access == 1:
+            query = query.filter(sTiddler.taster == 'Y')
+        access_count = query.count()
+        logging.debug('access_count is: %s', access_count)
+        self.environ['tiddlyweb.mappingsql.access_count'] = access_count
+        logging.debug('query is: %s', query)
+        return query.slice(slice_index, slice_index + limit).all()
 
-        query = self.environ.get('tiddlyweb.query', {})
-        try:
-            slice_index = int(query['index'][0])
-            del query['index']
-            self.environ['tiddlyweb.mappingsql.index'] = slice_index
-        except KeyError:
-            slice_index = 0
-
-        # Are we going to be searching branches?
-        try:
-            branches = query.get('branches', False)
-            del query['branches']
-        except KeyError:
-            pass
-
-        query_string, fields = query_dict_to_search_tuple(
-                self.environ.get('tiddlyweb.query', {}))
-
-        query = self.session.query(getattr(sTiddler, self.id_column))
+    def process_fields(self, query, fields, full_access):
+        """
+        Add to the query for fields on which we are searching.
+        """
+        open_fields = self.environ['tiddlyweb.config'].get(
+                'mappingsql.open_fields', [])
         have_query = False
-
-        if query_string:
-            if self.environ['tiddlyweb.config'].get('mappingsql.full_text', False):
-                query = query.filter(
-                                'MATCH(%s) AGAINST(:query in boolean mode)' %
-                                ','.join(
-                                    self.environ['tiddlyweb.config']
-                                    ['mappingsql.default_search_fields'])
-                                ).params(query=query_string)
-            else:
-                # XXX: id and modifier fields are not guaranteed to be
-                # present. i.e. this code is wrong!
-                query = query.filter(or_(
-                            sTiddler.id.like('%%%s%%' % query_string),
-                            sTiddler.modifier.like('%%%s%%' % query_string)))
-            have_query = True
-
         for field in fields:
             if open_fields and field not in open_fields:
                 continue
             terms = fields[field]
             # TODO: For now we only accept the first term provided
-            query = query.filter(getattr(sTiddler, field)==terms[0])
+            query = query.filter(getattr(sTiddler, field) == terms[0])
             have_query = True
-
-        count = 0
-        if have_query:
-            limit = self.environ['tiddlyweb.config'].get('mappingsql.limit', 50)
-            if not branches:
-                query = query.filter(
-                        sTiddler.entity_type!='SLE').filter(
-                                sTiddler.entity_type!='BRA')
-            count = query.count()
-            logging.debug('count is: %s', count)
-            self.environ['tiddlyweb.mappingsql.count'] = count
-            tasters = self.environ[
-                'tiddlyweb.config'].get(
-                        'mappingsql.tasters', False)
-            if full_access == 1:
-                query = query.filter(sTiddler.taster=='Y')
-            access_count = query.count()
-            logging.debug('access_count is: %s', access_count)
-            self.environ['tiddlyweb.mappingsql.access_count'] = access_count
-            logging.debug('query is: %s', query)
-            stiddlers = query.slice(slice_index, slice_index + limit).all()
-        else:
-            stiddlers = []
-
-        bag_name = self.environ['tiddlyweb.config']['mappingsql.bag']
-        tiddlers =  (Tiddler(
-            unicode(getattr(stiddler, self.id_column)), bag_name)
-            for stiddler in stiddlers)
-
-        return tiddlers
+        return query, have_query
