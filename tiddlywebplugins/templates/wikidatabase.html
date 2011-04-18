@@ -2,94 +2,110 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
+		<title>wiki-data.com, sponsored by Avox</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/common.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/suggest.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/static_pages.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/searchresult.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/columnPages.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/comprec.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/modal.css" />
-		<link rel="stylesheet" type="text/css" href="/static/test_css/sticky_footer.css" />
-		<!--[if lte IE 7]>
-		<link rel="stylesheet" type="text/css" href="/static/test_css/ie6or7common.css" />
-		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="/static/css/j-base.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/grid.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/stickyfooter.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/stepcarousel.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu:light,lightitalic,regular,italic,500,500italic,bold,bolditalic' rel='stylesheet' type='text/css' />
 		<!--[if IE 6]>
-		<link rel="stylesheet" type="text/css" href="/static/css/test_ie6common.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/ie6.css" />
 		<![endif]-->
-		<title>wiki-data.com, sponsored by Avox</title>
 		<script type="text/javascript">
-			document.documentElement.className = 'js';
+			document.documentElement.className = "js";
 		</script>
 	</head>
-	
 	<body>
-	
-		<div id="footwrap">
-		<a id="ribbon" class="imagereplace" href="http://www.myavoxdata.com" title="My Avox Data is an Avox product that allows you to subscribe to more information about the business entities on wiki-data.com">My Avox Data - an Avox product</a>
-		<!--<a id="ribbon" class="imagereplace" target="_blank" href="http://www.systemsinthecity.co.uk/awards2010.htm" title="At this year's Systems in the City Awards Ceremony, an event organised by Goodacre, Avox was presented with the Best Data Innovation Award for our wiki-data service.">Systems in the City - Best Data Innovation Award 2010</a>-->
-		<div id="main" class="clearfix">
-		{%- if usersign.name != "GUEST" -%}
-		<div id="backstage" class="loggedIn">
-			You are logged in as {{usersign.name}} |
-			{% if "ADMIN" in usersign.roles %}
-			<a href="/_admin/createuser">Register new account</a> |
-			{% endif %}
-			<a href="/logout">Logout</a>
-		{%- else -%}
-		<div id="backstage">
-				<a href="/challenge">Login</a>
-		{% endif -%}
-		</div>
-		<div id="header">
-			<div class="wrap clear">
-				<a class="grid1col left" href="/index.html">
-					<h1 class="imagereplace">wiki-data Beta - sponsored by Avox</h1>
-				</a>
-				<div id="navheader">
-					<a href="/pages/suggest_new.html" class="grid1col left">
-						<h2 id="suggestlogo" class="imagereplace">Register an Entity</h2>
-						<p class="small">Please add a company record to wiki-data!</p>
-					</a>
-					<a class="grid1col left" href="/index.html">
-						<h2 id="searchlogo" class="imagereplace">Search for a Record</h2>
-						<p class="small">If you would like to search for a company record, click here</p>
-					</a>
-					<!--<a href="/pages/api.html" class="grid1col left">
-						<h2 id="devlogo" class="imagereplace">For the Developer</h2>
-						<p class="small">Developer? Here's our API documentation</p>
-					</a>-->
-					<a href="/pages/about.html" class="grid1col left">
-						<h2 id="aboutlogo" class="imagereplace">About wiki-data</h2>
-						<p class="small">All questions relating to what exactly wiki-data is and what it does</p>
-					</a>
-				</div>
-				<div id="counter" class="small">
-					<span class="lightborder darkgreen norightborder">Currently Searching Through</span>
+		<div id="wrapper">
+			<div id="header">
+				<h1 id="logo">Wiki-Data beta</h1>
+				<ul class="left">
+					<li>
+						<a href="/">Search <span>for a record</span></a>
+					</li>
+					<li>
+						<a href="/pages/about.html">About <span>Wiki-Data</span></a>
+					</li>
+					<li>
+						<a href="/pages/suggest_new.html">Self-certification</a>
+					</li>
+					<li>
+						<a href="/pages/api.html">API</a>
+					</li>
+					<li>
+						{%- if usersign.name != "GUEST" -%}
+						<a href="/logout">Logout <span>{{usersign.name}}</span></a>
+							{% if "ADMIN" in usersign.roles %}
+					</li>
+					<li>
+						<a href="/_admin/createuser">Register new account</a>
+							{% endif %}
+						{%- else -%}
+						<a href="/challenge">Login</a>
+						{% endif -%}
+					</li>
+				</ul>
+				<p class="right marginright margintopsmall"><a href="http://avox.info" title="Avox website"><img src="images/avox_logo.png" alt="Avox logo" /></a></p>
+				<p class="right marginright subnav"><a href="/pages/partners">Partners</a> / <a href="/pages/terms_of_use">Terms of Use</a></p>
+				<div id="fruitmachine">
+					<span>Currently searching through</span>
 					{% include 'fruitmachine.html' %}
-					<span class="lightborder darkgreen noleftborder">Avox Records</span>
+					<span>Avox records</span>
 				</div>
 			</div>
-		</div>
-		<div class="contentbg">
+			<div class="jbasewrap" id="content">
 {% block body %}
 {% endblock %}
-		</div> <!-- contentbg -->
-		</div> <!-- main -->
-		</div> <!-- footwrap -->
-		<div id="footer" class="wrap clear caps small">
-			<ul class="left">
-				<li>&copy;&nbsp;<a href="http://avox.info" target="_blank">Avox</a> All Rights Reserved</li>
-			</ul>
-			<ul class="right">
-				<li>Found a bug? Please <a href="mailto:support@wiki-data.com">email us</a></li>
-				<li><a href="/pages/api.html">API</a></li>
-				<li><a href="/pages/terms_of_use">Terms of use</a></li>
-				<li><a href="/pages/partners">Partners</a></li>
-				<li><a href="http://wikidata.uservoice.com">New ideas</a></li>
-			</ul>
-		</div>
+			</div><!-- #content -->
+		</div><!-- #wrapper -->
+		<div class="footer">
+			<div class="jbasewrap">
+				<div class="margintop">
+		            <img src="images/wiki-data-logo.png" alt="Wiki-Data logo" />
+		            <p class="grid3col">An open, extensible, linkable repository of company information.</p>
+		        </div>
+	            <div>
+	            	<div class="left grid3col marginright">
+		            	<a href="http://avox.info" title="Avox website"><img src="images/avox_logo.png" alt="Avox - a DTCC company" /></a>
+		            	&copy;&nbsp;<a href="http://avox.info" target="_blank">Avox</a> All Rights Reserved
+	            	</div>
+	            	<div class="left grid3col marginright">
+		            	<h4>About</h4>
+		            	<ul>
+		            		<li><a href="/pages/about.html">Wiki-Data</a></li>
+		            		<li><a href="/pages/about.html#philosophy">Philosophy</a></li>
+		            		<li><a href="/pages/about.html#feedback">Feedback from our community</a></li>
+		            		<li><a href="/pages/about.html#avox">Avox Limited</a></li>
+		            	</ul>
+	            	</div>
+	            	<div class="left grid3col marginright">
+		            	<h4>Information</h4>
+		            	<ul>
+		            		<li><a href="/pages/api.html">API</a></li>
+		            		<li><a href="/pages/partners">Partners</a></li>
+							<li><a href="http://wikidata.uservoice.com">New Ideas</a></li>
+							<li><a href="/pages/terms_of_use">Terms of Use</a></li>
+		            	</ul>
+		            </div>
+		            <div class="left grid3col">
+		            	<h4>Contact</h4>
+			            <ul>
+			            	<li><a href="mailto:wiki-data@avox.info">Email Us</a></li>
+				            <li><a href="mailto:support@wiki-data.com">Found a Bug?</a></li>
+				            <li><a href="http://avox.info">Avox Website</a></li>
+				            {%- if usersign.name != "GUEST" -%}
+							<li><a href="/logout">Logout <span>{{usersign.name}}</span></a></li>
+							{%- else -%}
+							<li><a href="/challenge">Login</a></li>
+							{% endif -%}
+			            </ul>
+		            </div>
+	            </div>
+			</div>
+        </div>
 		<script type="text/javascript" src="/lib/fields.js"></script>
 		<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
 		<script type="text/javascript" src="/static/js/agg.js"></script>

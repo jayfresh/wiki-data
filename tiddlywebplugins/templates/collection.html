@@ -1,60 +1,50 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
 {% set fields = commonVars.fields %}
-<div id="pagenav">
-	<ul>
-		<li><a href="/index.html" class="lightborder darkgreen caps">Home</a></li>
-		<li><a href="#" class="lightborder darkgreen caps onlyjs" id="backnav">Back</a></li>
-	</ul>
-</div>
-
-<div id="searchtitle" class="darkgreen">
-	<div class="wrap">
-		<h2>Search Option</h2>
-		<span> - Add company name or unique AVID number to search for a business</span>
+<div class="grid12col container">
+	<div class="grid4col marginright left">
+		<h2>Your Search Results</h2>
+		<p class="nomargin">Use the form on the right to refine your results further or make a new search.</p>
 	</div>
-</div>
-<div id="content">
 	{% include 'search.html' %}
-	<div id="table" class="wrap">
-		{% include 'search_results_bar.html' %}
-		<table id="recordsTable" class="draggable forget-ordering">
-			<thead>
-				<tr>
-				{% for field, label, tooltip in fields %}
-					<th title="{{tooltip}}">{{label}}</th>
-				{% endfor %}
-					<th>Challenge</th>
-					<th>Request More Info</th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-				{% for field, label, tooltip in fields %}
-					<th><a href="javascript:;">hide</a></th>
-				{% endfor %}
-					<th><a href="javascript:;">hide</a></th>
-					<th><a href="javascript:;">hide</a></th>
-				</tr>
-			</tfoot>
-			<tbody>
-			{% for tiddler in tiddlers %}
-				<tr>
-				{% for field, label, tooltip in fields %}
-					{% if field == 'avid' %}
-					<td><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.title}}</a></td>
-					{% elif field == 'company_website' %}
-					<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
-					{% else %}
-					<td>{{tiddler.fields[field]}}</td>
-					{% endif %}
-				{% endfor %}
-					<td><a href="/bags/avox/tiddlers/{{ tiddler.title }}.challenge">go</a></td>
-					<td><a href="/bags/avox/tiddlers/{{ tiddler.title }}.request">go</a></td>
-				</tr>
-			{% endfor %}
-			</tbody>
-		</table>
-	</div>
 </div>
+{% include 'search_results_bar.html' %}
+<table id="resultsTable" class="draggable forget-ordering">
+	<thead>
+		<tr>
+		<!-- TO-DO: add class="descending|ascending" to th elements -->
+		{% for field, label, tooltip in fields %}
+			<th title="{{tooltip}}">{{label}}</th>
+		{% endfor %}
+			<th class="noOrder" title="Challenge this record">Challenge</th>
+			<th class="noOrder" title="Request more fields for this record">Request More Info</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for tiddler in tiddlers %}
+		<!-- TO-DO: make sure even rows get the 'even' class -->
+		<tr>
+		{% for field, label, tooltip in fields %}
+			<!-- TO-DO: use '-' instead of blank for empty fields -->
+			{% if field == 'avid' %}
+			<td class="entityName"><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.title}}</a></td>
+			{% elif field == 'company_website' %}
+			<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
+			{% else %}
+			<td>{{tiddler.fields[field]}}</td>
+			{% endif %}
+		{% endfor %}
+			<td><a class="pointed" href="/bags/avox/tiddlers/{{ tiddler.title }}.challenge"><span></span>Go</a></td>
+			<td><a class="pointed" href="/bags/avox/tiddlers/{{ tiddler.title }}.request"><span></span>Go</a></td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+<div class="tableinfo grid12col">
+	<!-- TO-DO: give these the correct identifiers so JS works -->
+	<a href="#" class="left"><span></span>prev</a>
+	<a href="#" class="right"><span></span>next</a>
+</div>
+<br class="clearboth" />
+<div class="push"></div>
 {% endblock %}

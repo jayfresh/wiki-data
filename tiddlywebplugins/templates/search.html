@@ -1,18 +1,31 @@
-<div class="wrap">
-	<form id="search" action="/search" method="GET">
-		<label for="company_search_box">Company Name</label>
-		<input type="text" name="q" id="company_search_box" />
-		<span>OR</span>
-		<label for="avid_search_box">AVID</label>
-		<input type="text" name="avid" id="avid_search_box" />
-		<label for="branches">include branches</label><input type="checkbox" id="branches" name="branches" />
-		<input type="submit" class="darkgreen lightborder whitetext caps" value="Search" />
-		<span class="onlyjs">
-			<!--<input type="button" class="darkgreen lightborder whitetext caps advanced" value="+" onclick="return false;" />-->
-			<a href="#" class="advanced">add filter to include more fields?</a>
+<form id="searchBox" class="grid8col lightbg left" action="/search" method="get">
+	<label for="query" class="grid3col marginright">Company Name / AVID</label>
+	<input id="query" name="q" type="text" class="grid3col" />
+	<span class="help">
+		<span class="heading"><span></span>Search Terms</span>
+		<span class="helpText">Type here to search by AVID, Legal Name, Previous Name(s) and Trades As Name(s)</span>
+	</span>
+	<label for="branches" class="small grid1col">Include branches</label>
+	<input id="branches" name="branches" type="checkbox" checked="checked" />
+	<span class="help">
+		<span class="heading"><span></span>Branches</span>
+		<span class="helpText">Check this box to include company branches in your search</span>
+	</span>
+	<!-- TO-DO: check that this div doesn't mess up the layout -->
+	<div class="onlyjs">
+		<span class="grid3col marginright">Add a Filter</span>
+		<span class="grid3col">
+			<button>+</button>
+			<span class="help">
+				<span class="heading"><span></span>Filters</span>
+				<span class="helpText">Click here to filter search results by different add fields, such as Entity Type and Operational Country</span>
+			</span>
 		</span>
+		<input type="submit" id="submitButton" value="Search Wiki-Data" /><span id="testBorder"></span>
+		<!-- TO-DO: check that this looks correct -->
 		<div id="advancedSearchContainer">
 			<div id="advancedSearchLines"></div>
 		</div>
-	</form>
-</div>
+	</div>
+</form>
+

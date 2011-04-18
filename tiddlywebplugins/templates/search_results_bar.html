@@ -1,44 +1,39 @@
-{% set count = tiddlers|count %}
+{# set count = tiddlers|count #}
+{% set count = 50 %}
 {% set from = queryIndex+1 %}
 {% set to = queryIndex+count %}
 {% set count_to_end = resultcount - to %}
-<div id="tableinfo">
-	<div id="columnPicker" class="onlyjs">
-		<button class="darkgreen whitetext lightborder caps right" id="pickerControl">Hide/Show Columns</button>
-		<div id="cols">
+<div class="tableinfo top grid12col">
+	{% if resultcount == 0 -%}
+	<span class="left">There are no results - try <a href="javascript:;">adding a filter</a> to include other fields in your search or <a href="/pages/suggest_new.html">register an entity</a></span>
+	{%- else -%}
+		<span id="pageDistance">{{pageDistance}}</span>
+		{%- if queryIndex == 0 -%}
+			<a href="#" class="left pagebutton inactive"><span></span>prev</a>
+		{%- else -%}
+			<a href="#" class="left pagebutton"><span></span>prev</a>
+		{%- endif -%}
+		<span class="left">{% if resultcount == 1 -%}
+		There is 1 result
+		{%- else -%}
+		There are {{resultcount}} results, showing results {{from}} to {{to}}
+		{%- endif -%} - <a href="#">add a filter</a>?</span>
+		{%- if count_to_end == 0 -%}
+			<a href="#" class="right pagebutton inactive"><span></span>next</a>
+		{%- else -%}
+			<a href="#" class="right pagebutton"><span></span>next</a>			
+		{%- endif -%}
+	{%- endif %}
+	<div id="columnPicker" class="right onlyjs">
+		<button id="pickerControl">Hide/Show Columns</button>
+		<div class="columns">
 			{% for field, label, tooltip in fields %}
-			<div class="columns">
-				<span class="controls">
-					<span class="hideControl">hide</span>|<span class="showControl">show</span>
-				</span>
-				<span class="label">{{label}}</span>
-			</div>
+			<span class="controls">
+				<label for="{{field}}">{{label}}</label>
+				<input id="{{field}}" type="checkbox" />
+			</span>
 			{% endfor %}
 		</div>
 	</div>
-	<p class="darktext" id="results_count">
-	{% if resultcount == 0 -%}
-	There are no results - try <span class="filter"><a href="javascript:;">adding a filter</a></span> to include other fields in your search or <a href="/pages/suggest_new">register an entity</a>
-	{%- else -%}
-		{% if resultcount == 1 %}
-			There is 1 result
-		{%- else -%}
-			There are {{resultcount}} results, showing results {{from}} to {{to}}
-		{%- endif %}
-		 - <span class="filter"><a href="#">add a filter</a>? </span>
-		<span id="pageDistance">{{pageDistance}}</span>
-		{%- if queryIndex == 0 -%}
-			<span class="pagebutton inactive">prev</span>
-		{%- else -%}
-			<a href="#" class="pagebutton">prev</a>
-		{%- endif -%}
-		<span class="divider">|</span>
-		{%- if count_to_end == 0 -%}
-			<span class="pagebutton inactive">next</span>
-		{%- else -%}
-			<a href="#" class="pagebutton">next</a>				
-		{%- endif -%}
-	{%- endif %}
-	</p>
-	<br class="clearboth" />
+	<br class="clear" />
 </div>
