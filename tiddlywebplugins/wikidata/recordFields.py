@@ -56,7 +56,7 @@ recordFields = [
 ('registered_street_3', 'Registered Street 3', 'Registered address information'),
 ('registered_city', 'Registered City', 'Registered address information'), # "Registered City" previously, changed for consistency
 ('registered_state', 'Registered State', 'Registered State, Province, Region or Territory'),
-('registered_country', 'Registered Country', 'ISO country code'),
+('registered_country', 'Country of Incorporation', 'ISO country code'),
 ('registered_postcode', 'Registered Postcode', 'Registered address information'),
 #('registered_address_notes', 'Registered Address Notes', 'Analyst notes about the registered address'),
 ('naics_code', 'NAICS Code', 'North American Industry Classification System code'),

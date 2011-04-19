@@ -7422,9 +7422,12 @@ var aoColumnsRenderMap = {
 };
 $(document).ready(function() {
 	// set up records table
-	var aoColumns = [];
-	var field, options;
-	for(var i=0, il=recordFields.length; i<il; i++) {
+	var aoColumns = [],
+		field,
+		options,
+		i,
+		il;
+	for(i=0, il=recordFields.length; i<il; i++) {
 		field = recordFields[i][0];
 		options = {};
 		if($.inArray(field,defaultView)===-1) {
@@ -7498,18 +7501,10 @@ $(document).ready(function() {
 				return false;
 			});
 			*/
-			// TO-DO: rework this from here
-			/*
-				- update the list to check boxes for visible columns
-				- on change, make column in/visible
-			*/
 			var $labels = $('#columnPicker span.controls label');
 			var $controls = $('#columnPicker span.controls input');
 			var updateControlList = function() {
 				var titles = getTitles();
-				$labels.each(function(i) {
-					// JRL debug - TO-DO: see if this is necessary $(this).text(titles[i]);
-				});
 				$controls.each(function(i) {
 					if(!columns[i].bVisible) {
 						$(this).attr("checked", "");
@@ -7526,7 +7521,6 @@ $(document).ready(function() {
 				var pos = $.inArray(label, titles);
 				toggleColumn(pos);
 			});
-			// ...to here
 			
 			var getPagingLink = function(elem) {
 				var label = $(elem).text();

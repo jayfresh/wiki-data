@@ -22,7 +22,7 @@
 	('registered_street_3', 'Registered Street 3'),
 	('registered_city', 'Registered City'),
 	('regstered_state', 'Registered State'),
-	('registered_country', 'Registered Country'),
+	('registered_country', 'Country of Incorporation'),
 	('registered_postcode', 'Registered Postcode'),
 	('registration_number__jurisdiction_', 'Registration Number (Jurisdiction)')
 ] %}
@@ -93,7 +93,7 @@
 								<option value="Ultimate Parent">Ultimate Parent</option>
 							</select></td>
 							{% elif field == 'registered_country' %}
-							<td><label for="{{field}}">Registered Country</label></td>
+							<td><label for="{{field}}">Country of Incorporation</label></td>
 							<td><input type="text" size="35" name="{{field}}" /></td>
 							{% else %}
 							<td><label for="{{field}}">{{label}}</label></td>

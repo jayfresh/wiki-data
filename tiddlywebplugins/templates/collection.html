@@ -27,7 +27,9 @@
 		{% for field, label, tooltip in fields %}
 			<!-- TO-DO: use '-' instead of blank for empty fields -->
 			{% if field == 'avid' %}
-			<td class="entityName"><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.title}}</a></td>
+			<td><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.title}}</a></td>
+			{% elif field == 'legal_name' %}
+			<td class="entityName">{{tiddler.fields[field]}}</td>
 			{% elif field == 'company_website' %}
 			<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
 			{% else %}
