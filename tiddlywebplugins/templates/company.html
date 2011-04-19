@@ -1,224 +1,127 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
-<div id="pagenav">
-	<ul>
-		<li><a href="/index.html" class="lightborder darkgreen caps">Home</a></li>
-		<li><a href="#" class="lightborder darkgreen caps onlyjs" id="backnav">Back</a></li>
-	</ul>
-</div>
-
-<div id="searchtitle" class="darkgreen">
-	<div class="wrap">
-		<h2>Company record</h2>
-		<span> - Your chosen company's records can be found below</span>
+<div class="grid12col container">
+	<div class="grid4col marginright left pageLinks notFixed">
+		<h2>Company Record</h2>
+		<p class="nomargin">Find your company data to the right. You can use the links below to request more information, challenge the data, or go back to the search page.</p>
+		<ul>
+			<li><a href="{{ tiddler.title }}.request">Request more information<span></span></a></li>
+			<li><a href="{{ tiddler.title }}.challenge">Challenge data<span></span></a></li>
+			<li><a href="/" id="backToSearch">Back to Search<span></span></a></li>
+		</ul>
 	</div>
-</div>
-
-<div id='recordcontainer' class='wrap hide'>
-	<div class='buttcontainer'>
-		<span class="left"><strong>{{ tiddler.fields.legal_name }}</strong><br/>AVID: {{ tiddler.title}}</span>
-		<a href='{{ tiddler.title }}.challenge' class='button'>
-		Challenge Information
-		</a>
-					
-		<a href='{{ tiddler.title }}.request' class='button'>
-		Request More Information
-		</a>
-	</div>
-	<div id='tabscontainer'>
-		<div class='record'>
-			<div class='tab short'>
-				<h3>Entity Name</h3>				
-			</div>
-			<div class='entitycontent'>
-				<table>
-					<tbody>
-						{% if tiddler.fields.legal_name -%}
-						<tr>
-							<td class='labelwidth'>
-								<label>Legal Name:</label>
-							</td>
-							<td>
-								<span>{{ tiddler.fields.legal_name }}</span>
-							</td>
-						</tr>
-						{%- endif %}
-						<tr>
-							<td class='labelwidth'>
-								<label>AVID:</label>
-							</td>
-							<td>
-								<span>{{ tiddler.title }}</span>
-							</td>
-						</tr>
-						{% if tiddler.fields['previous_name_s_'] -%}
-						<tr>
-							<td class='labelwidth'>
-								<label>Previous Name(s):</label>
-							</td>
-							<td>
-								<span>{{ tiddler.fields['previous_name_s_'] }}</span>
-							</td>
-						</tr>
-						{%- endif %}
-						{% if tiddler.fields['trades_as_name_s_'] -%}
-						<tr>
-							<td class='labelwidth'>
-								<label>Trades As Name(s):</label>
-							</td>
-							<td>
-								<span>{{ tiddler.fields['trades_as_name_s_'] }}</span>
-							</td>
-						</tr>
-						{%- endif %}
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<div class='record'>
-			<div class='tab'>
-				<h3>Entity Information</h3>				
-			</div>
-			<div class='entitycontent'>
-				<table>
-					<tbody>
-						{% if tiddler.fields.trading_status -%}
-						<tr>
-							<td class='labelwidth'>
-								<label>Trading Status:</label>
-							</td>
-							<td>
-								<span>{{ tiddler.fields.trading_status }}</span>
-							</td>
-						</tr>
-						{%- endif %}
-						{% if tiddler.fields.company_website -%}
-						<tr>
-							<td class='labelwidth'>
-								<label>Company Website:</label>
-							</td>
-							<td>
-								<span><a href='http://{{ tiddler.fields.company_website }}'>{{ tiddler.fields.company_website }}</a></span>
-							</td>
-						</tr>
-						{%- endif %}
-					</tbody>
-				</table>
-			</div>
-		</div>
+	<div class="grid8col right pageContent companyRecord">
+		<h3>{{ tiddler.fields.legal_name }}</h3>
 		
-		{% if tiddler.fields.operational_po_box or tiddler.fields.operational_floor or tiddler.fields.operational_building or tiddler.fields.operational_street_1 or tiddler.fields.operational_street_2 or tiddler.fields.operational_street_3 or tiddler.fields.operational_city or tiddler.fields.operational_state or tiddler.fields.operational_country or tiddler.fields.operational_postcode %}
-		<div class='record'>
-			<div class='tab'>
-				<h3>Operational Address</h3>				
-			</div>
-			<div class='entitycontent' id="op_address_div">
-				<div class="adr">
-					{% if tiddler.fields.operational_po_box %}
-					<div class="post-office-box">
-						{{ tiddler.fields.operational_po_box }}
-					</div>
-					{% endif %}
-					{% if tiddler.fields.operational_floor or tiddler.fields.operational_building %}
-					<div class="extended-address">
-						{% if tiddler.fields.operational_floor %}{{ tiddler.fields.operational_floor }} {% endif %}{% if tiddler.fields.operational_building %}{{ tiddler.fields.operational_building }}{% endif %}
-					</div>
-					{% endif %}
-					<div class="street-address">
-						{% if tiddler.fields.operational_street_1 %}{{ tiddler.fields.operational_street_1 }}{%if tiddler.fields.operational_street_1 or tiddler.fields.operational_street_2%},{%endif%} {% endif -%}
-						{% if tiddler.fields.operational_street_2 %}{{ tiddler.fields.operational_street_2 }}{%if tiddler.fields.operational_street_3%},{%endif%} {% endif -%}
-						{% if tiddler.fields.operational_street_3 %}{{ tiddler.fields.operational_street_3 }}{% endif %}
-					</div>
-					<div>
-						{% if tiddler.fields.operational_city -%}
-						<span class="locality">{{ tiddler.fields.operational_city }}</span>
-							{%-if tiddler.fields.operational_state or tiddler.fields.operational_country-%}, {%endif-%}
-						{%- endif -%}
-						{%- if tiddler.fields.operational_state -%}
-						<span class="region operational_state">{{ tiddler.fields.operational_state }}</span>
-							{%- if tiddler.fields.operational_country-%}, {%endif-%}
-						{%- endif -%}
-						{%- if tiddler.fields.operational_country -%}
-						<span class="country-name operational_country">{{ tiddler.fields.operational_country }}</span>
-						{%- endif %}
-					</div>
-					<div>
-						{% if tiddler.fields.operational_postcode %}
-						<span class="postal-code">{{ tiddler.fields.operational_postcode }}</span>
+		<div class="grid4col left">
+			<div class="equalise1 borderbottom">
+				<h5>Entity Name</h5>
+				<table class="companyRecord">
+					<tbody>
+						<tr>
+							<td class="field">Legal Name:</td>
+							<td>{{ tiddler.fields.legal_name }}</td>
+						</tr>
+						<tr>
+							<td class="field">AVID:</td>
+							<td>{{ tiddler.title}}</td>
+						</tr>
+						{% if tiddler.fields['previous_name_s_'] %}
+						<tr>
+							<td class="field">Previous Name(s):</td>
+							<td>{{ tiddler.fields['previous_name_s_'] }}</td>
+						</tr>
 						{% endif %}
-					</div>
-				</div>
-				<script type="text/javascript">
-					window.gMaps = {
-						apiKey: "{{ maps_api_key }}",
-						op_company: "{{ tiddler.fields.legal_name }}",
-						op_address: "" // this gets set by another function
-					};
-				</script>
-				<div id="operational_map" class='map' style="width:690px; height:400px"></div>
-			</div>
-		</div>
-		{% endif %}
-		{% if tiddler.fields['registered_country'] %}
-		<div class='record'>
-			<div class='tab'>
-				<h3>Registered Location</h3>				
-			</div>
-			<div class='entitycontent'>
-				<table>
-					<tbody>
+						{% if tiddler.fields['trades_as_name_s_'] %}
 						<tr>
-							<td class='labelwidth'>
-								<label>Country:</label>
-							</td>
-							<td>
-								<span class="registered_country">{{ tiddler.fields['registered_country'] }}</span>
-							</td>
+							<td class="field">Trades As Name(s):</td>
+							<td>{{ tiddler.fields['trades_as_name_s_'] }}</td>
 						</tr>
+						{% endif %}
 					</tbody>
 				</table>
 			</div>
+			<h5>Entity Information</h5>
+			<table class="companyRecord">
+				<tbody>
+					<tr>
+						<td class="field">Trading Status:</td>
+						<td>{{ tiddler.fields.trading_status }}</td>
+					</tr>
+					{% if tiddler.fields.company_website %}
+					<tr>
+						<td class="field">Company website:</td>
+						<td><a href="{{ tiddler.fields.company_website }}">{{ tiddler.fields.company_website }}</a></td>
+					</tr>
+					{% endif %}
+				</tbody>
+			</table>
 		</div>
-		{% endif %}
+		<div class="grid4col left marginleft">
+			<div class="equalise1 borderbottom">
+				<h5>Location Information</h5>
+				<table class="companyRecord">
+					<tbody>
+						<tr>
+							<td class="field">Operational Address:
+								<a href="#" target="_blank" class="viewmap onlyjs">View Map ></a>
+							</td>
+							<td class="adr">
+								{% if tiddler.fields.operational_po_box %}
+									{{ tiddler.fields.operational_po_box }}
+								{% endif %}
+								{% if tiddler.fields.operational_floor or tiddler.fields.operational_building %}
+									<span class="extended-address">{% if tiddler.fields.operational_floor %}{{ tiddler.fields.operational_floor }} {% endif %}{% if tiddler.fields.operational_building %}{{ tiddler.fields.operational_building }}{% endif %}</span>
+								{% endif %}
+								<span class="street-address">
+								{%- if tiddler.fields.operational_street_1 -%}
+									{{ tiddler.fields.operational_street_1 }}
+									{%- if tiddler.fields.operational_street_2 %}, {{ tiddler.fields.operational_street_2 }}
+										{%- if tiddler.fields.operational_street_3 %}, {{ tiddler.fields.operational_street_3 }}
+										{%- endif -%}
+									{%- endif -%}
+								{%- endif -%}
+								</span>
+								{% if tiddler.fields.operational_city -%}
+									<span class="locality">{{ tiddler.fields.operational_city }}</span>
+									{%-if tiddler.fields.operational_state or tiddler.fields.operational_country-%}, {%endif-%}
+								{%- endif -%}
+								{%- if tiddler.fields.operational_state -%}
+									<span class="region operational_state">{{ tiddler.fields.operational_state }}</span>
+									{%- if tiddler.fields.operational_country-%}, {%endif-%}
+								{%- endif -%}
+								{%- if tiddler.fields.operational_country -%}
+									<span class="country-name operational_country">{{ tiddler.fields.operational_country }}</span>
+								{%- endif %}
+								{% if tiddler.fields.operational_postcode %}
+									<span class="postal-code">{{ tiddler.fields.operational_postcode }}</span>
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td class="field">Registered Country:</td>
+							<td class="registered_country">{{ tiddler.fields['registered_country'] }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+			<h5>Heirarchy Information</h5>
+			<table class="companyRecord">
+				<tbody>
+					<tr>
+						<td class="field">Entity Type:</td>
+						<td class="entity_type">{{ tiddler.fields['entity_type'] }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
-		<div class='record'>
-			<div class='tab'>
-				<h3>Hierarchy Information</h3>				
-			</div>
-			<div class='entitycontent'>
-				<table>
-					<tbody>
-						{% if tiddler.fields['entity_type'] -%}
-						<tr>
-							<td class='labelwidth'>
-								<label>Entity Type:</label>
-							</td>
-							<td>
-								<span class="entity_type">{{ tiddler.fields['entity_type'] }}</span>
-							</td>
-						</tr>
-						{%- endif %}
-					</tbody>
-				</table>
-			</div>
-		</div>
-		
-		<!--<div class='record'>
-			<div class='tab '>
-				<h3>Registered Address</h3>				
-			</div>
-			<div class='entitycontent'>
-				<div>United States</div>
-				<div id="registered_map"></div>
-			</div>
-		</div>-->
-	</div>
-	<div class="alt-buttons small">
-		<span class="label">other formats:&nbsp;</span>
-		<a href="{{ tiddler.title }}.json">json</a> |
-		<a href="{{ tiddler.title }}.txt">text</a>
-		<!--<a href="{{ tiddler.title }}.edit">edit</a>-->
-	</div>
+<div class="alt-buttons small">
+	<span class="label">other formats:&nbsp;</span>
+	<a href="{{ tiddler.title }}.json">json</a> |
+	<a href="{{ tiddler.title }}.txt">text</a>
+	<!--<a href="{{ tiddler.title }}.edit">edit</a>-->
 </div>
 {% endblock %}

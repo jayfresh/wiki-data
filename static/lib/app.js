@@ -270,13 +270,6 @@ $(document).ready(function() {
 			$hiddenWhileRendering.css("visibility","visible");
 		}
 	}
-	// TO-DO: remove if the new design doesn't have any of the back buttons
-	if($('#backnav').length) {
-		$('#backnav').click(function() {
-			window.history.go(-1);
-			return false;
-		});
-	}
 	if($('#registerform').length) {
 		/* JRL: in search of a way to remove the company field error when independent checkbox is toggled
 		var onclick_old = $.validator.defaults.onclick;

@@ -16,39 +16,46 @@ $(document).ready(function() {
 		pageLinkParentTop = $pageLink.parent().offset().top, // use parent since it is not fixed
 		pageLinkHeaderHeight = $pageLink.find('h2').height(),
 		$selfLinks = $('a[rel="self"]'),
-		$lastLink = $('a[name='+$($selfLinks[$selfLinks.length-1]).attr('href').substring(1)+']'),
-		lastLinkTop = $lastLink.offset().top,
-		lastLinkHeight = $lastLink.height(),
+		$lastLink,
+		lastLinkTop,
+		lastLinkHeight,
+		limit;
+	if($pageLink.length && $selfLinks.length) {
+		$lastLink = $('a[name='+$($selfLinks[$selfLinks.length-1]).attr('href').substring(1)+']');
+		lastLinkTop = $lastLink.offset().top;
+		lastLinkHeight = $lastLink.height();
 		limit = (lastLinkTop - pageLinkParentTop) - (pageLinkHeaderHeight - lastLinkHeight);
-	
-	$('a[rel="self"]').click(function(ev){
-		var place =  $(this).attr('href');
-		if(place==="#wikidata") {
-			toPlace=0;
-		} else {
-			toPlace = $('a[name='+place.substring(1)+']');
-			toPlace = (toPlace.offset().top - pageLinkHeaderHeight) - (pageLinkParentTop - toPlace.height());
-		}
-		$.scrollTo(toPlace, 300);
-		$(this).blur();
-		return false;
-	});
-	$(window).scroll(function() {
-		if($(window).scrollTop()>limit) {
-			if($pageLink.css('position')==="fixed") {
-				$pageLink.css({
-					position: 'absolute',
-					top: limit
-				});
+
+		$('a[rel="self"]').click(function(e){
+			var place =  $(this).attr('href');
+			e.preventDefault();
+			if(place==="#wikidata") {
+				toPlace=0;
+			} else {
+				toPlace = $('a[name='+place.substring(1)+']');
+				toPlace = (toPlace.offset().top - pageLinkHeaderHeight) - (pageLinkParentTop - toPlace.height());
 			}
-		} else {
-			if($pageLink.css('position')==="absolute") {
-				$pageLink.css({
-					position: 'fixed',
-					top: pageLinkParentTop
-				});
+			$.scrollTo(toPlace, 300);
+			$(this).blur();
+			return false;
+		});
+		$(window).scroll(function() {
+			if($(window).scrollTop()>limit) {
+				if($pageLink.css('position')==="fixed") {
+					$pageLink.css({
+						position: 'absolute',
+						top: limit
+					});
+				}
+			} else {
+				if($pageLink.css('position')==="absolute") {
+					$pageLink.css({
+						position: 'fixed',
+						top: pageLinkParentTop
+					});
+				}
 			}
-		}
-		
-	});
+			
+		});
+	}
 });
