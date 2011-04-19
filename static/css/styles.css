@@ -257,6 +257,106 @@ a:hover {
 	border-right: 10px solid #767676;
 }
 
+/*=================================== Content Pages */
+
+
+.pageLinks {
+	position: fixed;
+	border-bottom: 10px solid #d5d5d5;
+	padding-bottom: 20px;
+}
+
+.pageLinks.notFixed {
+	position: static;
+}
+
+.pageLinks ul, .pageLinks ul li {
+	list-style: none;
+	margin: 0px;
+}
+
+.pageLinks ul li {
+	margin-top: 10px;
+
+}
+
+.pageLinks ul a:hover { 
+	border-bottom: none;
+	background-color: #333;
+}
+
+.pageLinks ul li a:hover span {
+	border-left-color: #333;
+} 
+
+.pageLinks ul a {
+	background-color: #767676;
+	color: white;
+	padding: 3px 0px 0px 10px;
+	height: 17px;
+	line-height: 12px;;
+	display: inline-block;
+	font-size: 0.8em;
+	font-weight: bold;
+	letter-spacing: 0.06em;	
+	text-shadow: 1px 1px 1px #333333;
+	filter: dropshadow(color=#333333, offx=1, offy=1);
+
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 0px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 3px;
+}
+
+.pageLinks ul li span {
+	width: 0;
+	font-size: 0px; line-height: 0%;
+	border-top: 10px solid #fff;
+	border-left: 10px solid #767676;
+	border-bottom: 10px solid #fff;
+	position: relative;
+	top: -3px;
+	left: 10px;
+
+}
+
+
+
+.pageContent {
+	overflow: hidden;
+	border-bottom: 10px solid #d5d5d5;
+	margin-bottom: 20px;
+}
+
+.pageContent h3 {
+	color: #3c3c3c;
+	font-size: 1.3em;
+	border-bottom: 1px solid silver;
+    color: #3C3C3C;
+    font-size: 1.3em;
+    margin-top: 14px;
+    padding-bottom: 8px;
+}
+
+.pageContent p {
+	font-size: 0.85em;
+	line-height: 1.6em;
+	
+}
+
+.twoColumn {
+	-moz-column-count: 2;
+	-moz-column-gap: 20px;
+	-webkit-column-count: 2;
+	-webkit-column-gap: 20px;
+	column-count: 2;
+	column-gap: 20px;
+}
+
 /*=================================== Search box */
 
 #searchBox {
@@ -344,7 +444,7 @@ a:hover {
 	margin-right: 20px; /* .marginright */
 }
 
-/*=================================== Table */
+/*=================================== Results Table */
 
 .tableinfo {
 	font-size: 0.8em;
@@ -546,6 +646,44 @@ table#resultsTable tr.even {
 	top: 7px;
 }
 
+/*=================================== Company Record Tables */
+
+table.companyRecord {
+	font-size: 0.85em;
+}
+
+.companyRecord .borderbottom{
+	border-bottom: 1px solid #d5d5d5;
+	margin-bottom: 20px;
+}
+
+table.companyRecord td {
+	/* border-bottom: 1px solid #d5d5d5; */
+	color: #3c3c3c;
+	width: 170px;
+	padding: 5px 0px;
+}
+
+table.companyRecord {
+	/*border-top: 1px solid #d5d5d5;
+	border-bottom: 4px solid #d5d5d5; */
+}
+
+table.companyRecord td.field {
+	color: #767676;
+	width: 120px;
+	padding-right: 10px;
+}
+
+.pageContent.companyRecord h5 {
+	font-size: 1em;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+a.viewmap {
+	font-size: 0.8em;
+}
 
 /*=================================== Footer Bar */
 

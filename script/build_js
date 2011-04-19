@@ -11,6 +11,7 @@ dataTables-1.5/media/js/jquery.dataTables.js \
 dragColumns.js \
 FixedHeader.js \
 records.js \
+jquery.scrollTo-1.4.2-min.js \
 GoogleMaps.js \
 GoogleAnalytics.js \
 > agg.js
