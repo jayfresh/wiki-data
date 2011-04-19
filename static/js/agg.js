@@ -7536,6 +7536,9 @@ $(document).ready(function() {
 				var start = q.indexOf('index=');
 				var s = "";
 				if(start===-1) { // diff can only be positive as we're at the start
+					if(direction===-1) {
+						return q;
+					}
 					s = q+"&index="+diff;
 				} else {
 					var end = q.indexOf('&',start);

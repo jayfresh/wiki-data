@@ -365,6 +365,11 @@ a:hover {
 	margin-top: 44px;
 }
 
+#searchBox.homepage {
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
 #searchBox div.help {
 	margin-left: 10px;
 }
@@ -439,11 +444,76 @@ a:hover {
 	margin-right: 15px;
 }
 
-.advSearchLineField, .advSearchLineValue {
-	width: 220px; /* .grid3col */
-	margin-right: 20px; /* .marginright */
+#advancedSearchContainer {
+	width: 460px;
+	margin-bottom: 5px;
 }
 
+.advSearchLine {
+	position: relative;
+	width: 460px;
+	height: 29px;
+	margin-top: 6px;
+}
+
+.advSearchLineField {
+	position: absolute;
+	right: 220px;
+	width: 160px;
+	margin-right: 20px;
+	
+}
+
+.advSearchLineValue {
+	position: absolute;
+	right: -7px;
+	top: -3px;
+	width: 190px;	
+}
+
+#advancedSearchContainer button {
+	position: absolute;
+	right: 198px;
+}
+/*=================================== Register an Entity Forms */
+
+.formSet {
+	padding: 10px;
+	font-size: 0.8em;
+
+}
+
+.formSet input, .formSet select {
+	border: 1px solid #D5D5D5;
+	padding: 3px;
+	width: 240px;
+	margin-bottom: 10px;
+}
+
+.formSet select {
+	width: 247px;
+}
+
+.formSet label {
+	display: block;
+}
+
+.formSet .help {
+	font-size: 1.2em;
+	float: right;
+}
+
+.formSet.grid8col {
+	width: 600px;
+}
+
+.formSet.grid4col {
+	width: 280px;
+}
+
+.formSet.grid8col .grid4col {
+	width: 280px;
+}
 /*=================================== Results Table */
 
 .tableinfo {
@@ -518,6 +588,10 @@ a:hover {
 	float: right;
 }
 
+#pageDistance {
+	display: none;
+}
+
 #resultsTable .even a.pointed span {
 	border-top: 8px solid #f0f0f0;
 	border-bottom: 8px solid #f0f0f0;	
@@ -565,6 +639,7 @@ a:hover {
 	text-align: right;
 	border: 1px solid #ccc;
 	z-index: 10;
+	font-size: 0.88em;
 	
 	-moz-box-shadow: 1px 1px 3px #333; 
 	-webkit-box-shadow: 1px 1px 3px #333; 
