@@ -39,7 +39,7 @@ recordFields = [
 ('operational_po_box', 'Operational PO Box', 'Operational address information'),
 ('operational_floor', 'Operational Floor', 'Operational address information'),
 ('operational_building', 'Operational Building', 'Operational address information'),
-('operational_street_1', 'Operational Street 1', 'Operational address information'),
+('operational_street_1', 'Operational Street', 'Operational address information'),
 ('operational_street_2', 'Operational Street 2', 'Operational address information'),
 ('operational_street_3', 'Operational Street 3', 'Operational address information'),
 ('operational_city', 'Operational City', 'Operational address information'),

@@ -976,7 +976,7 @@ DependentInputs.addDependency(function($row,changed) {
 });
 
 DependentInputs.addDependency(function($row,changed) {
-	if(changed==="field" && $row.field.val()==="Registered Country") {
+	if(changed==="field" && $row.field.val()==="Country of Incorporation") {
 		$row.valueMap = ISO_3166.countries.name2iso;
 		return DependentInputs.values.countries;
 	}
@@ -1000,7 +1000,7 @@ DependentInputs.addDependency(function($row,changed) {
 		var $r;
 		for(var i=0;i<DependentInputs.rows.length;i++) {
 			$r = DependentInputs.rows[i];
-			if($r.field.val()==="Registered Country" && $r.val.val()==="United States") {
+			if($r.field.val()==="Country of Incorporation" && $r.val.val()==="United States") {
 				$row.valueMap = ISO_3166.usa.name2iso;
 				return DependentInputs.values.us_states;
 			}
@@ -1026,7 +1026,7 @@ DependentInputs.addDependency(function($row,changed) {
 		var $r;
 		for(var i=0;i<DependentInputs.rows.length;i++) {
 			$r = DependentInputs.rows[i];
-			if($r.field.val()==="Registered Country" && $r.val.val()==="Australia") {
+			if($r.field.val()==="Country of Incorporation" && $r.val.val()==="Australia") {
 				$row.valueMap = ISO_3166["2:AU"].name2iso;
 				return DependentInputs.values.aus_states;
 			}
@@ -1052,7 +1052,7 @@ DependentInputs.addDependency(function($row,changed) {
 		var $r;
 		for(var i=0;i<DependentInputs.rows.length;i++) {
 			$r = DependentInputs.rows[i];
-			if($r.field.val()==="Registered Country" && $r.val.val()==="Canada") {
+			if($r.field.val()==="Country of Incorporation" && $r.val.val()==="Canada") {
 				$row.valueMap = ISO_3166["2:CA"].name2iso;
 				return DependentInputs.values.ca_states;
 			}
@@ -1076,7 +1076,7 @@ DependentInputs.fields = [
 	'Trades As Name_s_',
 	'Trading Status',
 	'Company Website',
-	'Registered Country',
+	'Country of Incorporation',
 	'Operational PO Box',
 	'Operational Floor',
 	'Operational Building',
