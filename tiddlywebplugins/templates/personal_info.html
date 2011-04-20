@@ -1,4 +1,4 @@
-<div class="rightpanelhead" id="personal_info">
+<div id="personal_info">
 	<h2>information</h2>
 	<div class="stripe">
 		{% if commonVars.usersign.name == "GUEST" %}
@@ -7,7 +7,7 @@
 		<p>Your account details are shown below</p>
 		{% endif %}
 	</div>
-	<div class="right lightbluebox lightblueborder" id="rightpanel">
+	<div class="right" id="rightpanel">
 		{% if commonVars.usersign.name == "GUEST" %}
 		<div>
 			<label for="name">Your name</label>
@@ -39,32 +39,32 @@
 		{% set email = commonVars.usersign.name %}
 		{% set country = commonVars.usersign.fields.country %}
 		{% set company = commonVars.usersign.fields.company %}
-		<div class="lightpanel">
+		<div>
 			<div>
 				<span>Name:</span>
 				<input type="hidden" name="name" value="{{name}}" />
-				<span class="thick">{% if name -%}
+				<span>{% if name -%}
 					{{name}}{%else%}(not provided)
 				{%-endif%}</span>
 			</div>
 			<div>
 				<span>Email address:</span>
 				<input type="hidden" name="email" value="{{email}}" />
-				<span class="thick">{% if email -%}
+				<span>{% if email -%}
 					{{email}}{%else%}(not provided)
 				{%-endif%}</span>
 			</div>
 			<div>
 				<span>Country:</span>
 				<input type="hidden" name="country" value="{{country}}" />
-				<span class="thick">{% if country -%}
+				<span>{% if country -%}
 					{{country}}{%else%}(not provided)
 				{%-endif%}</span>
 			</div>
 			<div>
 				<span>Company (Optional):</span>
 				<input type="hidden" name="company" value="{{company}}" />
-				<span class="thick">{% if company -%}
+				<span>{% if company -%}
 					{{company}}{%else%}(not provided)
 				{%-endif%}</span>
 			</div>

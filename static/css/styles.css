@@ -519,8 +519,12 @@ a:hover {
 	display: none;
 }
 
-.modal #modal {
+.modal #personal_info {
 	display: block;
+}
+
+.js #toOverflow, #tableoverflow {
+	visibility: hidden;
 }
 
 /*=================================== Results Table */

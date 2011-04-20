@@ -2504,8 +2504,7 @@ $(document).ready(function() {
 		if($('div.captcha_error, label.error').length) {
 			$('#submitButton').click();
 		}
-		// TO-DO: check these hidden-while-rendering selectors are still relevant
-		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow');
+		var $hiddenWhileRendering = $('#tableoverflow, #toOverflow');
 		if($hiddenWhileRendering.length) {
 			$hiddenWhileRendering.css("visibility","visible");
 		}
