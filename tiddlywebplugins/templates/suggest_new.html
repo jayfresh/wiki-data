@@ -40,33 +40,39 @@
 			</div>
 			<div class="lightbg formSet margintop">
 				<h3>Mandatory Fields</h3>
-				<label for="legal_name" class="grid3col marginright">Legal Name</label>
-				<input id="legal_name" name="legal_name" class="grid3col required" type="text" />
-				<span class="help">
-					<span class="heading"><span></span>Legal Name</span>
-					<span class="helpText">help text for Legal Name</span>
-				</span>
-				{%- if query['formError'] and '"legal_name"' in query['formError'][0] -%}
-				<label for="legal_name" generated="true" class="error">This field is required.</label>
-				{%- endif -%}
-				<label for="operational_country" class="grid3col marginright">Operational Country</label>
-				<input class="grid3col required" id="operational_country" type="text" name="operational_country" />
-				<span class="help">
-					<span class="heading"><span></span>Operational Country</span>
-					<span class="helpText">help text for Operational Country</span>
-				</span>
-				{%- if query['formError'] and '"operational_country"' in query['formError'][0] -%}
-				<label for="operational_country" generated="true" class="error">This field is required.</label>
-				{%- endif -%}
-				<label for="operational_state" class="grid3col marginright">Operational State (USA only)</label>
-				<input id="operational_state" name="operational_state" class="grid3col" type="text" />
-				<span class="help">
-					<span class="heading"><span></span>Operational State</span>
-					<span class="helpText">help text for Operational State</span>
-				</span>
-				{%- if query['formError'] and '"operational_state"' in query['formError'][0] -%}
-				<label for="operational_state" generated="true" class="error">This field is required.</label>
-				{%- endif -%}
+				<div>
+					<label for="legal_name" class="grid3col marginright">Legal Name</label>
+					<input id="legal_name" name="legal_name" class="grid3col required" type="text" />
+					<span class="help">
+						<span class="heading"><span></span>Legal Name</span>
+						<span class="helpText">help text for Legal Name</span>
+					</span>
+					{%- if query['formError'] and '"legal_name"' in query['formError'][0] -%}
+					<label for="legal_name" generated="true" class="error">This field is required.</label>
+					{%- endif -%}
+				</div>
+				<div>
+					<label for="operational_country" class="grid3col marginright">Operational Country</label>
+					<input class="grid3col required" id="operational_country" type="text" name="operational_country" />
+					<span class="help">
+						<span class="heading"><span></span>Operational Country</span>
+						<span class="helpText">help text for Operational Country</span>
+					</span>
+					{%- if query['formError'] and '"operational_country"' in query['formError'][0] -%}
+					<label for="operational_country" generated="true" class="error">This field is required.</label>
+					{%- endif -%}
+				</div>
+				<div>
+					<label for="operational_state" class="grid3col marginright">Operational State (USA only)</label>
+					<input id="operational_state" name="operational_state" class="grid3col" type="text" />
+					<span class="help">
+						<span class="heading"><span></span>Operational State</span>
+						<span class="helpText">help text for Operational State</span>
+					</span>
+					{%- if query['formError'] and '"operational_state"' in query['formError'][0] -%}
+					<label for="operational_state" generated="true" class="error">This field is required.</label>
+					{%- endif -%}
+				</div>
 			</div>
 		</div>
 		<div class="grid8col right lightbg formSet">

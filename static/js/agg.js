@@ -2495,9 +2495,9 @@ $(document).ready(function() {
 		});
 		overflowTable('#toOverflow','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
 		if($('#recordForm label').length) {
-			DependentInputs.addRows('#recordFrom',"label[class!=error]",":input","div");
+			DependentInputs.addRows('#recordForm',"label[class!=error]",":input[type=text], select");
 		}
-		if($('div.right label[for=country]+input').length) {
+		if($('div.right label[for=country]+input').length) { // 'Your Country'
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
 		}
 		makeModalAndSetValidator('#personal_info');

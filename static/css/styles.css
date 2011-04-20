@@ -383,7 +383,7 @@ a:hover {
 	float: left;
 }
 
-#searchBox #query, #searchBox #branches, #advancedSearchContainer input {
+#searchBox #query, #searchBox #branches, #searchBox #advancedSearchContainer input {
 	border: 1px solid #D5D5D5;
     margin: 3px 0 10px 5px;
 }
@@ -444,19 +444,19 @@ a:hover {
 	margin-right: 15px;
 }
 
-#advancedSearchContainer {
+#searchBox #advancedSearchContainer {
 	width: 460px;
 	margin-bottom: 5px;
 }
 
-.advSearchLine {
+#searchBox .advSearchLine {
 	position: relative;
 	width: 460px;
 	height: 29px;
 	margin-top: 6px;
 }
 
-.advSearchLineField {
+#searchBox .advSearchLineField {
 	position: absolute;
 	right: 220px;
 	width: 160px;
@@ -464,14 +464,14 @@ a:hover {
 	
 }
 
-.advSearchLineValue {
+#searchBox .advSearchLineValue {
 	position: absolute;
 	right: -7px;
 	top: -3px;
 	width: 190px;	
 }
 
-#advancedSearchContainer button {
+#searchBox #advancedSearchContainer button {
 	position: absolute;
 	right: 198px;
 }
@@ -517,6 +517,10 @@ a:hover {
 
 #personal_info {
 	display: none;
+}
+
+.modal #modal {
+	display: block;
 }
 
 /*=================================== Results Table */
