@@ -19,136 +19,109 @@
 ('operational_city', 'Operational City'),
 ('operational_state', 'Operational State'),
 ('operational_country', 'Operational Country'),
-('operational_postcode', 'Operational Postcode')
-] %}
-{% set registered_fields = [
+('operational_postcode', 'Operational Postcode'),
 ('registered_country', 'Country of Incorporation')
 ] %}
 {% set captcha = commonVars.captcha %}
 {% set query = commonVars.query %}
-<div id="pagenav">		
-	<ul>
-		<li><a href="/index.html" class="lightborder darkgreen caps">Home</a></li>
-		<li><a href="#" class="onlyjs lightborder darkgreen caps" id="backnav">Back</a></li>
-	</ul>
-</div>
-
-<div id="content-challenge">
+<div class="grid12col container">
 	{% if commonVars.query['success'] and commonVars.query['success'][0] == '1' %}
-	<div class="wrap">
-		<p>Thanks! We'll be in touch shortly.</p>
-	</div>
+	<p>Thanks! We'll be in touch shortly.</p>
 	{% else %}
-	<div id="leftbit" class="padded"></div>
-	<div class="wrap relative z1">
-		<form method="post" action="/verify" id="recordForm">
-			<div class="left leftpanelhead wrap">
-				<h2>Challenge Record</h2>
-				<div class="stripe noleftborder">
-					<p>Please correct any details you would like to challenge for AVID {{tiddler.title}}</p>
-				</div>
-				<div class="left lightbluebox lightblueborder leftpanel" id="fieldsColumn">
-					<h3>Entity Name</h3>
-					<table class="fields">
+	<form method="post" action="/verify" id="recordForm">
+		<div class="grid4col marginright left pageLinks notFixed">
+			<h2>Challenge Information</h2>
+			<p class="nomargin">Please correct any details you would like to challenge for AVID {{tiddler.title}}.</p>
+		</div>
+		<div class="grid8col right pageContent companyRecord">
+			<h3>{{tiddler.fields['legal_name']}}</h3>
+			
+			<div class="grid4col left">
+				<div class="equalise1 borderbottom">
+					<h5>Entity Name</h5>
+					<table class="companyRecord">
 						<tbody>
 							{% for field, label in name_fields %}
 							<tr>
-								<td>
-									<label for="challenge_{{field}}">{{label}}</label>
-								</td>
-								<td>
-									<input type="text" size="35" name="challenge_{{field}}" />
-									<div class="existing">
-										<span>{{tiddler.fields[field]}}</span>
-									</div>
-								</td>
+								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+								<td><input type="text" name="challenge_{{field}}" /></td>
+							</tr>
+							<tr class="current">
+								<td class="field">Currently:</td>
+								<td>{{tiddler.fields[field]}}</td>
 							</tr>
 							{% endfor %}
 						</tbody>
 					</table>
-					<h3>Entity Information</h3>
-					<table class="fields">
-						<tbody>
-							{% for field, label in entity_fields %}
-							<tr>
-								<td>
-									<label for="challenge_{{field}}">{{label}}</label>
-								</td>
-								<td>
-									<input type="text" size="35" name="challenge_{{field}}" />
-									<div class="existing">
-										<span>{{tiddler.fields[field]}}</span>
-									</div>
-								</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-					<h3>Operational Address</h3>
-					<table class="fields">
-						<tbody>
-							{% for field, label in operational_fields %}
-							<tr>
-								<td>
-									<label for="challenge_{{field}}">{{label}}</label>
-								</td>
-								<td>
-									<input type="text" size="35" name="challenge_{{field}}" />
-									<div class="existing">
-										{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-										<span class="{{field}}">
-										{%- else -%}
-										<span>
-										{%- endif -%}
-										{{tiddler.fields[field]}}</span>
-									</div>
-								</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-					<h3>Registered Location</h3>
-					<table class="fields">
-						<tbody>
-							{% for field, label in registered_fields %}
-							<tr>
-								<td>
-									<label for="challenge_{{field}}">{{label}}</label>
-								</td>
-								<td>
-									<input type="text" size="35" name="challenge_{{field}}" />
-									<div class="existing">
-										{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-										<span class="{{field}}">
-										{%- else -%}
-										<span>
-										{%- endif -%}
-										{{tiddler.fields[field]}}</span>
-									</div>
-								</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-					<h3>Source (optional)</h3>
-					<div>
-						<label for="source">What is your source for this challenge? Please include URL and/or sources used. We will use this to validate your challenge.</label>
-						<textarea cols="35" rows="5" name="source" class="fullwidth"></textarea>
-					</div>
 				</div>
-				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
-				<br class="clearboth" />
-				<div>
-					<input type="hidden" name="requestType" value="challenge" />
-					<input type="hidden" name="avid" value="{{tiddler.title}}" />
-					<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
-					<input id='submitButton' class="right submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit challenge"/>
-				</div>
+				<h5>Entity Information</h5>
+				<table class="companyRecord">
+					<tbody>
+					{% for field, label in entity_fields %}
+						<tr>
+							<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+							<td><input type="text" name="challenge_{{field}}" /></td>
+						</tr>
+						<tr class="current">
+							<td class="field">Currently:</td>
+							{% if field=='company_website' %}
+							<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
+							{% else %}
+							<td>{{tiddler.fields[field]}}</td>
+							{% endif %}
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
 			</div>
-			{% include 'personal_info.html' %}
-		</form>
-	</div>
-	<br class="clearboth" />
+			<div class="grid4col left marginleft">
+				<div class="equalise1 borderbottom">
+					<h5>Location Information</h5>
+					<table class="companyRecord">
+						<tbody>
+						{% for field, label in operational_fields %}
+							<tr>
+								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+								<td><input type="text" name="challenge_{{field}}" /></td>
+							</tr>
+							<tr class="current">
+								<td class="field">Currently:</td>
+								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
+								<td class="{{field}}">{{tiddler.fields[field]}}</td>
+								{%- else -%}
+								<td>{{tiddler.fields[field]}}</td>
+								{%- endif -%}
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>	
+				<h5>Heirarchy Information</h5>
+				<table class="companyRecord">
+					<tbody>
+						<tr>
+							<td class="field">Entity Type:</td>
+							<td><input type="text" name="challenge_entity_type" /></td>
+						</tr>
+						<tr class="current">
+							<td class="field">Currently:</td>
+							<td>{{tiddler.fields['entity_type']}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<h5>Source (optional)</h5>
+				<div>
+					<label for="source">What is your source for this challenge? Please include URL and/or sources used. We will use this to validate your challenge.</label>
+					<textarea rows="5" name="source"></textarea>
+				</div>
+				<input type="hidden" name="requestType" value="challenge" />
+				<input type="hidden" name="avid" value="{{tiddler.title}}" />
+				<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
+				<span id="testBorder"></span><input id="submitButton" value="Submit Challenge" type="submit" />
+			</div>
+		</div>
+		{% include 'personal_info.html' %}
+	</form>
 	{% endif %}
 </div>
 {% endblock %}

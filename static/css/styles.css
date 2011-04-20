@@ -106,7 +106,7 @@ a:hover {
 }
 
 #header h1 {
-	background-color: #2956A7;
+	background-color: /* #2956A7 */ #3c3c3c;
     color: white;
     float: left;
     font-size: 1.6em;
@@ -114,6 +114,11 @@ a:hover {
     margin: 0;
     padding: 15px 20px 0;
     text-transform: uppercase;
+    text-indent: -9999px;
+    background-image: url(../images/avoxlogotype-grey.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 150px;
 }
 
 #header .subnav {
@@ -431,6 +436,8 @@ a:hover {
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 3px;
 	float: right;
+	border: none;
+	margin-top: 15px;
 }
 
 #testBorder {
@@ -442,11 +449,12 @@ a:hover {
 	float: right;
 	clear: both;
 	margin-right: 15px;
+	margin-top: 15px;
 }
 
 #searchBox #advancedSearchContainer {
 	width: 460px;
-	margin-bottom: 5px;
+	margin: 10px 0px 5px;
 }
 
 #searchBox .advSearchLine {
@@ -475,6 +483,13 @@ a:hover {
 	position: absolute;
 	right: 198px;
 }
+
+#searchBox input, #searchBox select {
+	border: 1px solid #D5D5D5;
+	padding: 3px;
+}
+
+
 /*=================================== Register an Entity Forms */
 
 .formSet {
@@ -601,10 +616,6 @@ a:hover {
 	float: right;
 }
 
-#pageDistance {
-	display: none;
-}
-
 #resultsTable .even a.pointed span {
 	border-top: 8px solid #f0f0f0;
 	border-bottom: 8px solid #f0f0f0;	
@@ -617,6 +628,10 @@ a:hover {
 	border-bottom: 8px solid #fff;
 	border-right: 8px solid #767676;
 	float: left;
+}
+
+#pageDistance {
+	display: none;
 }
 
 #columnPicker {
@@ -759,8 +774,11 @@ table.companyRecord {
 
 table.companyRecord td.field {
 	color: #767676;
-	width: 120px;
-	padding-right: 10px;
+    font-size: 0.8em;
+    letter-spacing: 0.03em;
+    padding-right: 10px;
+    text-transform: uppercase;
+    width: 120px;
 }
 
 .pageContent.companyRecord h5 {
@@ -770,7 +788,22 @@ table.companyRecord td.field {
 }
 
 a.viewmap {
-	font-size: 0.8em;
+	text-transform: none;
+
+}
+
+table.companyRecord input {
+	border: 1px solid #D5D5D5;
+	padding: 2px;
+	width: 164px;
+
+}
+
+table.companyRecord tr.current {
+	background-color: #d5d5d5;
+}
+table.companyRecord tr.current td.field {
+	padding-left: 5px;
 }
 
 /*=================================== Footer Bar */
