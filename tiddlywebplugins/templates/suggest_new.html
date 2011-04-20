@@ -28,92 +28,82 @@
 ] %}
 {% set captcha = commonVars.captcha %}
 {% set query = commonVars.query %}
-<div id="pagenav">		
-	<ul>
-		<li><a href="/index.html" class="lightborder darkgreen caps">Home</a></li>
-		<li><a href="#" class="lightborder darkgreen caps onlyjs" id="backnav">Back</a></li>
-	</ul>
-</div>
-
-<div id="content-suggest">
+<div class="grid12col container">
 	{% if query['success'] and query['success'][0] == '1' %}
-	<div class="wrap">
-		<p>Thanks! We'll be in touch shortly.</p>
-	</div>
+	<p>Thanks! We'll be in touch shortly.</p>
 	{% else %}
-	<div id="leftbit" class="padded notIE"></div>
-	<div class="wrap relative z1">
-		<form method="post" action="/verify" id="recordForm">
-			<div class="left leftpanelhead wrap">		
+	<form id="recordForm" method="post" action="/verify">
+		<div class="grid4col left marginright">
+			<div class="pageLinks notFixed">
 				<h2>Register an Entity</h2>
-				<div class="stripe noleftborder">
-					<p>Have you <a href="/index.html">searched</a> for the record? If so please fill in the first section as much as you can and add your contact information</p>
-				</div>
-				<div class="left lightbluebox lightblueborder leftpanel" id="fieldsColumn">
-					<h3>Mandatory fields</h3>
-					<table class="fields">
-						<tbody>
-							<tr>
-								<td><label for="legal_name">Legal Name</label></td>
-								<td><input class="required" type="text" size="35" name="legal_name" />
-								{%- if query['formError'] and '"legal_name"' in query['formError'][0] -%}
-								<label for="legal_name" generated="true" class="error">This field is required.</label>
-								{%- endif -%}
-								</td>
-							</tr>
-							<tr>
-								<td><label for="operational_country">Operational Country</label></td>
-								<td><input class="required" id="operational_country" type="text" size="35" name="operational_country" />
-								{%- if query['formError'] and '"operational_country"' in query['formError'][0] -%}
-								<label for="operational_country" generated="true" class="error">This field is required.</label>
-								{%- endif -%}
-								</td>
-							</tr>
-							<tr>
-								<td><label for="operational_state">Operational State (USA only)</label></td>
-								<td><input type="text" size="35" name="operational_state" />
-								{%- if query['formError'] and '"operational_state"' in query['formError'][0] -%}
-								<label for="operational_state" generated="true" class="error">This field is required.</label>
-								{%- endif -%}
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<h3>Additional fields</h3>
-					<table class="fields">
-						{% for field, label in labels %}
-						<tr>
-							{% if field == 'entity_type' %}
-							<td><label for="{{field}}">{{label}}</label></td>
-							<td><select name="{{field}}" id="smallselect">
-								<option value="">Please select...</option>
-								<option value="Branch">Branch</option>
-								<option value="Division">Division</option>
-								<option value="Subsidiary">Subsidiary</option>
-								<option value="Ultimate Parent">Ultimate Parent</option>
-							</select></td>
-							{% elif field == 'registered_country' %}
-							<td><label for="{{field}}">Country of Incorporation</label></td>
-							<td><input type="text" size="35" name="{{field}}" /></td>
-							{% else %}
-							<td><label for="{{field}}">{{label}}</label></td>
-							<td><input type="text" size="35" name="{{field}}" /></td>
-							{% endif %}
-						</tr>
-						{% endfor %}
-					</table>
-				</div>
-				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
-				<br class="clearboth" />
+				<p class="nomargin">Have you <a href="/">searched</a> for the record? If so please fill in as much of the first section as you can and add your contact information.</p>
+			</div>
+			<div class="lightbg formSet margintop">
+				<h3>Mandatory Fields</h3>
+				<label for="legal_name" class="grid3col marginright">Legal Name</label>
+				<input id="legal_name" name="legal_name" class="grid3col required" type="text" />
+				<span class="help">
+					<span class="heading"><span></span>Legal Name</span>
+					<span class="helpText">help text for Legal Name</span>
+				</span>
+				{%- if query['formError'] and '"legal_name"' in query['formError'][0] -%}
+				<label for="legal_name" generated="true" class="error">This field is required.</label>
+				{%- endif -%}
+				<label for="operational_country" class="grid3col marginright">Operational Country</label>
+				<input class="grid3col required" id="operational_country" type="text" name="operational_country" />
+				<span class="help">
+					<span class="heading"><span></span>Operational Country</span>
+					<span class="helpText">help text for Operational Country</span>
+				</span>
+				{%- if query['formError'] and '"operational_country"' in query['formError'][0] -%}
+				<label for="operational_country" generated="true" class="error">This field is required.</label>
+				{%- endif -%}
+				<label for="operational_state" class="grid3col marginright">Operational State (USA only)</label>
+				<input id="operational_state" name="operational_state" class="grid3col" type="text" />
+				<span class="help">
+					<span class="heading"><span></span>Operational State</span>
+					<span class="helpText">help text for Operational State</span>
+				</span>
+				{%- if query['formError'] and '"operational_state"' in query['formError'][0] -%}
+				<label for="operational_state" generated="true" class="error">This field is required.</label>
+				{%- endif -%}
+			</div>
+		</div>
+		<div class="grid8col right lightbg formSet">
+			<h3>Additional Fields</h3>
+			<div class="grid4col left" id="toOverflow">
+			{% for field, label in labels %}
 				<div>
-					<input type="hidden" value="suggest_new" name="requestType"/>
-					<input id='submitButton' class="right submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit Entity"/>
+					<label for="{{field}}" class="grid3col marginright">{{label}}</label>
+					{% if field == 'entity_type' %}
+					<select name="{{field}}">
+						<option value="">Please select...</option>
+						<option value="Branch">Branch</option>
+						<option value="Division">Division</option>
+						<option value="Subsidiary">Subsidiary</option>
+						<option value="Ultimate Parent">Ultimate Parent</option>
+					</select>
+					{% else %}
+					<input id="{{field}}" name="{{field}}" class="grid3col" type="text" />
+					{% endif %}
+					<!-- TO-DO: what to do about making the help text specific to each field? -->
+					<span class="help">
+						<span class="heading"><span></span>Search Terms</span>
+						<span class="helpText">Type here to search by AVID, Legal Name, Previous Name(s) and Trades As Name(s)</span>
+					</span>
+				</div>
+			{% endfor %}
+				<div>
+					<input type="hidden" value="suggest_new" name="requestType" />
+					<span id="testBorder"></span><input id="submitButton" value="Submit Entity" type="submit">
 				</div>
 			</div>
-			{% include 'personal_info.html' %}
-		</form>
-	</div>
-	<br class="clearboth" />
+			<!-- this is where the overflow goes -->
+			<div class="grid4col right" id="tableoverflow">
+			</div>
+		</div>
+		{% include 'personal_info.html' %}
+	</form>
 	{% endif %}
 </div>
 {% endblock %}

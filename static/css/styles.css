@@ -514,6 +514,11 @@ a:hover {
 .formSet.grid8col .grid4col {
 	width: 280px;
 }
+
+#personal_info {
+	display: none;
+}
+
 /*=================================== Results Table */
 
 .tableinfo {

@@ -103,21 +103,25 @@ function overflowTable(container,overflowTarget) {
 	   remove everything before the breaking point in the overflow column,
 	   remove everything after the breaking point in the original column
 	*/
-	try {
-	var $container = $(container), $overflowTarget = $(overflowTarget);
-	if(!$container.length || !$overflowTarget.length) {
-		return;
-	}
-	var breakingPoint = Math.floor($(container).find('tr').length / 2);
-	var $point = $(overflowTarget).append($(container).html()).find('tr').eq(breakingPoint);
-	$point.prevAll().remove();
-	$point.closest('table').prevAll().remove();
-	$point = $(container).find('tr').eq(breakingPoint-1);
-	$point.nextAll().remove();
-	$point.closest('table').nextAll().remove();
-	} catch(ex) {
+	//try { // JRL: why is there a try/catch block here?
+		var $container = $(container),
+			$overflowTarget = $(overflowTarget),
+			breakingPoint,
+			$point;
+		if(!$container.length || !$overflowTarget.length) {
+			return;
+		}
+		breakingPoint = Math.floor($container.find('div').length / 2);
+		$overflowTarget
+			.prepend($container.html())
+			.find('div').eq(breakingPoint)
+			.prevAll().remove();
+		$container
+			.find('div').eq(breakingPoint-1)
+			.nextAll().remove();
+	/*} catch(ex) {
 		console.log(ex);
-	}
+	}*/
 }
 function makeCaptcha() {
 	if($('#recaptcha').length) {
@@ -254,9 +258,9 @@ $(document).ready(function() {
 				return DependentInputs.values.countries;
 			}
 		});
-		overflowTable('#fieldsColumn','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
-		if($('table.fields label').length) {
-			DependentInputs.addRows('table.fields',"label[class!=error]",":input","tr");
+		overflowTable('#toOverflow','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
+		if($('#recordForm label').length) {
+			DependentInputs.addRows('#recordFrom',"label[class!=error]",":input","div");
 		}
 		if($('div.right label[for=country]+input').length) {
 			DependentInputs.addRow('div.right',"label[for=country]","label[for=country]+input");
@@ -265,6 +269,7 @@ $(document).ready(function() {
 		if($('div.captcha_error, label.error').length) {
 			$('#submitButton').click();
 		}
+		// TO-DO: check these hidden-while-rendering selectors are still relevant
 		var $hiddenWhileRendering = $('table.fields, div.right, #tableoverflow');
 		if($hiddenWhileRendering.length) {
 			$hiddenWhileRendering.css("visibility","visible");

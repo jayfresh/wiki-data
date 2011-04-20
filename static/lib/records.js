@@ -118,7 +118,7 @@ $(document).ready(function() {
 				oTable.fixedHeader.fnUpdate();
 			}
 			$('#table').css('visibility',"visible"); // TO-DO: see if the table is even hidden first
-			$.fn.dragColumns('#resultsTable');
+			//$.fn.dragColumns('#resultsTable'); // JRL: debug
 			oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
 			columns = oTable.fnSettings().aoColumns;
 			/* there is no tfoot in the new design

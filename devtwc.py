@@ -2,6 +2,14 @@ import mangler
 config = {
         'log_level': 'DEBUG',
         #'server_store': ['tiddlywebplugins.mappingsql', {'db_config': 'sqlite:///test.db'}],
+        'server_store': ['tiddlywebplugins.diststore', {
+            'main': ['text', {'store_root': 'store'}],
+            'extras': [
+                (r'^avox$', ['tiddlywebplugins.wikidata.wdsql',
+                    {'db_config': 'mysql://avox@localhost/avoxtest?charset=utf8'}]),
+                    #{'db_config': 'sqlite:///test.db'}]),
+                ],
+        }],
         'secret': 'the bees are in the what',
         'system_plugins': [
             'tiddlywebplugins.wikidata',
