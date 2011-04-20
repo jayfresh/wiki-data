@@ -26,9 +26,9 @@ def setup_module(module):
     populate()
 
 def populate():
-    os.system('mysql avox < dataextracts/miniwiki.dump')
-    os.system('echo "create fulltext index fx on avox(legal_name,previous_name_s_,trades_as_name_s_);" |mysql avox')
-    os.system('echo "create fulltext index ft on avox(legal_name);" |mysql avox')
+    os.system('mysql avoxtest < dataextracts/miniwiki.dump')
+    os.system('echo "create fulltext index fx on avox(legal_name,previous_name_s_,trades_as_name_s_);" |mysql avoxtest')
+    os.system('echo "create fulltext index ft on avox(legal_name);" |mysql avoxtest')
 
 def set_query_string(string):
     environ['tiddlyweb.query'] = {}
