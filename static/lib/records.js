@@ -218,7 +218,7 @@ $(document).ready(function() {
 					var str = 'There are '+count+' results';
 					switch(count) {
 						case 0:
-							str = 'There are no results - try <span class="filter"><a href="#">adding a filter</a></span> to include other fields in your search or <a href="/pages/suggest_new">suggest a new record</a>';
+							str = 'There are no results - try <span class="filter"><a href="#">adding a filter</a></span> to include other fields in your search or <a href="/pages/suggest_new">register an entity</a>';
 							break;
 						case 1:
 							str = 'There is 1 result';

@@ -231,7 +231,7 @@ border:1px solid #7AAEB9;
 }
 
 #suggestlogo {
-	background: url("/static/test_images/suggest.gif") top right no-repeat;
+	background: url("/static/test_images/suggest-register.gif") top right no-repeat;
 	height: 44px;
 }
 
