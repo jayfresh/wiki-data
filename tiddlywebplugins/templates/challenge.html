@@ -28,16 +28,27 @@
 	{% if commonVars.query['success'] and commonVars.query['success'][0] == '1' %}
 	<p>Thanks! We'll be in touch shortly.</p>
 	{% else %}
-	<form method="post" action="/verify" id="recordForm">
-		<div class="grid4col marginright left pageLinks notFixed">
-			<h2>Challenge Information</h2>
-			<p class="nomargin">Please correct any details you would like to challenge for AVID {{tiddler.title}}.</p>
+	<form method="post" action="/verify" id="recordForm" class="challengeForm">
+		<div class="grid4col marginright left">
+			<div class="pageLinks notFixed">
+				<h2>Challenge Information</h2>
+				<p class="nomargin">Please correct any details you would like to challenge for AVID {{tiddler.title}}.</p>		
+			</div>
+			<div class="lightbg formSet margintop">
+				<h5>Source (optional)</h5>
+				<div>
+					<label for="source">What is your source for this challenge? Please include URL and/or sources used. We will use this to validate your challenge.</label>
+					<textarea rows="5" name="source" class="margintopsmall"></textarea>
+				</div>
+			</div>
+			<div>
+				<span id="testBorder"></span><input id="submitButton" value="Submit Challenge" type="submit" />
+			</div>
 		</div>
 		<div class="grid8col right pageContent companyRecord">
 			<h3>{{tiddler.fields['legal_name']}}</h3>
-			
-			<div class="grid4col left">
-				<div class="equalise1 borderbottom">
+			<div class="grid4col left" id="toOverflow">
+				<div class="borderbottom">
 					<h5>Entity Name</h5>
 					<table class="companyRecord">
 						<tbody>
@@ -54,28 +65,28 @@
 						</tbody>
 					</table>
 				</div>
-				<h5>Entity Information</h5>
-				<table class="companyRecord">
-					<tbody>
-					{% for field, label in entity_fields %}
-						<tr>
-							<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
-							<td><input type="text" name="challenge_{{field}}" /></td>
-						</tr>
-						<tr class="current">
-							<td class="field">Currently:</td>
-							{% if field=='company_website' %}
-							<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
-							{% else %}
-							<td>{{tiddler.fields[field]}}</td>
-							{% endif %}
-						</tr>
-					{% endfor %}
-					</tbody>
-				</table>
-			</div>
-			<div class="grid4col left marginleft">
-				<div class="equalise1 borderbottom">
+				<div class="borderbottom">
+					<h5>Entity Information</h5>
+					<table class="companyRecord">
+						<tbody>
+						{% for field, label in entity_fields %}
+							<tr>
+								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+								<td><input type="text" name="challenge_{{field}}" /></td>
+							</tr>
+							<tr class="current">
+								<td class="field">Currently:</td>
+								{% if field=='company_website' %}
+								<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
+								{% else %}
+								<td>{{tiddler.fields[field]}}</td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div class="borderbottom">
 					<h5>Location Information</h5>
 					<table class="companyRecord">
 						<tbody>
@@ -95,29 +106,27 @@
 						{% endfor %}
 						</tbody>
 					</table>
-				</div>	
-				<h5>Heirarchy Information</h5>
-				<table class="companyRecord">
-					<tbody>
-						<tr>
-							<td class="field">Entity Type:</td>
-							<td><input type="text" name="challenge_entity_type" /></td>
-						</tr>
-						<tr class="current">
-							<td class="field">Currently:</td>
-							<td>{{tiddler.fields['entity_type']}}</td>
-						</tr>
-					</tbody>
-				</table>
-				<h5>Source (optional)</h5>
-				<div>
-					<label for="source">What is your source for this challenge? Please include URL and/or sources used. We will use this to validate your challenge.</label>
-					<textarea rows="5" name="source"></textarea>
+				</div>
+				<div class="borderbottom">
+					<h5>Hierarchy Information</h5>
+					<table class="companyRecord">
+						<tbody>
+							<tr>
+								<td class="field">Entity Type:</td>
+								<td><input type="text" name="challenge_entity_type" /></td>
+							</tr>
+							<tr class="current">
+								<td class="field">Currently:</td>
+								<td>{{tiddler.fields['entity_type']}}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<input type="hidden" name="requestType" value="challenge" />
 				<input type="hidden" name="avid" value="{{tiddler.title}}" />
 				<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
-				<span id="testBorder"></span><input id="submitButton" value="Submit Challenge" type="submit" />
+			</div>
+			<div class="grid4col left marginleft" id="tableoverflow">
 			</div>
 		</div>
 		{% include 'personal_info.html' %}

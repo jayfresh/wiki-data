@@ -2338,22 +2338,45 @@ function overflowTable(container,overflowTarget) {
 	   remove everything before the breaking point in the overflow column,
 	   remove everything after the breaking point in the original column
 	*/
+	
+	// JRL: this is not so straightforward anymore, now there are multiple structures for the form pages
+	
 	//try { // JRL: why is there a try/catch block here?
 		var $container = $(container),
 			$overflowTarget = $(overflowTarget),
 			breakingPoint,
-			$point;
+			$point,
+			mode = $(".challengeForm").length,
+			rowSelector = mode ? "input[type=text]" : "div";
 		if(!$container.length || !$overflowTarget.length) {
 			return;
 		}
-		breakingPoint = Math.floor($container.find('div').length / 2);
-		$overflowTarget
-			.prepend($container.html())
-			.find('div').eq(breakingPoint)
-			.prevAll().remove();
-		$container
-			.find('div').eq(breakingPoint-1)
-			.nextAll().remove();
+		breakingPoint = Math.floor($container.find(rowSelector).length / 2);
+		if(mode) {
+			$point = $overflowTarget
+				.prepend($container.html())
+				.find(rowSelector).eq(breakingPoint);
+			$point.closest('tr')
+				.prevAll().remove();
+			$point.closest('div')
+				.prevAll().remove();
+			$point = $container
+				.find(rowSelector).eq(breakingPoint-1);
+			$point.closest('tr')
+				.next()
+				.nextAll().remove();
+			$point.closest('div')
+				.nextAll().remove();
+		} else {
+			$overflowTarget
+				.prepend($container.html())
+				.find(rowSelector).eq(breakingPoint)
+				.prevAll().remove();
+			$container
+				.find(rowSelector).eq(breakingPoint-1)
+				.nextAll().remove();
+		}
+		
 	/*} catch(ex) {
 		console.log(ex);
 	}*/
@@ -2371,7 +2394,7 @@ function makeModalAndSetValidator(idSelector) {
 	$('body').prepend('<div id="modal"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"><form id="tempForm"></form></div></div></div></div></div></div>');
 	var $moved = $(idSelector).appendTo($('#modal #tempForm'));
 	$('#tempForm').validate();
-	$('#submitButton').clone().attr('id','submitButtonClone').appendTo($(idSelector)).click(function(e) {
+	$('#submitButton').clone().attr('id','submitButtonClone').addClass('right').appendTo($(idSelector)).click(function(e) {
 		e.preventDefault();
 		if(!$('#tempForm').valid()) {
 			return;
@@ -2382,13 +2405,12 @@ function makeModalAndSetValidator(idSelector) {
 		$origForm.get(0).submit();
 	});
 	$('<button>Return to form</button>').appendTo($(idSelector))
-	.addClass($('#submitButton').get(0).className)
-	.css({
-		float: 'left'
-	}).click(function(e) {
+	.addClass($('#submitButton').get(0).className+" left")
+	.click(function(e) {
 		e.preventDefault();
 		$('html').removeClass('modal');
 	});
+	$('<br class="clearboth" />').appendTo($(idSelector));
 	$('#submitButton').click(function(e) {
 		e.preventDefault();
 		/* add operational state validation before validating form */

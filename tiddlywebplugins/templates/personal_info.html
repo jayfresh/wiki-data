@@ -1,13 +1,13 @@
 <div id="personal_info">
 	<h2>information</h2>
-	<div class="stripe">
+	<div>
 		{% if commonVars.usersign.name == "GUEST" %}
 		<p>We'd like to know who you are!</p>
 		{% else %}
 		<p>Your account details are shown below</p>
 		{% endif %}
 	</div>
-	<div class="right" id="rightpanel">
+	<div>
 		{% if commonVars.usersign.name == "GUEST" %}
 		<div>
 			<label for="name">Your name</label>

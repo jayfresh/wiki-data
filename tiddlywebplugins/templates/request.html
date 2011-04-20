@@ -2,124 +2,73 @@
 {% block body %}
 {% set captcha = commonVars.captcha %}
 {% set query = commonVars.query %}
-<div id="pagenav">
-	<ul>
-		<li><a href="/index.html" class="lightborder darkgreen caps">Home</a></li>
-		<li><a href="#" class="lightborder darkgreen caps onlyjs" id="backnav">Back</a></li>
-	</ul>
-</div>
-
-<div id="content-request">
+<div class="grid12col container">
 	{% if commonVars.query['success'] and commonVars.query['success'][0] == '1' %}
-	<div class="wrap">
-		<p>Thanks! We'll be in touch shortly.</p>
-	</div>
+	<p>Thanks! We'll be in touch shortly.</p>
 	{% else %}
-	<div id="leftbit" class="padded notIE"></div>
-	<div class="wrap relative z1">
-		<form method="post" action="/verify" id="recordForm">
-			<div class="left leftpanelhead wrap">		
-				<h2>Request Analysis</h2>
-				<div class="stripe noleftborder">
-					<p>These are the extra data fields you are requesting for {{tiddler.title}}</p>
+	<form method="post" action="/verify" id="recordForm">
+		<div class="grid4col marginright left pageLinks notFixed">
+			<h2>Request Analysis</h2>
+			<p class="nomargin">This is a list of the extra data fields you are requesting for AVID {{tiddler.title}}. Click Submit to confirm your request.</p>
+			<ul>
+				<li><a href="/bags/avox/tiddlers/{{tiddler.title}}">This Company's Record<span></span></a></li>
+			</ul>
+		</div>
+		<div class="grid8col right pageContent requestInformation">
+			<h3>{{tiddler.fields.legal_name}}</h3>
+			
+			<div class="grid4col left">
+				<div class="equalise1 borderbottom">
+					<h5>Registered Address</h5>
+					<ul>
+						<li>Registered Agent Name</li>
+						<li>Registered Post Box</li>
+						<li>Registered Floor</li>
+						<li>Registered Building</li>
+						<li>Registered Street 1</li>
+						<li>Registered Street 2</li>
+						<li>Registered Street</li>
+						<li>Registered City</li>
+						<li>Registered State</li>
+						<li>Registered Postcode</li>								
+					</ul>
 				</div>
-				<div class="left lightbluebox lightblueborder leftpanel" id="fieldsColumn">
-					<p class="entity-name"><a href="/bags/avox/tiddlers/{{tiddler.title}}">{{tiddler.fields.legal_name}}</a></p>
-					<h3>Registered Address</h3>
-					<table class="fields">
-						<tbody>
-							<tr>
-								<td><span>Registered Agent Name</span></td>
-								<td><span>Registered Post Box</span></td>
-							</tr>
-							<tr>
-								<td><span>Registered Floor</span></td>
-								<td><span>Registered Building</span></td>
-							</tr>
-							<tr>
-								<td><span>Registered Street 1</span></td>
-								<td><span>Registered Street 2</span></td>
-							</tr>
-							<tr>
-								<td><span>Registered Street </span></td>
-								<td><span>Registered City</span></td>
-							</tr>
-							<tr>
-								<td><span>Registered State</span></td>
-								<td><span>Registered Postcode</span></td>
-							</tr>
-						</tbody>
-					</table>
-					<h3>Entity Information</h3>
-					<table class="fields">
-						<tbody>
-							<tr>
-								<td><span>Date of Incorporation</span></td>
-								<td><span>Date of Dissolution</span></td>
-							</tr>
-							<tr>
-								<td><span>Issuer Flag</span></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-					<h3>Identifiers</h3>
-					<table class="fields">
-						<tbody>
-							<tr>
-								<td><span>Registration Number</span></td>
-								<td><span>Primary Listing Exchange</span></td>
-							</tr>
-							<tr>
-								<td><span>Primary Ticker Code</span></td>
-								<td><span>SWIFT BIC</span></td>
-							</tr>
-							<tr>
-								<td><span>Registered Agent Name</span></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-					<h3>Industrial Classifications</h3>
-					<table class="fields">
-						<tbody>
-							<tr>
-								<td><span>US SIC Code & Description</span></td>
-								<td><span>NAICS Code & Description</span></td>
-							</tr>
-						</tbody>
-					</table>
-					<h3>Hierarchy Information</h3>
-					<table class="fields">
-						<tbody>
-							<tr>
-								<td><span>Entity Type</span></td>
-								<td><span>Immediate Parent</span></td>
-							</tr>
-							<tr>
-								<td><span>Immediate Parent AVID</span></td>
-								<td><span>Ultimate Parent</span></td>
-							</tr>
-							<tr>
-								<td><span>Ultimate Parent AVID</span></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="right lightbluebox lightblueborder leftpanel" id="tableoverflow"></div>
-				<br class="clearboth" />
-				<div>
-					<input type="hidden" value="request" name="requestType"/>
-					<input type="hidden" name="avid" value="{{tiddler.title}}" />
-					<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
-					<input id='submitButton' class="right submitButton darkgreen lightborder whitetext caps margintop" type="submit" value="Submit request"/>
-				</div>
+				<h5>Industrial Classification</h5>
+				<ul>
+					<li>US SIC Code & Description</li>
+					<li>NAICS Code & Description</li>
+				</ul>
 			</div>
-			{% include 'personal_info.html' %}
-		</form>
-	</div>
-	<br class="clearboth" />
+			<div class="grid4col left marginleft">
+				<div class="equalise1 borderbottom">
+					<h5>Entity Information</h5>
+					<ul>
+						<li>Date of Incorporation</li>
+						<li>Date of Dissolution</li>
+						<li>Issuer Flag</li>
+						<li>Registration Number</li>
+						<li>Primary Listing Exchange</li>
+						<li>Primary Ticker Code</li>
+						<li>SWIFT BIC</li>
+						<li>Registered Agent Name</li>
+					</ul>
+				</div>								
+				<h5>Heirarchy Information</h5>
+				<ul>
+					<li>Entity Type</li>
+					<li>Immediate Parent</li>
+					<li>Immediate Parent AVID</li> 	
+					<li>Ultimate Parent</li>
+					<li>Ultimate Parent AVID</li>
+				</ul> 	
+			</div>
+		</div>
+		<input type="hidden" value="request" name="requestType"/>
+		<input type="hidden" name="avid" value="{{tiddler.title}}" />
+		<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
+		<span id="testBorder"></span><input id="submitButton" value="Submit Request" type="submit" />
+		{% include 'personal_info.html' %}
+	</form>
 	{% endif %}
 </div>
 {% endblock %}
