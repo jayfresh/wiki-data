@@ -424,7 +424,6 @@ a:hover {
 	text-shadow: 1px 1px 1px #333333;
 	filter: dropshadow(color=#333333, offx=1, offy=1);
 	border: none;
-	margin-left: 12px;
 	height: 20px;
 	padding-bottom: 3px;
 	-moz-border-radius-topleft: 3px;
@@ -448,13 +447,20 @@ a:hover {
 	border-bottom: 10px solid #F0F0F0;
 	float: right;
 	clear: both;
-	margin-right: 15px;
+	margin-right: 0;
 	margin-top: 15px;
 }
 
-#recordForm #testBorder {
+#recordForm #testBorder, .requestInformation #testBorder {
 	border-bottom-color: #FFF;
 	border-top-color: #FFF;
+}
+
+.requestInformation #submitButton {
+	font-weight: bold;
+	font-size: 0.8em;
+	text-align: left;
+	padding-left: 10px;
 }
 
 #searchBox #advancedSearchContainer {
