@@ -109,3 +109,35 @@ def test_relevance():
         qnames.append(tiddler.fields['legal_name'])
 
     assert rnames != qnames
+
+def test_type():
+    set_query_string('v=2;type=all;q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    anames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        anames.append(tiddler.fields['legal_name'])
+
+    set_query_string('v=2;type=exact;q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    enames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        enames.append(tiddler.fields['legal_name'])
+
+    set_query_string('v=2;type=partial;q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    pnames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        pnames.append(tiddler.fields['legal_name'])
+
+    assert anames != enames
+    assert enames != pnames
+    assert anames != pnames

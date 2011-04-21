@@ -56,8 +56,17 @@ class Store(MappingSQLStore):
         # What version search are we doing?
         try:
             version = int(query.get('v', ['1'])[0])
-        except ValueError:
+            del query['v']
+        except (KeyError, ValueError):
             version = 1
+
+        # process search type (all, exact, partial)
+        if version == 2:
+            try:
+                type = query.get('type', ['all'])[0]
+                del query['type']
+            except KeyError:
+                pass
 
         query_string, fields = query_dict_to_search_tuple(
                 self.environ.get('tiddlyweb.query', {}))
@@ -66,6 +75,18 @@ class Store(MappingSQLStore):
                 query_string = '"' + query_string.rstrip('"').lstrip('"') + '"'
             else:
                 query_string = query_string.rstrip('"').lstrip('"')
+            terms = query_string.split()
+            prefix = bound = suffix = ''
+            if type == 'all':
+                prefix = '+'
+            elif type == 'partial':
+                suffix = '*'
+            elif type == 'exact':
+                bound = '"'
+            query_string = ' '.join(['%s%s%s'
+                % (prefix, term, suffix) for term in terms])
+            if bound:
+                query_string = bound + query_string + bound
 
         query = self.session.query(getattr(sTiddler, self.id_column))
         have_query = False
