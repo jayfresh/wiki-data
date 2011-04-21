@@ -14,9 +14,8 @@ class Serialization(HTML_Serializer):
         except (TypeError, KeyError):
             self.maps_api_key = None
 
-    def list_tiddlers(self, bag):
+    def list_tiddlers(self, tiddlers):
         logging.debug('in list_tiddlers')
-        tiddlers = bag.list_tiddlers()
         resultcount = self.environ.get('tiddlyweb.mappingsql.count', 0) # the total number of results in the database, as opposed to the number I can see
         access_count = self.environ.get('tiddlyweb.mappingsql.access_count', 0) # the number of results I have access to
         index = self.environ.get('tiddlyweb.mappingsql.index', 0)
