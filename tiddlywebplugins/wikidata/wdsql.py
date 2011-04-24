@@ -75,23 +75,28 @@ class Store(MappingSQLStore):
                 query_string = '"' + query_string.rstrip('"').lstrip('"') + '"'
             else:
                 query_string = query_string.rstrip('"').lstrip('"')
-            terms = query_string.split()
-            prefix = bound = suffix = ''
-            if type == 'all':
-                prefix = '+'
-            elif type == 'partial':
-                suffix = '*'
-            elif type == 'exact':
-                bound = '"'
-            query_string = ' '.join(['%s%s%s'
-                % (prefix, term, suffix) for term in terms])
-            if bound:
-                query_string = bound + query_string + bound
+            if not query_string.isdigit():
+                terms = query_string.split()
+                prefix = bound = suffix = ''
+                if type == 'all':
+                    prefix = '+'
+                elif type == 'partial':
+                    suffix = '*'
+                elif type == 'exact':
+                    bound = '"'
+                query_string = ' '.join(['%s%s%s'
+                    % (prefix, term, suffix) for term in terms])
+                if bound:
+                    query_string = bound + query_string + bound
 
         query = self.session.query(getattr(sTiddler, self.id_column))
         have_query = False
 
-        if query_string:
+        if query_string.isdigit():
+            query = query.filter(getattr(sTiddler, self.id_column)
+                    == query_string)
+            have_query = True
+        elif query_string:
             if self.environ['tiddlyweb.config'].get(
                     'mappingsql.full_text', False):
                 search_fields = ','.join((self.environ['tiddlyweb.config']
