@@ -109,3 +109,45 @@ def test_relevance():
         qnames.append(tiddler.fields['legal_name'])
 
     assert rnames != qnames
+
+def test_type():
+    set_query_string('v=2;type=all;q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    anames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        anames.append(tiddler.fields['legal_name'])
+
+    set_query_string('v=2;type=exact;q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    enames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        enames.append(tiddler.fields['legal_name'])
+
+    set_query_string('v=2;type=partial;q=australia+pty')
+
+    tiddlers = list(store.search(''))
+
+    pnames = []
+    for tiddler in tiddlers:
+        tiddler = store.get(tiddler)
+        pnames.append(tiddler.fields['legal_name'])
+
+    assert anames != enames
+    assert enames != pnames
+    assert anames != pnames
+
+def test_avid():
+    set_query_string('v=2;q=2164305')
+
+    tiddlers = list(store.search(''))
+
+    assert len(tiddlers) == 1
+    tiddler = store.get(tiddlers[0])
+    assert tiddler.fields['legal_name'] == 'The National Mutual Life Association Of Australasia Limited'
+
