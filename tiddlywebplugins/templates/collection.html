@@ -29,7 +29,7 @@
 			{% if field == 'avid' %}
 			<td><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.title}}</a></td>
 			{% elif field == 'legal_name' %}
-			<td class="entityName">{{tiddler.fields[field]}}</td>
+			<td class="entityName"><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.fields[field]}}</a></td>
 			{% elif field == 'company_website' %}
 			<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
 			{% else %}
