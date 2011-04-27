@@ -8,11 +8,11 @@
 	</div>
 	{% include 'search.html' %}
 </div>
+{% set count = tiddlers|count %}
 {% include 'search_results_bar.html' %}
 <table id="resultsTable" class="draggable forget-ordering">
 	<thead>
 		<tr>
-		<!-- TO-DO: add class="descending|ascending" to th elements -->
 		{% for field, label, tooltip in fields %}
 			<th title="{{tooltip}}">{{label}}</th>
 		{% endfor %}
@@ -22,7 +22,6 @@
 	</thead>
 	<tbody>
 	{% for tiddler in tiddlers %}
-		<!-- TO-DO: make sure even rows get the 'even' class -->
 		<tr>
 		{% for field, label, tooltip in fields %}
 			<!-- TO-DO: use '-' instead of blank for empty fields -->
@@ -43,7 +42,6 @@
 	</tbody>
 </table>
 <div class="tableinfo grid12col">
-	<!-- TO-DO: give these the correct identifiers so JS works -->
 	<a href="#" class="left pagebutton"><span></span>prev</a>
 	<a href="#" class="right pagebutton"><span></span>next</a>
 </div>
