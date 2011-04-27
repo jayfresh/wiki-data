@@ -7457,7 +7457,7 @@ $(document).ready(function() {
 		field = recordFields[i][0];
 		options = {};
 		if($.inArray(field,defaultView)===-1) {
-			//options.bVisible = false;
+			options.bVisible = false;
 		}
 		if(field==="legal_name") {
 			options.sType = "html";
@@ -7516,7 +7516,6 @@ $(document).ready(function() {
 				//oTable.fixedHeader.fnUpdate();
 			}
 			$('#resultsTable').css('visibility',"visible");
-			//DEBUG$('#content').css('overflow',$('#content').data('overflow'));
 			//$.fn.dragColumns('#resultsTable'); // JRL: debug
 			//oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
 			columns = oTable.fnSettings().aoColumns;
@@ -7587,10 +7586,6 @@ $(document).ready(function() {
 				}
 			});
 		};
-		
-		$('#content').data('overflow'),$('#content').css('overflow');
-		console.log($('#content').css('overflow'));
-		$('#content').css('overflow','hidden'); // to stop scroll bars appearing while table is constructred
 		
 		if(window.asyncSearch) { // disabled this on Feb 1st 2010
 			var q = window.location.search;
