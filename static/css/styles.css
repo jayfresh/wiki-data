@@ -417,7 +417,7 @@ a:hover {
 	background-color: #3c3c3c;
 }
 
-#submitButton {
+#submitButton, #searchBox #submitButton {
 	width: 120px;
 	background-color: #FF6E42;
 	color: #FFF;
