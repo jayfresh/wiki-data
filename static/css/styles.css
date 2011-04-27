@@ -391,7 +391,6 @@ a:hover {
 
 #searchBox #query, #searchBox #branches, #searchBox #advancedSearchContainer input {
 	border: 1px solid #D5D5D5;
-	margin: 3px 0 10px 5px;
 }
 
 #searchBox label.small {
