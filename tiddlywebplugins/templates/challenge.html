@@ -37,7 +37,7 @@
 			<div class="lightbg formSet margintop">
 				<h5>Source (optional)</h5>
 				<div>
-					<label for="source">What is your source for this challenge? Please include URL and/or sources used. We will use this to validate your challenge.</label>
+					<p>What is your source for this challenge? Please include URL and/or sources used. We will use this to validate your challenge.</p>
 					<textarea rows="5" name="source" class="margintopsmall"></textarea>
 				</div>
 			</div>
@@ -55,11 +55,7 @@
 							{% for field, label in name_fields %}
 							<tr>
 								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
-								<td><input type="text" name="challenge_{{field}}" /></td>
-							</tr>
-							<tr class="current">
-								<td class="field">Currently:</td>
-								<td>{{tiddler.fields[field]}}</td>
+								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -72,15 +68,7 @@
 						{% for field, label in entity_fields %}
 							<tr>
 								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
-								<td><input type="text" name="challenge_{{field}}" /></td>
-							</tr>
-							<tr class="current">
-								<td class="field">Currently:</td>
-								{% if field=='company_website' %}
-								<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
-								{% else %}
-								<td>{{tiddler.fields[field]}}</td>
-								{% endif %}
+								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -93,14 +81,10 @@
 						{% for field, label in operational_fields %}
 							<tr>
 								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
-								<td><input type="text" name="challenge_{{field}}" /></td>
-							</tr>
-							<tr class="current">
-								<td class="field">Currently:</td>
 								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}">{{tiddler.fields[field]}}</td>
-								{%- else -%}
-								<td>{{tiddler.fields[field]}}</td>
+								<td class="{{field}}"><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
+								{% else %}
+								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
 								{%- endif -%}
 							</tr>
 						{% endfor %}
@@ -112,12 +96,8 @@
 					<table class="companyRecord">
 						<tbody>
 							<tr>
-								<td class="field">Entity Type:</td>
-								<td><input type="text" name="challenge_entity_type" /></td>
-							</tr>
-							<tr class="current">
-								<td class="field">Currently:</td>
-								<td>{{tiddler.fields['entity_type']}}</td>
+								<td class="field"><label for="challenge_entity_type">Entity Type:</label></td>
+								<td><input type="text" name="challenge_entity_type" id="challenge_entity_type" value="{{tiddler.fields['entity_type']}}" /></td>
 							</tr>
 						</tbody>
 					</table>

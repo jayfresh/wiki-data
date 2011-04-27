@@ -805,11 +805,14 @@ a.viewmap {
 
 }
 
-table.companyRecord input {
+table.companyRecord input, table.companyRecord select {
 	border: 1px solid #D5D5D5;
 	padding: 2px;
 	width: 164px;
+}
 
+table.companyRecord select {
+	width: 170px;
 }
 
 table.companyRecord tr.current {
