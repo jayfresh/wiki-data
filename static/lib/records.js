@@ -9,7 +9,7 @@ var defaultView = [
 	"operational_city",
 	"operational_state",
 	"operational_country",
-	"operational_postcode"	
+	"entity_type"
 ];
 var entity_name_map = {
 	"TP": "Ultimate Parent",
