@@ -67,7 +67,7 @@ function addAdvSearchLine() {
 
 			var val = elem ? elem.value : "";
 			oTable.fnFilter(elem ? elem.value : "",selectedIndex);
-			oTable.fixedHeader.fnUpdate(true);
+			//oTable.fixedHeader.fnUpdate(true);
 		}
 	};
 	var filterByInput = function(event) {
@@ -88,11 +88,11 @@ function addAdvSearchLine() {
 	if($container.css('display')==="none") {
 		$container.slideDown(250);
 		/* have to put this here until FixedHeader can cope with the page changing length after it's been initialised - it's after a timeout because the revealAdvancedSearch function takes that long to complete */
-		window.setTimeout(function() {
+		/*window.setTimeout(function() {
 			if(oTable && oTable.fixedHeader) {
 				oTable.fixedHeader.fnUpdate(true);
 			}
-		}, 300);
+		}, 300);*/
 	}
 	redraw();
 	return $row;

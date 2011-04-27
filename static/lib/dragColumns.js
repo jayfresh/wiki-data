@@ -154,9 +154,9 @@ $.fn.dragColumns = function(selector) {
 		};
 		updateDataTable(from,to);
 		// update FixedHeader - should probably just call an event FixedHeader listens to
-		if(oTable.fixedHeader) {
+		/*if(oTable.fixedHeader) {
 			oTable.fixedHeader.fnUpdate();
-		}
+		}*/
 	};
 	var cancelDrag = function() {
 		isMoved = false;

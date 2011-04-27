@@ -2302,7 +2302,7 @@ function addAdvSearchLine() {
 
 			var val = elem ? elem.value : "";
 			oTable.fnFilter(elem ? elem.value : "",selectedIndex);
-			oTable.fixedHeader.fnUpdate(true);
+			//oTable.fixedHeader.fnUpdate(true);
 		}
 	};
 	var filterByInput = function(event) {
@@ -2323,11 +2323,11 @@ function addAdvSearchLine() {
 	if($container.css('display')==="none") {
 		$container.slideDown(250);
 		/* have to put this here until FixedHeader can cope with the page changing length after it's been initialised - it's after a timeout because the revealAdvancedSearch function takes that long to complete */
-		window.setTimeout(function() {
+		/*window.setTimeout(function() {
 			if(oTable && oTable.fixedHeader) {
 				oTable.fixedHeader.fnUpdate(true);
 			}
-		}, 300);
+		}, 300);*/
 	}
 	redraw();
 	return $row;
@@ -7076,9 +7076,9 @@ $.fn.dragColumns = function(selector) {
 		};
 		updateDataTable(from,to);
 		// update FixedHeader - should probably just call an event FixedHeader listens to
-		if(oTable.fixedHeader) {
+		/*if(oTable.fixedHeader) {
 			oTable.fixedHeader.fnUpdate();
-		}
+		}*/
 	};
 	var cancelDrag = function() {
 		isMoved = false;
@@ -7496,13 +7496,13 @@ $(document).ready(function() {
 				if(columns[col].bVisible) {
 					oTable.fnSetColumnVis(col, false);
 				}
-				oTable.fixedHeader.fnUpdate();
+				//oTable.fixedHeader.fnUpdate();
 			}
 			function showColumn(col) {
 				if(!columns[col].bVisible) {
 					oTable.fnSetColumnVis(col, true);
 				}
-				oTable.fixedHeader.fnUpdate();
+				//oTable.fixedHeader.fnUpdate();
 			}
 			function toggleColumn(col) {
 				if(columns[col].bVisible) {
@@ -7510,11 +7510,11 @@ $(document).ready(function() {
 				} else {
 					oTable.fnSetColumnVis(col, true);
 				}
-				oTable.fixedHeader.fnUpdate();
+				//oTable.fixedHeader.fnUpdate();
 			}
 			$('#table').css('visibility',"visible"); // TO-DO: see if the table is even hidden first
 			//$.fn.dragColumns('#resultsTable'); // JRL: debug
-			oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
+			//oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
 			columns = oTable.fnSettings().aoColumns;
 			/* there is no tfoot in the new design
 			$('#resultsTable tfoot th').live("click",function() {

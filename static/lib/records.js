@@ -101,13 +101,13 @@ $(document).ready(function() {
 				if(columns[col].bVisible) {
 					oTable.fnSetColumnVis(col, false);
 				}
-				oTable.fixedHeader.fnUpdate();
+				//oTable.fixedHeader.fnUpdate();
 			}
 			function showColumn(col) {
 				if(!columns[col].bVisible) {
 					oTable.fnSetColumnVis(col, true);
 				}
-				oTable.fixedHeader.fnUpdate();
+				//oTable.fixedHeader.fnUpdate();
 			}
 			function toggleColumn(col) {
 				if(columns[col].bVisible) {
@@ -115,11 +115,11 @@ $(document).ready(function() {
 				} else {
 					oTable.fnSetColumnVis(col, true);
 				}
-				oTable.fixedHeader.fnUpdate();
+				//oTable.fixedHeader.fnUpdate();
 			}
 			$('#table').css('visibility',"visible"); // TO-DO: see if the table is even hidden first
 			//$.fn.dragColumns('#resultsTable'); // JRL: debug
-			oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
+			//oTable.fixedHeader = new $.fn.dataTableExt.FixedHeader(oTable);
 			columns = oTable.fnSettings().aoColumns;
 			/* there is no tfoot in the new design
 			$('#resultsTable tfoot th').live("click",function() {
