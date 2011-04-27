@@ -151,3 +151,6 @@ def test_avid():
     tiddler = store.get(tiddlers[0])
     assert tiddler.fields['legal_name'] == 'The National Mutual Life Association Of Australasia Limited'
 
+    set_query_string('v=2;q=2159295')
+    tiddlers = list(store.search(''))
+    assert len(tiddlers) == 1
