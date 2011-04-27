@@ -44,8 +44,8 @@ def emailAvox(query, domain='wiki-data.com'):
             except KeyError:
                 pass
     elif requestType == 'suggest_new':
-        to = ['adam.edwards@avox.info', 'daniel.dunn@avox.info', 'paul.barlow@avox.info', 'kate.young@avox.info', 'brian.cole@avox.info', 'ken.price@avox.info', 'jnthnlstr@googlemail.com']
-        subject = domain+' AVID record suggestion'
+        to = ['registerentity.wiki-data@avox.info', 'jnthnlstr@googlemail.com']
+        subject = domain+' AVID Entity Registration'
         body = """Submittor info
 --------------
 Name: %s
