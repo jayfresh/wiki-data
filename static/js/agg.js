@@ -7572,11 +7572,13 @@ $(document).ready(function() {
 				return s;
 			};
 			$('a.pagebutton').click(function() {
-				window.location = getPagingLink(this);
+				if(!$(this).hasClass('inactive')) {
+					window.location = getPagingLink(this);	
+				}
 				return false;
 			});
 			$('a.pagebutton').hover(function() {
-				if($(this).attr('href')==='#') {
+				if(!$(this).hasClass('inactive') && $(this).attr('href')==='#') {
 					$(this).attr('href', getPagingLink(this));
 				}
 			});
