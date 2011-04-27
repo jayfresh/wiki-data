@@ -553,6 +553,10 @@ a:hover {
 
 /*=================================== Results Table */
 
+.js #resultsTable {
+	visibility: hidden;
+}
+
 .tableinfo {
 	font-size: 0.8em;
 	margin: 10px 0px;
