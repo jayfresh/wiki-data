@@ -21,6 +21,11 @@
 					<li><a href="#request_query_format">Request query format</a></li>
 				</ol></li>
 				<li><a href="#search_response">Search response</a></li>
+				<li><a href="#v2">Search API V2</a></li>
+				<li><ol>
+					<li><a href="#type_searching">Types of search</a></li>
+					<li><a href="#relevancy">Result relevancy</a></li>
+				</ol></li>
 			</ol>
 			<hr />
 			<a name="search_request"><h3>Search request</h3></a>
@@ -467,7 +472,36 @@ document.head.appendChild(s);</code></pre>
 			<pre><code>http://wiki-data.com/bags/avox/tiddlers/16835057</code></pre>
 			<p>The URL reveals the internal structure of wiki-data as set up by <a href="http://tiddlyweb.peermore.com">TiddlyWeb</a> - a collection of "tiddlers" (data entities) in a "bag" called "avox".</p>
 			<p>Records can be requested in different formats using the same mechanisms as for search - either by adding an extension to the URL or by setting an HTTP request Accept header to the appropriate value.</p>
-			<p>The formats available are the same as for search: JSON, text and HTML. Setting a JSONP callback for a record is supported in the same way as for search.</p>	
+			<p>The formats available are the same as for search: JSON, text and HTML. Setting a JSONP callback for a record is supported in the same way as for search.</p>
+			<a name="v2"><h3>Search API V2</h3></a>
+			<p>The Search API Version 2 was introduced in April 2011 and brings with it improvements in:</p>
+			<ul>
+				<li>Different types of search</li>
+				<li>Ordering results by relevancy</li>
+			</ul>
+			<p>To make use of any of the V2 abilities, any search needs to have <code>v=2</code> as a parameter in the query.</p>
+			<a name="type_searching"><h3>Types of search</h3></a>
+			<p>Searches to the V2 API can choose between three types of search, using the <code>type</code> parameter in the search query. The default option is "match all words".</p>
+			<h4>Match all words (default)</h4>
+			<p>This type of search matches all the words you have searched for, but not necessarily in the same order e.g. a search for "London bank" would match "The Royal Bank of Canada (London) Limited".</p>
+			<pre><code>type=all
+			
+http://wiki-data.com/search?
+	v=2&type=all&q=London%20bank</code></pre>
+			<h4>Partial match</h4>
+			<p>This type of search matches either of the words you have searched for, as well as any words that start with the search terms e.g. a search for "London bank" would match "London Capital Management Ltd.", as well as "SOCIETE GENERALE Private Banking (Suisse) SA".</p>
+			<pre><code>type=partial
+			
+http://wiki-data.com/search?
+	v=2&type=partial&q=London%20Bank</code></pre>
+			<h4>Exact match</h4>
+			<p>This type of search matches all the words you have search for in the order they are written e.g. a search for "insurance company" would match "Onebeacon Insurance Company" but not "Prudential Retirement Insurance and Annuity Company".</p>
+			<pre><code>type=exact
+			
+http://wiki-data.com/search?
+	v=2&type=exact&q=insurance%20company</code></pre>
+			<a name="relevancy"><h3>Result relevancy</h3></a>
+			<p>relevancy handling information here</p>
 		</div>
 	</div>
 </div>
