@@ -234,6 +234,7 @@ a:hover {
 	background: transparent;
 	position: relative;
 	left: 20px;
+	z-index: 1;
 	
 }
 .help span.heading span.text,
@@ -246,6 +247,7 @@ a:hover {
 	text-align: left;
 	zoom: 1;
 	position: absolute;
+	left: 0;
 	z-index: 1;
 	height: 20px; 
 	padding: 0px 10px 0px 10px;
