@@ -185,13 +185,14 @@ a:hover {
 	background-position: center center;
 	margin: 2px 0px 0px 5px;
 	position: relative;
-	z-index: 2;
+	z-index: 0;
 }
 
 
 .help:hover {
 	background-color: white;
 	cursor: pointer;
+	z-index: 2;
 }
 .help:hover span.helpText, 
 #searchBox .help:hover span.heading, 
