@@ -1,26 +1,26 @@
 <form id="searchBox" class="grid8col lightbg left" action="/search" method="get">
 	<label for="query" class="leftLabel marginright">Company Name / AVID</label>
 	<input id="query" name="q" type="text" />
-	<span class="help">
-		<span class="heading"><span></span>Search Terms</span>
+	<a class="help">
+		<span class="heading"><span class="point"></span><span class="text">Search Terms</span></span>
 		<span class="helpText">Type here to search by AVID, Legal Name, Previous Name(s) and Trades As Name(s)</span>
-	</span>
+	</a>
 	<label for="branches" class="small marginleft">Include branches</label>
 	<input id="branches" name="branches" type="checkbox" checked="checked" />
-	<span class="help">
-		<span class="heading"><span></span>Branches</span>
+	<a class="help">
+		<span class="heading"><span class="point"></span><span class="text">Branches</span></span>
 		<span class="helpText">Check this box to include company branches in your search</span>
-	</span>
+	</a>
 	<div class="submitBox">
 		<select class="advSearchLineField match" name="type">
 			<option selected="selected" value="all">Match All</option>
 			<option value="partial">Match Partial</option>
 			<option value="exact">Match Exact</option>
 		</select>
-		<span class="help">
-			<span class="heading"><span></span>Match</span>
+		<a class="help">
+			<span class="heading"><span class="point"></span><span class="text">Match</span></span>
 			<span class="helpText">Choose how to match results to your search strings</span>
-		</span>
+		</a>
 		<span id="testBorder"></span><input id="submitButton" value="Search Wiki-Data" type="submit" />
 	</div>
 	<div id="advancedSearchContainer">
@@ -29,10 +29,10 @@
 		<span class="leftLabel marginright">Add a Filter</span>
 		<span>
 			<button>+</button>
-			<span class="help">
-				<span class="heading"><span></span>Filters</span>
+			<a class="help">
+				<span class="heading"><span class="point"></span><span class="text">Filters</span></span>
 				<span class="helpText">Click here to filter search results by different add fields, such as Entity Type and Operational Country</span>
-			</span>
+			</a>
 		</span>
 	</div>
 	<input type="hidden" name="v" value="2" />

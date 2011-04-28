@@ -168,7 +168,7 @@ a:hover {
 	background-color: white;
 }
 
-.js .help {
+.help {
 	width: 14px;
 	height: 14px;
 	display: block;
@@ -184,32 +184,37 @@ a:hover {
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin: 2px 0px 0px 5px;
+	position: relative;
+	z-index: 2;
 }
 
 
-.js .help:hover {
+.help:hover {
 	background-color: white;
 	cursor: pointer;
 }
-.js .help:hover span.helpText, 
-.js #searchBox .help:hover span.heading, 
-.js #searchBox .help:hover span.helpText, 
-.js .help:hover span.heading {
+.help:hover span.helpText, 
+#searchBox .help:hover span.heading, 
+#searchBox .help:hover span.helpText, 
+.help:hover span.heading,
+.help:hover span.heading span.text,
+.help:hover span.heading span.point
+ {
 	visibility: visible;
 }
-.js #searchBox .help span.helpText, 
-.js .help span.helpText {
-	visibility: hidden;
+#searchBox .help span.helpText, 
+.help span.helpText {
+	visibility: hidden; 
 	display: block;
+	left: 10px;
 	position: absolute;
 	margin-left: 23px;
 	background-color: #ebf1ff;
 	width: 118px;
 	padding: 25px 10px 10px;
 	border: 1px solid #ccc;
-	z-index: 12;
-	font-size: 0.75em;
-	line-height: 1.4em;
+	font-size: 10.2px;
+	line-height: 14px;
 	text-align: left;
 	
 	-moz-box-shadow: 1px 1px 3px #333; 
@@ -224,18 +229,29 @@ a:hover {
 	-webkit-border-bottom-left-radius:3px;
 }
 
-.js #searchBox .help span.heading, .js .help span.heading {
-	visibility: hidden; 
-	background: #767676;
+#searchBox .help span.heading, .help span.heading {
+	visibility: hidden;  
+	background: transparent;
+	position: relative;
+	left: 20px;
+	
+}
+.help span.heading span.text,
+#searchBox .help span.heading span.text
+ {
+	background-color:#767676;
+	width:126px;
+	display:block;
 	color: white;
 	text-align: left;
-	z-index: 13;
+	zoom: 1;
 	position: absolute;
-	width: 136px;
+	z-index: 1;
 	height: 20px; 
-	padding: 0px 10px 0px 0px;
-	font-size: 0.8em;
-	margin: -2px 0px 0px 22px;
+	padding: 0px 10px 0px 10px;
+	font-size: 11px;
+	line-height: 19px;
+	margin: -2px 0px 0px 10px;
 	text-shadow: 1px 1px 1px #333333;
 	filter: dropshadow(color=#333333, offx=1, offy=1);
 	-moz-border-radius-topright: 3px;
@@ -252,11 +268,16 @@ a:hover {
 	box-shadow: 1px 1px 1px #333; 
 }
 
-.js #searchBox .help span.heading span, .js .help span.heading span {
-	width: 0;
+
+#searchBox .help span.heading span.point, .help span.heading span.point {
+	width: 0px;
+	display: inline-block;
 	position: relative;
-	left: -10px;
-	font-size: 0px; line-height: 0%;
+	line-height: 0px;
+	font-size: 0px;
+	top: -2px;
+	line-height: 0px;
+	font-size: 0px;
 	border-top: 10px solid transparent;
 	border-bottom: 10px solid transparent;
 	border-right: 10px solid #767676;
@@ -408,6 +429,7 @@ a:hover {
 
 #branches {
 	margin: 2px 0px 0px 5px;
+	width: 15px;
 }
 
 #searchBox label.small {
@@ -455,7 +477,18 @@ a:hover {
 	position: absolute;
     right: 10px;
     top: 2px;
+}
 
+#recordForm #submitButton {
+	position: relative;
+	float: right;
+	margin-right: -10px;
+	margin-top: 10px;
+}
+#recordForm #testBorder {
+	position: relative;
+	float: right;
+	margin-top: 25px;
 }
 
 #searchBox .submitBox {
@@ -463,6 +496,7 @@ a:hover {
 	bottom: 10px;
     position: absolute;
     right: 10px;
+    z-index: 1;
 }
 
 #testBorder {
@@ -548,6 +582,11 @@ a:hover {
 	margin-bottom: 10px;
 }
 
+.formSet.grid8col input, .formSet.grid8col select {
+	width: 155px;
+}
+
+
 .formSet select {
 	width: 247px;
 }
@@ -563,7 +602,6 @@ a:hover {
 }
 
 .formSet .help {
-	font-size: 1.2em;
 	float: right;
 }
 
@@ -576,7 +614,7 @@ a:hover {
 }
 
 .formSet.grid8col .grid4col {
-	width: 280px;
+	width: 185px;
 }
 
 .js #toOverflow, #tableoverflow {
@@ -683,7 +721,7 @@ a:hover {
 	margin-right: 10px;
 }
 
-#columnPicker button {
+#columnPicker a {
 	background-color: #767676;	
 	-moz-border-radius: 3px; 
 	-webkit-border-radius: 3px; 
@@ -699,7 +737,7 @@ a:hover {
 	box-shadow: 1px 1px 3px #ccc; 
 }
 
-#columnPicker button:hover {
+#columnPicker a:hover {
 	background-color: #3c3c3c;
 }
 
@@ -726,7 +764,7 @@ a:hover {
 	-webkit-border-bottom-left-radius:3px;	
 }
 
-#columnPicker:hover .columns {
+#columnPicker a:hover .columns {
 	visibility: visible;
 }
 
@@ -741,6 +779,7 @@ table#resultsTable, table#resultsTable_Cloned {
 	width: 940px;
 	border-bottom: 1px solid #3c3c3c;
 	margin-bottom: 5px;
+	border-collapse: collapse;
 }
 
 table#resultsTable thead tr, table#resultsTable_Cloned thead tr {
@@ -773,6 +812,8 @@ table#resultsTable thead tr th.noOrder, table#resultsTable_Cloned thead tr th.no
 
 table#resultsTable tr td {
 	padding: 5px;
+	border-collapse: collapse;
+	border-width: 0px;
 }	
 
 table#resultsTable tr td.entityName {
@@ -904,6 +945,3 @@ table.companyRecord tr.current td.field {
 .footer ul {
 	
 }
-
-
-
