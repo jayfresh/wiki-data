@@ -43,10 +43,10 @@
 				<div>
 					<label for="legal_name" class="grid3col marginright">Legal Name</label>
 					<input id="legal_name" name="legal_name" class="grid3col required" type="text" />
-					<span class="help">
-						<span class="heading"><span></span>Legal Name</span>
+					<a class="help">
+						<span class="heading"><span class="point"></span><span class="text">Legal Name</span></span>
 						<span class="helpText">help text for Legal Name</span>
-					</span>
+					</a>
 					{%- if query['formError'] and '"legal_name"' in query['formError'][0] -%}
 					<label for="legal_name" generated="true" class="error">This field is required.</label>
 					{%- endif -%}
@@ -54,10 +54,10 @@
 				<div>
 					<label for="operational_country" class="grid3col marginright">Operational Country</label>
 					<input class="grid3col required" id="operational_country" type="text" name="operational_country" />
-					<span class="help">
-						<span class="heading"><span></span>Operational Country</span>
+					<a class="help">
+						<span class="heading"><span class="point"></span><span class="text">Operational Country</span></span>
 						<span class="helpText">help text for Operational Country</span>
-					</span>
+					</a>
 					{%- if query['formError'] and '"operational_country"' in query['formError'][0] -%}
 					<label for="operational_country" generated="true" class="error">This field is required.</label>
 					{%- endif -%}
@@ -65,10 +65,10 @@
 				<div>
 					<label for="operational_state" class="grid3col marginright">Operational State</label>
 					<input id="operational_state" name="operational_state" class="grid3col" type="text" />
-					<span class="help">
-						<span class="heading"><span></span>Operational State</span>
+					<a class="help">
+						<span class="heading"><span class="point"></span><span class="text">Operational State</span></span>
 						<span class="helpText">help text for Operational State</span>
-					</span>
+					</a>
 					{%- if query['formError'] and '"operational_state"' in query['formError'][0] -%}
 					<label for="operational_state" generated="true" class="error">This field is required.</label>
 					{%- endif -%}
@@ -93,10 +93,10 @@
 					<input id="{{field}}" name="{{field}}" class="grid3col" type="text" />
 					{% endif %}
 					<!-- TO-DO: what to do about making the help text specific to each field? -->
-					<span class="help">
-						<span class="heading"><span></span>Search Terms</span>
+					<a class="help">
+						<span class="heading"><span class="point"></span><span class="text">Search Terms</span></span>
 						<span class="helpText">Type here to search by AVID, Legal Name, Previous Name(s) and Trades As Name(s)</span>
-					</span>
+					</a>
 				</div>
 			{% endfor %}
 				<div>

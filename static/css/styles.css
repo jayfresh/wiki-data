@@ -203,17 +203,17 @@ a:hover {
 	cursor: pointer;
 	z-index: 2;
 }
-.help:hover span.helpText, 
-#searchBox .help:hover span.heading, 
-#searchBox .help:hover span.helpText, 
-.help:hover span.heading,
+
+.help:hover span.heading, 
+.help:hover span.helpText,
+#searchBox .help:hover span.helpText,
 .help:hover span.heading span.text,
 .help:hover span.heading span.point
  {
 	visibility: visible;
 }
-#searchBox .help span.helpText, 
-.help span.helpText {
+
+.help span.helpText, #searchBox .help span.helpText {
 	visibility: hidden; 
 	display: block;
 	left: 10px;
@@ -239,7 +239,7 @@ a:hover {
 	-webkit-border-bottom-left-radius:3px;
 }
 
-#searchBox .help span.heading, .help span.heading {
+.help span.heading {
 	visibility: hidden;  
 	background: transparent;
 	position: relative;
@@ -247,9 +247,7 @@ a:hover {
 	z-index: 1;
 	
 }
-.help span.heading span.text,
-#searchBox .help span.heading span.text
- {
+.help span.heading span.text, #searchBox .help span.heading span.text {
 	background-color:#767676;
 	width:126px;
 	display:block;
@@ -281,10 +279,11 @@ a:hover {
 }
 
 
-#searchBox .help span.heading span.point, .help span.heading span.point {
+.help span.heading span.point, #searchBox .help span.heading span.point {
 	width: 0px;
 	display: inline-block;
 	position: relative;
+	float: left;
 	line-height: 0px;
 	font-size: 0px;
 	top: -2px;

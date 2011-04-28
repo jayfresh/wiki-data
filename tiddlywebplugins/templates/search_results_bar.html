@@ -26,16 +26,15 @@
 	{%- else -%}
 	<a href="#" class="right pagebutton"><span></span>next</a>			
 	{%- endif -%}
-	<div id="columnPicker" class="right onlyjs">
-		<a id="pickerControl">Hide/Show Columns</a>
-		<div class="columns">
+	<a id="columnPicker" class="right onlyjs">Hide/Show Columns
+		<span class="columns">
 			{% for field, label, tooltip in fields %}
 			<span class="controls">
 				<label for="{{field}}">{{label}}</label>
 				<input id="{{field}}" type="checkbox" />
 			</span>
 			{% endfor %}
-		</div>
-	</div>
+		</span>
+	</a>
 	<br class="clear" />
 </div>
