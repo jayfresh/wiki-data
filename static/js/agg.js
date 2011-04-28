@@ -7662,6 +7662,7 @@ $(document).ready(function() {
 		lastLinkHeight,
 		limit;
 	if($pageLink.length && $selfLinks.length) {
+		$pageLink.css('top', pageLinkParentTop);
 		$lastLink = $('a[name='+$($selfLinks[$selfLinks.length-1]).attr('href').substring(1)+']');
 		lastLinkTop = $lastLink.offset().top;
 		lastLinkHeight = $lastLink.height();
