@@ -245,6 +245,7 @@ a:hover {
 	position: relative;
 	left: 20px;
 	z-index: 1;
+	float: left;
 	
 }
 .help span.heading span.text, #searchBox .help span.heading span.text {
