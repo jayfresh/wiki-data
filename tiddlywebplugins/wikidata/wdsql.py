@@ -95,6 +95,7 @@ class Store(MappingSQLStore):
         if query_string.isdigit():
             query = query.filter(getattr(sTiddler, self.id_column)
                     == query_string)
+            branches = True
             have_query = True
         elif query_string:
             if self.environ['tiddlyweb.config'].get(
