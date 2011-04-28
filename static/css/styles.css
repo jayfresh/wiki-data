@@ -817,6 +817,7 @@ table#resultsTable tr td {
 	padding: 5px;
 	border-collapse: collapse;
 	border-width: 0px;
+	vertical-align: middle;
 }	
 
 table#resultsTable tr td.entityName {
@@ -834,7 +835,6 @@ table#resultsTable tr.even {
 	width: 25px;
 	padding-left: 5px;
 	line-height: 1.3em;
-	position: relative;
 	top: 7px;
 }
 
