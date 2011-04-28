@@ -531,6 +531,7 @@ a:hover {
 #searchBox #advancedSearchContainer {
 	width: 334px;
 	margin: 10px 0px 5px;
+	line-height: 0;
 }
 
 #searchBox .advSearchLine {
