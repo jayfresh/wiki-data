@@ -1,23 +1,34 @@
 <form id="searchBox" class="grid8col lightbg left" action="/search" method="get">
-	<label for="query" class="grid3col marginright">Company Name / AVID</label>
-	<input id="query" name="q" type="text" class="grid3col" />
+	<label for="query" class="leftLabel marginright">Company Name / AVID</label>
+	<input id="query" name="q" type="text" />
 	<span class="help">
 		<span class="heading"><span></span>Search Terms</span>
 		<span class="helpText">Type here to search by AVID, Legal Name, Previous Name(s) and Trades As Name(s)</span>
 	</span>
-	<label for="branches" class="small grid1col">Include branches</label>
+	<label for="branches" class="small marginleft">Include branches</label>
 	<input id="branches" name="branches" type="checkbox" checked="checked" />
 	<span class="help">
 		<span class="heading"><span></span>Branches</span>
 		<span class="helpText">Check this box to include company branches in your search</span>
 	</span>
-	<span id="testBorder"></span><input type="submit" id="submitButton" value="Search Wiki-Data" />
+	<div class="submitBox">
+		<select class="advSearchLineField match" name="type">
+			<option selected="selected" value="all">Match All</option>
+			<option value="partial">Match Partial</option>
+			<option value="exact">Match Exact</option>
+		</select>
+		<span class="help">
+			<span class="heading"><span></span>Match</span>
+			<span class="helpText">Choose how to match results to your search strings</span>
+		</span>
+		<span id="testBorder"></span><input id="submitButton" value="Search Wiki-Data" type="submit" />
+	</div>
 	<div id="advancedSearchContainer">
 		<div id="advancedSearchLines"></div>
 	</div>
-	<div class="onlyjs">
-		<span class="grid3col marginright">Add a Filter</span>
-		<span class="grid3col">
+	<div class="onlyjs clearboth">
+		<span class="leftLabel marginright">Add a Filter</span>
+		<span>
 			<button>+</button>
 			<span class="help">
 				<span class="heading"><span></span>Filters</span>
@@ -27,4 +38,3 @@
 	</div>
 	<input type="hidden" name="v" value="2" />
 </form>
-

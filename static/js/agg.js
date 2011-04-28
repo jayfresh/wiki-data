@@ -7481,7 +7481,7 @@ $(document).ready(function() {
 			bPaginate: false,
 			bSortClasses: false,
 			bInfo: false,
-			aaSorting: [[1, 'asc']],
+			aaSorting: [],
 			aoColumns: aoColumns,
 			sDom: 't'
 		};
