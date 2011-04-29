@@ -428,7 +428,7 @@ a:hover {
 #searchBox label, #searchBox span {
 	text-align: right;
 	display: block;
-	font-size: 0.9em;
+	font-size: 0.89em;
 }
 
 #searchBox * {
@@ -585,7 +585,8 @@ a:hover {
 .formSet {
 	padding: 10px;
 	font-size: 0.8em;
-
+	overflow:hidden;
+	zoom:1;
 }
 
 .formSet input, .formSet select {
@@ -593,10 +594,12 @@ a:hover {
 	padding: 3px;
 	width: 240px;
 	margin-bottom: 10px;
+	float:left;
 }
 
 .formSet.grid8col input, .formSet.grid8col select {
 	width: 155px;
+	float: left;
 }
 
 
@@ -606,6 +609,7 @@ a:hover {
 
 .formSet label {
 	display: block;
+	clear: both;
 }
 
 .formSet textarea { /* used on the challenge page */
@@ -732,9 +736,10 @@ a:hover {
 
 #columnPicker {
 	margin-right: 10px;
+	display: block;
 }
 
-#columnPicker a {
+a#columnPicker {
 	background-color: #767676;	
 	-moz-border-radius: 3px; 
 	-webkit-border-radius: 3px; 
@@ -742,28 +747,35 @@ a:hover {
 	height: 16px;
 	color: white;
 	border: none;
-	padding-bottom: 2px;
+	padding-top: 2px;
+	
 	width: 140px;
+	display: block;
+	text-align:center;
+	overflow:visible;
+	position: relative;
 	
 	-moz-box-shadow: 1px 1px 3px #ccc; 
 	-webkit-box-shadow: 1px 1px 3px #ccc; 
 	box-shadow: 1px 1px 3px #ccc; 
 }
 
-#columnPicker a:hover {
+a#columnPicker:hover {
 	background-color: #3c3c3c;
 }
 
-#columnPicker .columns {
+a#columnPicker span.columns {
 	visibility: hidden;
 	position: absolute;
 	background-color: #ebf1ff;
-	width: 118px;
+	width: 127px;
 	padding: 10px;
 	text-align: right;
 	border: 1px solid #ccc;
 	z-index: 10;
 	font-size: 0.88em;
+	display:block;
+	left:0px;
 	
 	-moz-box-shadow: 1px 1px 3px #333; 
 	-webkit-box-shadow: 1px 1px 3px #333; 
@@ -777,14 +789,36 @@ a:hover {
 	-webkit-border-bottom-left-radius:3px;	
 }
 
-#columnPicker a:hover .columns {
+a#columnPicker:hover span.columns {
 	visibility: visible;
 }
 
-#columnPicker .columns span.controls {
+a#columnPicker .columns span.controls {
 	display: block;
+	float: left;
+	font-size: 10px;
+	line-height: 15px;
+	margin-bottom:6px;
+	position:relative;
+	border:none;
+	color: #565656;
+	width: 130px;
+	
 }
-
+a#columnPicker .columns span.controls input {
+	margin-left: 5px;
+	margin-top: 0px;
+	float: right;
+	width: 15px;
+	height: 15px;
+}
+a#columnPicker .columns span.controls label {
+	float: left;
+	width: 100px;
+	display: block;
+	position: relative;
+	z-index: 20;
+}
 
 table#resultsTable, table#resultsTable_Cloned {
 	font-size: 0.8em;
