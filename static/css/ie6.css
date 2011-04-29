@@ -1,0 +1,15 @@
+.formSet.grid8col .grid4col {
+	width: 185px;
+}
+
+.formSet label.grid3col {
+	width: 185px;
+}
+
+.formSet.grid8col .grid4col.marginright {
+	margin-right:10px;
+}
+
+.grid4col.mandatory {
+	width: 300px;
+}
