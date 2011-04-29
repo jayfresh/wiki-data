@@ -6,14 +6,23 @@
 	{% if commonVars.query['success'] and commonVars.query['success'][0] == '1' %}
 	<p>Thanks! We'll be in touch shortly.</p>
 	{% else %}
-	<form method="post" action="/verify" id="recordForm">
-		<div class="grid4col marginright left pageLinks notFixed">
-			<h2>Request Analysis</h2>
-			<p class="nomargin">This is a list of the extra data fields you are requesting for AVID {{tiddler.title}}. Click Submit to confirm your request.</p>
-			<ul>
-				<li><a href="/bags/avox/tiddlers/{{tiddler.title}}">This Company's Record<span></span></a></li>
-			</ul>
+	<form method="post" action="/verify" id="recordForm">	
+		<div class="grid4col marginright left">
+			<div class="pageLinks notFixed">
+				<h2>Request Analysis</h2>
+				<p class="nomargin">This is a list of the extra data fields you are requesting for AVID {{tiddler.title}}. Click Submit to confirm your request.</p>
+				<div class="requestInformation left">
+					<span id="testBorder"></span><input id="submitButton" value="Submit Request" type="submit" />
+				</div>
+				<br class="clearboth" />
+				<ul>
+					<li><a href="/bags/avox/tiddlers/{{tiddler.title}}">This Company's Record<span></span></a></li>
+				</ul>
+			</div>
 		</div>
+		
+		
+		
 		<div class="grid8col right pageContent requestInformation">
 			<h3>{{tiddler.fields.legal_name}}</h3>
 			
@@ -66,7 +75,6 @@
 		<input type="hidden" value="request" name="requestType"/>
 		<input type="hidden" name="avid" value="{{tiddler.title}}" />
 		<input type="hidden" name="legal_name" value="{{tiddler.fields.legal_name}}" />
-		<span id="testBorder"></span><input id="submitButton" value="Submit Request" type="submit" />
 		{% include 'personal_info.html' %}
 	</form>
 	{% endif %}
