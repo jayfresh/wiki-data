@@ -28,7 +28,7 @@
 				</ol></li>
 			</ol>
 			<hr />
-			<a name="search_request"><h3>Search request</h3></a>
+			<h3><a name="search_request">Search request</a></h3>
 			<p>You can request data in JSON, text or HTML format. Requesting in HTML format produces the same result as visiting the website in a browser. A JSONP wrapper is available to enable cross-domain data requests.</p>
 			<p>The endpoint for a search request is:</p>
 			<pre>http://wiki-data.com/search</pre>
@@ -59,7 +59,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<!--<a name="authentication"><h4>Authentication</h4></a>
+			<!--<h4><a name="authentication">Authentication</a></h4>
 			<p>If you send authenticated API calls to challenge records, suggest new records or request more information on a record, you bypass the need to fill in a CAPTCHA each time you make the request. You can do this with either HTTP Basic Authentication or cookies. The authentication cookie is <code>tiddlyweb_user</code>.</p>
 			<p>Examples using the curl command-line tool:</p>
 			<pre><code>Using HTTP Basic Authentication
@@ -78,7 +78,7 @@ curl --cookie-jar cookies.txt -d \
 2) Pass the created cookie to subsequent API calls:
 curl --cookie cookies.txt -X GET \
   http://www.myavoxdata.com/bags/avox/tiddlers/16835057.json</code></pre>-->
-			<a name="jsonp_requests"><h4>JSONP requests</h4></a>
+			<h4><a name="jsonp_requests">JSONP requests</a></h4>
 			<p>You can make cross-domain JSON search requests by specifying a <code>jsonp_callback</code> parameter in the query string. This wraps the returned data with a function call to whatever you choose as the value of the <code>jsonp_callback</code> parameter.</p>
 			<p>The API understands query string parameters delimited by either "&" or ";" characters, so both these requests are equivalent:</p>
 			<pre><code>http://wiki-data.com/search.json?q=mycompany&jsonp_callback=myCallback
@@ -98,7 +98,7 @@ document.head.appendChild(s);</code></pre>
 		// do something
 	}
 );</code></pre>
-			<a name="open_fields"><h4>Fields to search data by - open fields</h4></a>
+			<h4><a name="open_fields">Fields to search data by - open fields</a></h4>
 			<p>The simplest query you can make is by using the <code>q</code> parameter in the query string. This searches <em>Legal Name</em>, <em>Previous Name(s)</em> and <em>Trades As Names(s)</em> fields for a match</p>
 			<p>You can search the public data by any of the following fields. The query string parameter is the human-readable field name transformed to lower-case with " ", "(" and ")" replaced by "_":</p>
 			<table>
@@ -167,7 +167,7 @@ document.head.appendChild(s);</code></pre>
 					</tr>
 				</tbody>
 			</table>
-			<a name="developer_fields"><h4>Fields to search data by - private fields</h4></a>
+			<h4><a name="developer_fields">Fields to search data by - private fields</a></h4>
 			<p>If you have a developer account, you also have access to the following fields:</p>
 			<table>
 				<thead>
@@ -399,7 +399,7 @@ document.head.appendChild(s);</code></pre>
 					</tr>
 				</tbody>
 			</table>
-			<a name="geo_codes"><h4>Country/state codes</h4></a>
+			<h4><a name="geo_codes">Country/state codes</a></h4>
 			<p>For the state and country fields mentioned below, you need to provide the 2 or 3 letter <a href="http://en.wikipedia.org/wiki/ISO_3166">ISO 3166</a> codes for the country/state you want.</p>
 			<p>There is a JavaScript helper library at <a href="http://github.com/jayfresh/ISO_3166">http://github.com/jayfresh/ISO_3166</a> which contains the mappings you need.</p>
 			<table>
@@ -426,7 +426,7 @@ document.head.appendChild(s);</code></pre>
 					</tr>
 				</thead>
 			</table>
-			<a name="request_query_format"><h4>Request query format</h4></a>
+			<h4><a name="request_query_format">Request query format</a></h4>
 			<p>You can specify the fields to filter on in two different ways:</p>
 			<h5>key/value pairs</h5>
 			<p>This is standard form of creating a search string e.g. to search for all companies with the word "bank" in their name, operating in London, England, you can issue this query:</p>
@@ -438,7 +438,7 @@ document.head.appendChild(s);</code></pre>
 			<pre><code>http://wiki-data.com/search?q=bank&adv_0_field=operational_city&
 	adv_0_value=London&adv_1_field=operational_country&adv_1_value=GBR</code></pre>
 			<p>For each extra field/value you want to search by, increase the index after <code>adv_</code> by 1.</p>
-			<a name="search_response"><h3>Search response</h3></a>
+			<h3><a name="search_response">Search response</a></h3>
 			<p>Requesting a search in JSON format returns data in the structure shown below. If you request data in HTML format, it returns the same webpage you would see if you performed the search on wiki-data.com. Searching in text format produces only a list of matching AVID's.</p>
 			<p>A JSON search returns data in this structure:</p>
 			<pre><code>[
@@ -473,14 +473,14 @@ document.head.appendChild(s);</code></pre>
 			<p>The URL reveals the internal structure of wiki-data as set up by <a href="http://tiddlyweb.peermore.com">TiddlyWeb</a> - a collection of "tiddlers" (data entities) in a "bag" called "avox".</p>
 			<p>Records can be requested in different formats using the same mechanisms as for search - either by adding an extension to the URL or by setting an HTTP request Accept header to the appropriate value.</p>
 			<p>The formats available are the same as for search: JSON, text and HTML. Setting a JSONP callback for a record is supported in the same way as for search.</p>
-			<a name="v2"><h3>Search API V2</h3></a>
+			<h3><a name="v2">Search API V2</a></h3>
 			<p>The Search API Version 2 was introduced in April 2011 and brings with it improvements in:</p>
 			<ul>
 				<li>Different types of search</li>
 				<li>Ordering results by relevancy</li>
 			</ul>
 			<p>To make use of any of the V2 abilities, any search needs to have <code>v=2</code> as a parameter in the query.</p>
-			<a name="type_searching"><h3>Types of search</h3></a>
+			<h3><a name="type_searching">Types of search</a></h3>
 			<p>Searches to the V2 API can choose between three types of search, using the <code>type</code> parameter in the search query. The default option is "match all words".</p>
 			<h4>Match all words (default)</h4>
 			<p>This type of search matches all the words you have searched for, but not necessarily in the same order e.g. a search for "London bank" would match "The Royal Bank of Canada (London) Limited".</p>
@@ -500,7 +500,7 @@ http://wiki-data.com/search?
 			
 http://wiki-data.com/search?
 	v=2&type=exact&q=insurance%20company</code></pre>
-			<a name="relevancy"><h3>Result relevancy</h3></a>
+			<h4><a name="relevancy">Result relevancy</a></h4>
 			<p>relevancy handling information here</p>
 		</div>
 	</div>
