@@ -33,7 +33,7 @@
 	<p>Thanks! We'll be in touch shortly.</p>
 	{% else %}
 	<form id="recordForm" method="post" action="/verify">
-		<div class="grid4col left marginright">
+		<div class="grid4col left marginright mandatory">
 			<div class="pageLinks notFixed">
 				<h2>Register an Entity</h2>
 				<p class="nomargin">Have you <a href="/">searched</a> for the record? If so please fill in as much of the first section as you can and add your contact information.</p>
@@ -73,11 +73,12 @@
 					<label for="operational_state" generated="true" class="error">This field is required.</label>
 					{%- endif -%}
 				</div>
+				<span id="testBorder"></span><input id="submitButton" value="Register Entity" type="submit" />
 			</div>
 		</div>
 		<div class="grid8col right lightbg formSet">
 			<h3>Additional Fields</h3>
-			<div class="grid4col left" id="toOverflow">
+			<div class="grid4col left marginright" id="toOverflow">
 			{% for field, label in labels %}
 				<div>
 					<label for="{{field}}" class="grid3col marginright">{{label}}</label>
@@ -101,11 +102,10 @@
 			{% endfor %}
 				<div>
 					<input type="hidden" value="suggest_new" name="requestType" />
-					<span id="testBorder"></span><input id="submitButton" value="Submit Entity" type="submit" />
 				</div>
 			</div>
 			<!-- this is where the overflow goes -->
-			<div class="grid4col right" id="tableoverflow">
+			<div class="grid4col left marginright" id="tableoverflow">
 			</div>
 		</div>
 		{% include 'personal_info.html' %}
