@@ -22,9 +22,9 @@ $(document).ready(function() {
 		limit;
 	if($pageLink.length && $selfLinks.length) {
 		$pageLink.css('top', pageLinkParentTop);
-		$lastLink = $('a[name='+$($selfLinks[$selfLinks.length-1]).attr('href').substring(1)+']');
+		$lastLink = $('a[name='+$($selfLinks[$selfLinks.length-1]).attr('href').substring(1)+']').parent(); // a tag is in a h3
 		lastLinkTop = $lastLink.offset().top;
-		lastLinkHeight = $lastLink.height();
+		lastLinkHeight = $lastLink.height()+parseInt($lastLink.css('padding-bottom'),10);
 		limit = (lastLinkTop - pageLinkParentTop) - (pageLinkHeaderHeight - lastLinkHeight);
 
 		$('a[rel="self"]').click(function(e){
@@ -33,8 +33,8 @@ $(document).ready(function() {
 			if(place==="#wikidata") {
 				toPlace=0;
 			} else {
-				toPlace = $('a[name='+place.substring(1)+']');
-				toPlace = (toPlace.offset().top - pageLinkHeaderHeight) - (pageLinkParentTop - toPlace.height());
+				toPlace = $('a[name='+place.substring(1)+']').parent();
+				toPlace = (toPlace.offset().top - pageLinkHeaderHeight) - (pageLinkParentTop - (toPlace.height()+parseInt(toPlace.css('padding-bottom'),10)));
 			}
 			$.scrollTo(toPlace, 300);
 			$(this).blur();
