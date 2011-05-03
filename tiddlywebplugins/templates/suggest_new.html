@@ -92,10 +92,9 @@
 					{% if field == 'entity_type' %}
 					<select name="{{field}}">
 						<option value="">Please select...</option>
-						<option value="Branch">Branch</option>
-						<option value="Division">Division</option>
-						<option value="Subsidiary">Subsidiary</option>
-						<option value="Ultimate Parent">Ultimate Parent</option>
+						<option value="TP">Ultimate Parent</option>
+						<option value="LE">Subsidiary</option>
+						<option value="BRA">Branch</option>
 					</select>
 					{% else %}
 					<input id="{{field}}" name="{{field}}" class="grid3col" type="text" />
