@@ -7677,6 +7677,13 @@ $(document).ready(function() {
 	// make links to anchors on the page scroll to the location.
 	var $pageLink = $('.pageLinks'),
 		pageLinkParentTop = $pageLink.parent().offset().top, // use parent since it is not fixed
+		pageLinkHeight = $pageLink.height()
+			+ parseInt($pageLink.css('paddingBottom'),10)
+			+ parseInt($pageLink.css('paddingTop'),10)
+			//+ parseInt($pageLink.css('marginBottom'),10) // don't include bottom-margin since it is not visible
+			+ parseInt($pageLink.css('marginTop'),10)
+			+ parseInt($pageLink.css('borderBottomWidth'),10)
+			+ parseInt($pageLink.css('borderTopWidth'),10),
 		pageLinkHeaderHeight = $pageLink.find('h2').height(),
 		$selfLinks = $('a[rel="self"]'),
 		$lastLink,
@@ -7685,10 +7692,16 @@ $(document).ready(function() {
 		limit;
 	if($pageLink.length && $selfLinks.length) {
 		$pageLink.css('top', pageLinkParentTop);
-		$lastLink = $('a[name='+$($selfLinks[$selfLinks.length-1]).attr('href').substring(1)+']').parent(); // a tag is in a h3
+		$lastLink = $('a[name='+$($selfLinks[$selfLinks.length-1]).attr('href').substring(1)+']').closest('div');
 		lastLinkTop = $lastLink.offset().top;
-		lastLinkHeight = $lastLink.height()+parseInt($lastLink.css('padding-bottom'),10);
-		limit = (lastLinkTop - pageLinkParentTop) - (pageLinkHeaderHeight - lastLinkHeight);
+		lastLinkHeight = $lastLink.height()
+			+ parseInt($lastLink.css('paddingBottom'),10)
+			+ parseInt($lastLink.css('paddingTop'),10)
+			//+ parseInt($lastLink.css('marginBottom'),10)
+			+ parseInt($lastLink.css('marginTop'),10)
+			+ parseInt($lastLink.css('borderBottomWidth'),10)
+			+ parseInt($lastLink.css('borderTopWidth'),10);
+		limit = (lastLinkTop + lastLinkHeight) - (pageLinkParentTop + pageLinkHeight);
 
 		$('a[rel="self"]').click(function(e){
 			var place =  $(this).attr('href');
@@ -7697,7 +7710,7 @@ $(document).ready(function() {
 				toPlace=0;
 			} else {
 				toPlace = $('a[name='+place.substring(1)+']').parent();
-				toPlace = (toPlace.offset().top - pageLinkHeaderHeight) - (pageLinkParentTop - (toPlace.height()+parseInt(toPlace.css('padding-bottom'),10)));
+				toPlace = toPlace.offset().top + (toPlace.height()+parseInt(toPlace.css('padding-bottom'),10)) - (pageLinkHeaderHeight + pageLinkParentTop);
 			}
 			$.scrollTo(toPlace, 300);
 			$(this).blur();
