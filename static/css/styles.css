@@ -371,13 +371,19 @@ a:hover {
 }
 
 .pageContent h3 {
-	color: #3c3c3c;
 	font-size: 1.3em;
 	border-bottom: 1px solid silver;
     color: #3C3C3C;
-    font-size: 1.3em;
     margin-top: 14px;
     padding-bottom: 8px;
+}
+
+.pageContent h4 {
+	font-size: 1.2em;
+}
+
+.pageContent h5 {
+	font-size: 1.1em;
 }
 
 .pageContent p {

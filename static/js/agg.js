@@ -7676,7 +7676,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	// make links to anchors on the page scroll to the location.
 	var $pageLink = $('.pageLinks'),
-		pageLinkParentTop = $pageLink.next().offset().top, // use parent since it is not fixed
+		pageLinkParentTop = $pageLink.parent().offset().top, // use parent since it is not fixed
 		pageLinkHeaderHeight = $pageLink.find('h2').height(),
 		$selfLinks = $('a[rel="self"]'),
 		$lastLink,
