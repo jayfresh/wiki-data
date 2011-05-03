@@ -8,27 +8,18 @@
    {% if query['role'] == 'tier2' %}
       {% set action = '/_admin/createuser' %}
    {% else %}
-      {% set action = '/index.html' %}
+      {% set action = '/_admin/createuser' %}
    {% endif %}
 {% endif %}
-<div id="static">
-	<div id="searchtitle" class="darkgreen">
-		<div class="wrap">
-			<h2>Account creation
+<div class="grid12col container">
+	<h2>Account creation
 			{%- if success==1 %} successful
 			{%- else %} failed
 			{%- endif %}</h2>
-		</div>
-	</div>
-	<div class="wrap">
-		<div class="miniwrap bluebox lightblueborder">
-                {% if success==1 -%}
-                <p>An email has been sent to: {{query['email'][0]}} with a new password.</p>
-                {%- else -%}
-                <p class="error">Oops! Something went wrong. Please <a
-                    href="{{ action }}">try again.</a></p>
-                {%- endif %}
-            </div>
-        </div>
-    </div>
+	{% if success==1 -%}
+    <p>An email has been sent to: {{query['email'][0]}} with a new password.</p>
+    {%- else -%}
+    <p class="error">Oops! Something went wrong. Please <a href="{{ action }}">try again.</a></p>
+    {%- endif %}
+</div>
 {% endblock %}

@@ -55,6 +55,11 @@ a:hover {
 	color: #8facff;
 }
 
+.error {
+
+	color: #ff2828;
+
+}
 
 /*=================================== Header Bar */
 
@@ -628,6 +633,10 @@ a:hover {
 	width: 98%;
 	border: 1px solid #D5D5D5;
 	padding: 2px;
+}
+
+.formSet #submit { /* used on the login page */
+	width: auto;
 }
 
 .formSet .help {

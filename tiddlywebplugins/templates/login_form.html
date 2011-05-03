@@ -1,32 +1,23 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
-<div id="static">
-	<div id="searchtitle" class="darkgreen">
-		<div class="wrap">
-			<h2>Login</h2>
-		</div>
-	</div>
-	<div class="wrap">
-		<div class="miniwrap bluebox lightblueborder">
-			<form method="POST" id="loginform">
-				<div>
-					<label for="username">Login ID (email address):</label>&nbsp;<input name="username" id="username" size="40" />
-				</div>
-				<div>
-					<label for="password">Password:</label>&nbsp;<input type="password" id="password" name="password" size="40" />
-				</div>
-				<div>
-					<input type="hidden" name="tiddlyweb_redirect" value="{{redirect}}" />
-					{% if error -%}
-					<div class="error">Oops. Your username or password didn't match our records, please try again</div>
-					{%- endif %}
-					{% if commonVars.usersign.expired_user -%}
-					<div class="error">{{commonVars.usersign.expired_user}} - {% include 'login_form_support_line.html' %}</div>
-					{%- endif %}
-					<input type="submit" id="submit" class="darkgreen lightborder whitetext caps margintop" value="Login" />
-				</div>
-			</form>
-		</div>
+<div class="grid12col container">
+	<h2>Login</h2>
+	<div class="formSet grid4col">
+		<form method="POST" id="loginform">
+			<label for="username">Login ID (email address):</label>
+			<input type="text" name="username" id="username" />
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" />
+			<input type="hidden" name="tiddlyweb_redirect" value="{{redirect}}" />
+			<input type="submit" id="submit" class="margintop" value="Login" />
+			<br class="clearboth" />
+			{% if error -%}
+			<div class="error">Oops. Your username or password didn't match our records, please try again.</div>
+			{%- endif %}
+			{% if commonVars.usersign.expired_user -%}
+			<div class="error">{{commonVars.usersign.expired_user}} - {% include 'login_form_support_line.html' %}</div>
+			{%- endif %}
+		</form>
 	</div>
 </div>
 {% endblock %}

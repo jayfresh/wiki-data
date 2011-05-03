@@ -1,60 +1,22 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
-<div id="static">
-	<div id="searchtitle" class="darkgreen">
-		<div class="wrap">
-			<h2>Create a New User</h2>
-		</div>
-	</div>
-	<div class="wrap">
-		<div class="miniwrap bluebox lightblueborder">
-                <p>{{ message }}</p>
-                <p>Enter the User Information:</p>
-                <form method="POST" id="loginform">
-					<div>
-						<label
-                                                    for="name">Name:</label>&nbsp;<input
-                                                type="text"
-                                                name="name" id="name"
-                                                value="{{ form.name }}"
-                                                size="40" />
-					</div>
-					<div>
-						<label
-                                                    for="email">Email:</label>&nbsp;<input
-                                                type="text" id="email"
-                                                name="email" value="{{ form.email }}"
-                                                size="40" />
-					</div>
-					<div>
-						<label
-                                                    for="country">Country:</label>&nbsp;<input
-                                                type="text"
-                                                id="country" value="{{ form.country }}"
-                                                name="country" size="40" />
-					</div>
-					<div>
-						<label
-                                                    for="company">Company
-                                                    (optional):</label>&nbsp;<input
-                                                type="text"
-                                                id="company" value="{{ form.company }}"
-                                                name="company" size="40" />
-					</div>
-                                        <div>
-                                            <label
-                                                for="expiry">Expiration
-                                                (days):
-                                            </label>&nbsp;<input
-                                            name="expiry"
-                                            type="text" value="365"
-                                            size="3" />
-                                        </div>
-					<div>
-						<input type="submit" id="submit" class="darkgreen lightborder whitetext caps margintop" value="Create account" />
-					</div>
-				</form>
-            </div>
-        </div>
+<div class="grid12col container">
+	<h2>Create a New Account</h2>
+    <p>{{ message }}</p>
+	<div class="formSet grid4col">
+		<form method="POST" id="loginform">
+			<label for="name">Name:</label>
+			<input type="text" name="name" id="name" value="{{ form.name }}" />
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email" value="{{ form.email }}" />
+			<label for="country">Country:</label>
+			<input type="text" id="country" value="{{ form.country }}" name="country" />
+			<label for="company">Company (optional):</label>
+			<input type="text" id="company" value="{{ form.company }}" name="company" />
+            <label for="expiry">Expiration (days):</label>
+            <input name="expiry" type="text" value="365" size="3" />
+			<input type="submit" id="submit" class="margintop" value="Create account" />
+		</form>
     </div>
+</div>
 {% endblock %}
