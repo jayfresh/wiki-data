@@ -44,6 +44,7 @@ def emailAvox(query, domain='wiki-data.com'):
             except KeyError:
                 pass
     elif requestType == 'suggest_new':
+        source = query['source'][0]
         to = ['registerentity.'+domainStem+'@avox.info', 'jnthnlstr@googlemail.com']
         subject = domain+' AVID Entity Registration'
         body = """Submittor info
@@ -53,10 +54,12 @@ Email address: %s
 Country: %s
 Company: %s
 
+Sources:
+%s
 
 Record info
 --------------
-""" % (name, email, country, company)
+""" % (name, email, country, company, source)
         for field, label, tooltip in recordFields.recordFields:
             try:
                 body += field + ': ' + query[field][0] + '\n'
