@@ -93,7 +93,7 @@
 	background-color: #EEE;
 	padding: 10px;
 	color: #565656;
-	font-size: 1.2em;
+	width: 320px;
 }
 
 #personal_info h2 {
@@ -102,17 +102,33 @@
 	border-bottom: 10px solid #d5d5d5;
 }
 
+#personal_info p, label, input {
+	font-size: 0.9em;
+}
+
 #personal_info input, #personal_info select {
 	border: 1px solid #999;
 	padding: 2px;
 	margin: 5px 0px 10px;
-	display: block;
+	float: left;
 	width: 160px;
 }
 
 #personal_info label {
 	float: left;
 	width: 150px;
+}
+
+#personal_info label.error {
+	float: right;
+}
+
+#personal_info input.error, #personal_info select.error {
+	color: inherit;
+}
+
+#personal_info .right {
+	float: right;
 }
 
 #personal_info button, #personal_info #submitButtonClone {

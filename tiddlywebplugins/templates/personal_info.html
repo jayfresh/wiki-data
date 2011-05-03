@@ -9,66 +9,56 @@
 	</div>
 	<div>
 		{% if commonVars.usersign.name == "GUEST" %}
-		<div>
-			<label for="name">Your name</label>
-			<input class="required" type="text" name="name" id="name" size="35"/>
-			{%- if query['formError'] and '"name"' in query['formError'][0] -%}
-			<label for="name" generated="true" class="error">This field is required.</label>
-			{%- endif -%}
-		</div>
-		<div>
-			<label for="email">Your email address</label>
-			<input class="required email" type="text" name="email" id="email" size="35"/>
-			{%- if query['formError'] and '"email"' in query['formError'][0] -%}
-			<label for="email" generated="true" class="error">This field is required.</label>
-			{%- endif -%}
-		</div>
-		<div>
-			<label for="country">Your country</label>
-			<input class="required" type="text" name="country" id="country" size="35" />
-			{%- if query['formError'] and '"country"' in query['formError'][0] -%}
-			<label for="country" generated="true" class="error">This field is required.</label>
-			{%- endif -%}
-		</div>
-		<div>
-			<label for="company">Your company <span>(Optional)</span></label>
-			<input type="text" name="company" size="35"/>
-		</div>					
+		<label for="name">Your name</label>
+		<input class="required" type="text" name="name" id="name" size="35"/>
+		{%- if query['formError'] and '"name"' in query['formError'][0] -%}
+		<label for="name" generated="true" class="error">This field is required.</label>
+		{%- endif -%}
+		<br class="clearboth" />
+		<label for="email">Your email address</label>
+		<input class="required email" type="text" name="email" id="email" size="35"/>
+		{%- if query['formError'] and '"email"' in query['formError'][0] -%}
+		<label for="email" generated="true" class="error">This field is required.</label>
+		{%- endif -%}
+		<br class="clearboth" />
+		<label for="country">Your country</label>
+		<input class="required" type="text" name="country" id="country" size="35" />
+		{%- if query['formError'] and '"country"' in query['formError'][0] -%}
+		<label for="country" generated="true" class="error">This field is required.</label>
+		{%- endif -%}
+		<br class="clearboth" />
+		<label for="company">Your company <span>(Optional)</span></label>
+		<input type="text" name="company" size="35"/>
 		{% else %}
 		{% set name = commonVars.usersign.fields.name %}
 		{% set email = commonVars.usersign.name %}
 		{% set country = commonVars.usersign.fields.country %}
 		{% set company = commonVars.usersign.fields.company %}
-		<div>
-			<div>
-				<span>Name:</span>
-				<input type="hidden" name="name" value="{{name}}" />
-				<span>{% if name -%}
-					{{name}}{%else%}(not provided)
-				{%-endif%}</span>
-			</div>
-			<div>
-				<span>Email address:</span>
-				<input type="hidden" name="email" value="{{email}}" />
-				<span>{% if email -%}
-					{{email}}{%else%}(not provided)
-				{%-endif%}</span>
-			</div>
-			<div>
-				<span>Country:</span>
-				<input type="hidden" name="country" value="{{country}}" />
-				<span>{% if country -%}
-					{{country}}{%else%}(not provided)
-				{%-endif%}</span>
-			</div>
-			<div>
-				<span>Company (Optional):</span>
-				<input type="hidden" name="company" value="{{company}}" />
-				<span>{% if company -%}
-					{{company}}{%else%}(not provided)
-				{%-endif%}</span>
-			</div>
-		</div>
+		<p class="marginbottom">
+			<span>Name:</span>
+			<input type="hidden" name="name" value="{{name}}" />
+			<span>{% if name -%}
+				{{name}}{%else%}(not provided)
+			{%-endif%}</span>
+			<br />
+			<span>Email address:</span>
+			<input type="hidden" name="email" value="{{email}}" />
+			<span>{% if email -%}
+				{{email}}{%else%}(not provided)
+			{%-endif%}</span>
+			<br />
+			<span>Country:</span>
+			<input type="hidden" name="country" value="{{country}}" />
+			<span>{% if country -%}
+				{{country}}{%else%}(not provided)
+			{%-endif%}</span>
+			<br />
+			<span>Company (Optional):</span>
+			<input type="hidden" name="company" value="{{company}}" />
+			<span>{% if company -%}
+				{{company}}{%else%}(not provided)
+			{%-endif%}</span>
+		</p>
 		{% endif %}
 		{% if commonVars.usersign.name == "GUEST" %}
 		<div>Are you human?</div>

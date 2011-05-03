@@ -156,7 +156,7 @@ function makeCaptcha() {
 }
 function makeModalAndSetValidator(idSelector) {
 	var $origForm = $('#recordForm'); // shouldn't be a problem until you want to use more than one form on a page
-	$('body').prepend('<div id="modal"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"><form id="tempForm"></form></div></div></div></div></div></div>');
+	$('body').prepend('<div id="modal" class="jbasewrap"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"><form id="tempForm"></form></div></div></div></div></div></div>');
 	var $moved = $(idSelector).appendTo($('#modal #tempForm'));
 	$('#tempForm').validate();
 	$('#submitButton').clone().attr('id','submitButtonClone').addClass('right').appendTo($(idSelector)).click(function(e) {
