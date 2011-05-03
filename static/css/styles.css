@@ -122,19 +122,30 @@ a.noBorder:hover {
 }
 
 #header h1 {
-	background-color: /* #2956A7 */ #3c3c3c;
+	background-color: #3c3c3c;
     color: white;
     float: left;
     font-size: 1.6em;
-    height: 45px;
     margin: 0;
     padding: 15px 20px 0;
     text-transform: uppercase;
+    width: 150px;
+    /*
+    height: 45px;
     text-indent: -9999px;
     background-image: url(../images/avoxlogotype-grey.png);
     background-repeat: no-repeat;
     background-position: center center;
-    width: 150px;
+    */
+}
+#header h1 a { /* using "Leafy/Langridge image replacement", since it allows for links to continue working */
+	display: block;
+    padding: 45px 0 0 0;
+    overflow: hidden;
+    background-image: url(../images/avoxlogotype-grey.png);
+    background-repeat: no-repeat;
+    height: 0px !important;
+    height /**/:45px;
 }
 
 #header .subnav {
