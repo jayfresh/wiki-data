@@ -2515,6 +2515,23 @@ $(document).ready(function() {
 				return DependentInputs.values.countries;
 			}
 		});
+		if($('#challenge_entity_type').length) {
+			var entityMap = {
+				"Ultimate Parent": "TP",
+				"Subsidiary": "LE",
+				"Branch": "SLE"
+			},
+			values = [];
+			for(var i in entityMap) {
+				values.push(i);
+			}
+			DependentInputs.addDependency(function($row,changed) {
+				if(changed==="field" && $row.field.attr("for")==="challenge_entity_type") {
+					$row.valueMap = entityMap;
+					return values;
+				}
+			});
+		}
 		overflowTable('#toOverflow','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
 		if($('#recordForm label').length) {
 			DependentInputs.addRows('#recordForm',"label[class!=error]",":input[type=text], select");
