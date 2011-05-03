@@ -386,7 +386,7 @@ a:hover {
 	font-size: 1.1em;
 }
 
-.pageContent p {
+.pageContent p, .pageContent ul {
 	font-size: 0.85em;
 	line-height: 1.6em;
 	
