@@ -1,34 +1,19 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
-<div id="static">
-	<div id="searchtitle" class="darkgreen">
-		<div class="wrap">
-			<h2>Using the wiki-data API</h2>
-		</div>
+<div class="grid12col container">
+	<div class="grid4col marginright left pageLinks">
+		<h2>Using the wiki-data API</h2>
+		<p class="nomargin">wiki-data exposes its data in several formats through an API. To use the public data fields, you do not need a developer account. Non-public fields (as described in the <a href="http://www.avox.info/pdfs/wikidata_field_specs.pdf">field spec</a>) are available with a developer account. At the moment, developer accounts are invite-only; if you would like to take advantage of the non-public fields, please get in touch at <a href="mailto:support@wiki-data.com">support@wiki-data.com</a></p>
+		<ul>
+			<li><a rel="self" href="#search_request">Search request<span></span></a></li>
+			<li><a rel="self" href="#search_response">Search response<span></span></a></li>
+			<li><a rel="self" href="#individual">Requesting individual records<span></span></a></li>
+			<li><a rel="self" href="#v2">Search API V2<span></span></a></li>
+		</ul>
 	</div>
-	<div class="wrap">
-		<div class="miniwrap bluebox lightblueborder">
-			<p>wiki-data exposes its data in several formats through an API. To use the public data fields, you do not need a developer account. Non-public fields (as described in the <a href="http://www.avox.info/pdfs/wikidata_field_specs.pdf">field spec</a>) are available with a developer account. At the moment, developer accounts are invite-only; if you would like to take advantage of the non-public fields, please get in touch at <a href="mailto:support@wiki-data.com">support@wiki-data.com</a></p>
-			<hr />
-			<ol>
-				<li><a href="#search_request">Search request</a></li>
-				<li><ol>
-					<!--<li><a href="#authentication">Authentiction</a></li>-->
-					<li><a href="#jsonp_requests">JSONP requests</a></li>
-					<li><a href="#open_fields">Open fields</a></li>
-					<li><a href="#developer_fields">Private fields</a></li>
-					<li><a href="#geo_codes">Country/state codes</a></li>
-					<li><a href="#request_query_format">Request query format</a></li>
-				</ol></li>
-				<li><a href="#search_response">Search response</a></li>
-				<li><a href="#v2">Search API V2</a></li>
-				<li><ol>
-					<li><a href="#type_searching">Types of search</a></li>
-					<li><a href="#relevancy">Result relevancy</a></li>
-				</ol></li>
-			</ol>
-			<hr />
-			<h3><a name="search_request">Search request</a></h3>
+	<div class="grid8col right pageContent">
+		<h3><a name="search_request">Search request</a></h3>
+		<div>
 			<p>You can request data in JSON, text or HTML format. Requesting in HTML format produces the same result as visiting the website in a browser. A JSONP wrapper is available to enable cross-domain data requests.</p>
 			<p>The endpoint for a search request is:</p>
 			<pre>http://wiki-data.com/search</pre>
@@ -438,7 +423,11 @@ document.head.appendChild(s);</code></pre>
 			<pre><code>http://wiki-data.com/search?q=bank&adv_0_field=operational_city&
 	adv_0_value=London&adv_1_field=operational_country&adv_1_value=GBR</code></pre>
 			<p>For each extra field/value you want to search by, increase the index after <code>adv_</code> by 1.</p>
-			<h3><a name="search_response">Search response</a></h3>
+		</div>
+	</div>
+	<div class="grid8col right pageContent">
+		<h3><a name="search_response">Search response</a></h3>
+		<div>
 			<p>Requesting a search in JSON format returns data in the structure shown below. If you request data in HTML format, it returns the same webpage you would see if you performed the search on wiki-data.com. Searching in text format produces only a list of matching AVID's.</p>
 			<p>A JSON search returns data in this structure:</p>
 			<pre><code>[
@@ -467,13 +456,21 @@ document.head.appendChild(s);</code></pre>
    ...
 ]</code></pre>
 			<p>The other meta-fields referred to come from the internal structure of the <a href="http://tiddlyweb.peermore.com">TiddlyWeb</a> instance running the system. We don't remove these as they may prove useful in some applications.</p>
-			<h3>Requesting individual records</h3>
+		</div>
+	</div>
+	<div class="grid8col right pageContent">
+		<h3><a name="individual">Requesting individual records</a></h3>
+		<div>
 			<p>Individual company records are stored by AVID, which is an 8-digit identifier. A typical URL for a company record - in this case <a href="http://www.avox.info" target="_blank">Avox Limited</a> - is:</p>
 			<pre><code>http://wiki-data.com/bags/avox/tiddlers/16835057</code></pre>
 			<p>The URL reveals the internal structure of wiki-data as set up by <a href="http://tiddlyweb.peermore.com">TiddlyWeb</a> - a collection of "tiddlers" (data entities) in a "bag" called "avox".</p>
 			<p>Records can be requested in different formats using the same mechanisms as for search - either by adding an extension to the URL or by setting an HTTP request Accept header to the appropriate value.</p>
 			<p>The formats available are the same as for search: JSON, text and HTML. Setting a JSONP callback for a record is supported in the same way as for search.</p>
-			<h3><a name="v2">Search API V2</a></h3>
+		</div>
+	</div>
+	<div class="grid8col right pageContent">
+		<h3><a name="v2">Search API V2</a></h3>
+		<div>
 			<p>The Search API Version 2 was introduced in April 2011 and brings with it improvements in:</p>
 			<ul>
 				<li>Different types of search</li>

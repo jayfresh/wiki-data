@@ -30,7 +30,7 @@ $(document).ready(function() {
 		$('a[rel="self"]').click(function(e){
 			var place =  $(this).attr('href');
 			e.preventDefault();
-			if(place==="#wikidata") {
+			if($('a[rel="self"]').index(this)===0) {
 				toPlace=0;
 			} else {
 				toPlace = $('a[name='+place.substring(1)+']').parent();

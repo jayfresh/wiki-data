@@ -7676,7 +7676,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	// make links to anchors on the page scroll to the location.
 	var $pageLink = $('.pageLinks'),
-		pageLinkParentTop = $pageLink.parent().offset().top, // use parent since it is not fixed
+		pageLinkParentTop = $pageLink.next().offset().top, // use parent since it is not fixed
 		pageLinkHeaderHeight = $pageLink.find('h2').height(),
 		$selfLinks = $('a[rel="self"]'),
 		$lastLink,
@@ -7693,7 +7693,7 @@ $(document).ready(function() {
 		$('a[rel="self"]').click(function(e){
 			var place =  $(this).attr('href');
 			e.preventDefault();
-			if(place==="#wikidata") {
+			if($('a[rel="self"]').index(this)===0) {
 				toPlace=0;
 			} else {
 				toPlace = $('a[name='+place.substring(1)+']').parent();
