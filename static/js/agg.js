@@ -2467,10 +2467,15 @@ $(document).ready(function() {
 	if(q) {
 		var params = parseQueryString(q);
 		if(params.branches) {
-			$('#branches').attr('checked', true);
+			$('#branches').attr('checked', 'checked');
+		} else {
+			$('#branches').attr('checked', '');
 		}
 		if(params.q) {
 			$('#query').val(params.q.join(" "));
+		}
+		if(params.type) {
+			$('#type').val(params.type);
 		}
 		for(var i in params) {
 			if(i.match(/adv_\d{1,2}_field/)) {
