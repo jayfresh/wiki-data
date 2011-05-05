@@ -3,7 +3,7 @@ AUTHOR = 'Wiki-Data'
 AUTHOR_EMAIL = 'suppoert@wiki-data.com'
 NAME = 'tiddlywebplugins.wikidata'
 DESCRIPTION = 'Packaging of Wiki-Data Project'
-VERSION = '0.65_dev'
+VERSION = '0.66_dev'
 
 
 import os
