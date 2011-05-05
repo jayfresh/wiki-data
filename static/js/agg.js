@@ -2439,6 +2439,19 @@ function makeModalAndSetValidator(idSelector) {
 		makeCaptcha();
 	});
 }
+
+$.fn.equalize = function() {
+	var $collection = this,
+		heights = [],
+		maxHeight;
+	$collection.each(function(i, elem) {
+		heights.push($(elem).height());
+	});
+	maxHeight = Math.max.apply(Math, heights);
+	$collection.height(maxHeight);
+	return this;
+};
+
 $(document).ready(function() {
 	// overwrite default fields with dynamically generated list
 	DependentInputs.fields = [];
@@ -2576,6 +2589,7 @@ $(document).ready(function() {
 			//focusInvalid: false
 		});
 	}
+	$('.equalise1').equalize();
 	// now show hidden things
 	// TO-DO: see whether the onlyjs things are even hidden
 	$('.onlyjs').css('visibility','visible');

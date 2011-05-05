@@ -67,35 +67,41 @@
 								<a href="#" target="_blank" class="viewmap onlyjs">View Map ></a>
 							</td>
 							<td class="adr">
-								{% if tiddler.fields.operational_po_box %}
-									{{ tiddler.fields.operational_po_box }}
+								{%- if tiddler.fields.operational_po_box %}
+								{{ tiddler.fields.operational_po_box }}<br />
 								{% endif %}
 								{% if tiddler.fields.operational_floor or tiddler.fields.operational_building %}
-									<span class="extended-address">{% if tiddler.fields.operational_floor %}{{ tiddler.fields.operational_floor }} {% endif %}{% if tiddler.fields.operational_building %}{{ tiddler.fields.operational_building }}{% endif %}</span>
-								{% endif %}
+								<span class="extended-address">
+									{%- if tiddler.fields.operational_floor -%}
+									{{ tiddler.fields.operational_floor }}
+										{%- if tiddler.fields.operational_building %}, {% endif -%}
+									{%- endif -%}
+									{%- if tiddler.fields.operational_building -%}
+									{{ tiddler.fields.operational_building }}
+									{%- endif -%}
+								</span><br />
+								{%- endif %}
 								<span class="street-address">
 								{%- if tiddler.fields.operational_street_1 -%}
 									{{ tiddler.fields.operational_street_1 }}
-									{%- if tiddler.fields.operational_street_2 %}, {{ tiddler.fields.operational_street_2 }}
-										{%- if tiddler.fields.operational_street_3 %}, {{ tiddler.fields.operational_street_3 }}
+									{%- if tiddler.fields.operational_street_2 %}<br />{{ tiddler.fields.operational_street_2 }}
+										{%- if tiddler.fields.operational_street_3 %}<br />{{ tiddler.fields.operational_street_3 }}
 										{%- endif -%}
 									{%- endif -%}
 								{%- endif -%}
-								</span>
+								</span><br />
 								{% if tiddler.fields.operational_city -%}
-									<span class="locality">{{ tiddler.fields.operational_city }}</span>
-									{%-if tiddler.fields.operational_state or tiddler.fields.operational_country-%}, {%endif-%}
-								{%- endif -%}
-								{%- if tiddler.fields.operational_state -%}
-									<span class="region operational_state">{{ tiddler.fields.operational_state }}</span>
-									{%- if tiddler.fields.operational_country-%}, {%endif-%}
-								{%- endif -%}
-								{%- if tiddler.fields.operational_country -%}
-									<span class="country-name operational_country">{{ tiddler.fields.operational_country }}</span>
+								<span class="locality">{{ tiddler.fields.operational_city }}</span><br />
 								{%- endif %}
-								{% if tiddler.fields.operational_postcode %}
-									<span class="postal-code">{{ tiddler.fields.operational_postcode }}</span>
-								{% endif %}
+								{% if tiddler.fields.operational_state -%}
+								<span class="region operational_state">{{ tiddler.fields.operational_state }}</span><br />
+								{%- endif %}
+								{% if tiddler.fields.operational_country -%}
+								<span class="country-name operational_country">{{ tiddler.fields.operational_country }}</span>
+									{%- if tiddler.fields.operational_postcode %}, {% endif -%}
+								{%- endif -%}
+								{%- if tiddler.fields.operational_postcode %}<span class="postal-code">{{ tiddler.fields.operational_postcode }}</span>
+								{%- endif -%}
 							</td>
 						</tr>
 						<tr>
