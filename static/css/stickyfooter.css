@@ -13,4 +13,5 @@ html, body {
 }
 .footer, .push {
 	height: 250px;
+	overflow: hidden;
 }
