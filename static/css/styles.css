@@ -1015,7 +1015,7 @@ table.companyRecord tr.current td.field {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#767676', EndColorStr='#3c3c3c'); 
 	color: white;
 	font-size: 0.8em;
-	overflow: auto;
+	overflow: hidden;
 }
 
 .footer a {
