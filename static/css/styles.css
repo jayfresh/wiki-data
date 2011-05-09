@@ -516,6 +516,20 @@ a.noBorder:hover {
     top: 2px;
 }
 
+#searchBox input#submitButton:hover {
+       background-color: #FF4B15;
+}
+
+#searchBox a#searchButton:hover input#submitButton {
+       background-color: #FF4B15;
+}
+#searchBox a#searchButton:hover #testBorder {
+	cursor: pointer;
+	border-bottom-color: #e0e0e0;
+    border-left-color: #FF4B15;
+    border-top-color: #e0e0e0;
+}
+
 #recordForm #submitButton {
 	position: relative;
 	float: right;
