@@ -1,0 +1,3 @@
+.pageLinks ul li a {
+	width: 90%; /* IE6/7 have a bug where the floated <span> inside the <a> causes the <a> to become 100% width */
+}
