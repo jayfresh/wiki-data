@@ -314,7 +314,20 @@ $(document).ready(function() {
 				}
 			});
 		}
-		if($('#'))
+		if($('#trading_status')) {
+			var tradingStatuses = [
+				"Active",
+				"Inactive",
+				"Dissolved",
+				"In Administration",
+				"Suspended"
+			];
+			DependentInputs.addDependency(function($row,changed) {
+				if(changed==="field" && $row.field.attr("for")==="trading_status") {
+					return tradingStatuses;
+				}
+			});
+		}
 		overflowTable('#toOverflow','#tableoverflow'); // add before DependentInputs kicks in, otherwise you lose references to correct inputs after overflow
 		if($('#recordForm label').length) {
 			DependentInputs.addRows('#recordForm',"label[class!=error]",":input[type=text], select");

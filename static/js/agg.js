@@ -2240,7 +2240,6 @@ $('a[href^="/search"]').each(function() {
 	var href = $(this).attr('href');
 	$(this).attr('href', href.replace("/search", "/pages/ajax_search"));
 });*/
-// TO-DO: if the branches parameter is missing, but there is a query, then uncheck the branches checkbox (which is checked by default)
 function parseQueryString(q) {
 	var params = {};
 	if(q.charAt(0)==="?") {
@@ -2533,7 +2532,7 @@ $(document).ready(function() {
 				return DependentInputs.values.countries;
 			}
 		});
-		if($('#challenge_entity_type').length) {
+		if($('#entity_type').length) {
 			var entityMap = {
 				"Ultimate Parent": "TP",
 				"Subsidiary": "LE",
@@ -2544,9 +2543,23 @@ $(document).ready(function() {
 				values.push(i);
 			}
 			DependentInputs.addDependency(function($row,changed) {
-				if(changed==="field" && $row.field.attr("for")==="challenge_entity_type") {
+				if(changed==="field" && $row.field.attr("for")==="entity_type") {
 					$row.valueMap = entityMap;
 					return values;
+				}
+			});
+		}
+		if($('#trading_status')) {
+			var tradingStatuses = [
+				"Active",
+				"Inactive",
+				"Dissolved",
+				"In Administration",
+				"Suspended"
+			];
+			DependentInputs.addDependency(function($row,changed) {
+				if(changed==="field" && $row.field.attr("for")==="trading_status") {
+					return tradingStatuses;
 				}
 			});
 		}
