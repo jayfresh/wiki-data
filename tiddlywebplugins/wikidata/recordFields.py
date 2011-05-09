@@ -22,7 +22,7 @@ recordFields = [
 #('regulatory_status', 'Regulatory Status', 'Values linked to the specific regulator. (FSA example: EEA Authorised, Introducer AR, Schedule 5, No Longer Authorised, Authorised, Registered, Appointed Representative, Applied to Cancel)'),
 #('registration_authority', 'Registration Authority', '(e.g. Companies House, SEDAR, Deleware Secretary of State)'),
 #('registration_number__operational_', 'Registration Number (Operational)', 'Identification code assigned by the registration authority for the country (or US state) in which the entity operates.'),
-('registration_number__jurisdiction_', 'Registration Number (Jurisdiction)', 'Identification code assigned by the registration authority for the country (or US state) of Jurisdiction for the entity'),
+('registration_number__jurisdiction_', 'Incorporation Number', 'Identification code assigned by the registration authority for the country (or US state) of Jurisdiction for the entity'),
 ('date_of_registration', 'Date Of Incorporation', 'Date that the company was incorporated in the state or country of jurisdiction'), # used to be Date of Registration
 ('date_of_dissolution', 'Date Of Dissolution', 'Date that the company dissolved if it is no longer active'),
 #('issuer_flag', 'Issuer Flag', 'Does the entity issue listed securities - Y/N'),
