@@ -266,7 +266,14 @@ http://wiki-data.com/search?
 http://wiki-data.com/search?
 	v=2&type=exact&q=insurance%20company</code></pre>
 			<h4><a name="relevancy">Result relevancy</a></h4>
-			<p>relevancy handling information here</p>
+			<p>v2 of the search API has improved the way that search results are ordered, introducing a "relevancy factor". This is calculated based on the name fields - legal name, trading name(s) and previous name(s) - since these are the only fields that are not matched exactly.</p>
+			<p>The relevance of a search result will be higher if it:</p>
+			<ul>
+				<li>has more occurrences of the search query in its name fields</li>
+				<li>has relatively more occurrences of the search query in its legal_name field</li>
+				<li>is shorter than another result with the same number of occurrences of the search query</li>
+			</ul>
+			<p>The algorithm used to calculate the relevancy factor is built into MySQL - see <a href="http://dev.mysql.com/doc/refman/5.5/en/fulltext-natural-language.html" target="_blank">this page</a> for more information.</p>
 		</div>
 	</div>
 </div>
