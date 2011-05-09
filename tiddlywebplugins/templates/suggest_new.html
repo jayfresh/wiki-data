@@ -102,11 +102,11 @@
 						<tbody>
 						{% for field, label in operational_fields %}
 							<tr>
-								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+								<td class="field"><label for="{{field}}">{{label}}</label></td>
 								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" /></td>
+								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" /></td>
 								{% else %}
-								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" /></td>
+								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
 								{%- endif -%}
 							</tr>
 						{% endfor %}
@@ -119,11 +119,11 @@
 						<tbody>
 						{% for field, label in hierarchy_fields %}
 							<tr>
-								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+								<td class="field"><label for="{{field}}">{{label}}</label></td>
 								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" /></td>
+								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" /></td>
 								{% else %}
-								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" /></td>
+								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
 								{%- endif -%}
 							</tr>
 						{% endfor %}
@@ -136,11 +136,11 @@
 						<tbody>
 						{% for field, label in operational_fields %}
 							<tr>
-								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+								<td class="field"><label for="{{field}}">{{label}}</label></td>
 								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" /></td>
+								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" /></td>
 								{% else %}
-								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" /></td>
+								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
 								{%- endif -%}
 							</tr>
 						{% endfor %}
@@ -153,8 +153,8 @@
 						<tbody>
 						{% for field, label in entity_fields %}
 							<tr>
-								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
-								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" /></td>
+								<td class="field"><label for="{{field}}">{{label}}</label></td>
+								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
 							</tr>
 						{% endfor %}
 						</tbody>

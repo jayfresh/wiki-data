@@ -54,8 +54,8 @@
 						<tbody>
 							{% for field, label in name_fields %}
 							<tr>
-								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
-								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
+								<td class="field"><label for="{{field}}">{{label}}</label></td>
+								<td><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -67,8 +67,8 @@
 						<tbody>
 						{% for field, label in entity_fields %}
 							<tr>
-								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
-								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
+								<td class="field"><label for="{{field}}">{{label}}</label></td>
+								<td><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -80,11 +80,11 @@
 						<tbody>
 						{% for field, label in operational_fields %}
 							<tr>
-								<td class="field"><label for="challenge_{{field}}">{{label}}</label></td>
+								<td class="field"><label for="{{field}}">{{label}}</label></td>
 								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
+								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
 								{% else %}
-								<td><input type="text" name="challenge_{{field}}" id="challenge_{{field}}" value="{{tiddler.fields[field]}}" /></td>
+								<td><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
 								{%- endif -%}
 							</tr>
 						{% endfor %}
@@ -96,8 +96,8 @@
 					<table class="companyRecord">
 						<tbody>
 							<tr>
-								<td class="field"><label for="challenge_entity_type">Entity Type:</label></td>
-								<td><input type="text" name="challenge_entity_type" id="challenge_entity_type" value="{{tiddler.fields['entity_type']}}" /></td>
+								<td class="field"><label for="entity_type">Entity Type:</label></td>
+								<td><input type="text" name="entity_type" id="entity_type" value="{{tiddler.fields['entity_type']}}" /></td>
 							</tr>
 						</tbody>
 					</table>
