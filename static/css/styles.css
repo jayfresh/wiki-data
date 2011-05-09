@@ -714,6 +714,35 @@ a.noBorder:hover {
 	border-right-color: #3c3c3c;
 }
 
+.tableinfo a.left span {
+	width: 0;
+	font-size: 0px; line-height: 0%;
+	border-top: 8px solid #fff;
+	border-bottom: 8px solid #fff;
+	border-right: 8px solid #767676;
+	float: left;
+}
+
+.tableinfo a.right span, 
+#resultsTable a.pointed span {
+	width: 0;
+	font-size: 0px; line-height: 0%;
+	border-top: 8px solid #fff;
+	border-left: 8px solid #767676;
+	border-bottom: 8px solid #fff;
+	float: right;
+}
+
+.tableinfo a.inactive, .tableinfo a.inactive:hover {
+	background-color: #E0E0E0; /* same as .lightbg */
+	cursor: default;
+}
+
+.tableinfo a.inactive span, .tableinfo a.inactive:hover span {
+	border-right-color: #E0E0E0;
+	border-left-color: #E0E0E0;
+}
+
 .tableinfo a.left {
 	padding-left: 0px;
 	margin-right: 20px;
@@ -741,28 +770,9 @@ a.noBorder:hover {
 	border-bottom-left-radius: 3px;
 }
 
-.tableinfo a.right span, 
-#resultsTable a.pointed span {
-	width: 0;
-	font-size: 0px; line-height: 0%;
-	border-top: 8px solid #fff;
-	border-left: 8px solid #767676;
-	border-bottom: 8px solid #fff;
-	float: right;
-}
-
 #resultsTable .even a.pointed span {
 	border-top: 8px solid #e0e0e0;
 	border-bottom: 8px solid #e0e0e0;	
-}
-
-.tableinfo a.left span {
-	width: 0;
-	font-size: 0px; line-height: 0%;
-	border-top: 8px solid #fff;
-	border-bottom: 8px solid #fff;
-	border-right: 8px solid #767676;
-	float: left;
 }
 
 #pageDistance {

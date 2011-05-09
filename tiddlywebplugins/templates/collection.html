@@ -9,6 +9,9 @@
 	{% include 'search.html' %}
 </div>
 {% set count = tiddlers|count %}
+{% set from = queryIndex+1 %}
+{% set to = queryIndex+count %}
+{% set count_to_end = resultcount - to %}
 {% include 'search_results_bar.html' %}
 <table id="resultsTable" class="draggable forget-ordering">
 	<thead>
@@ -42,7 +45,15 @@
 	</tbody>
 </table>
 <div class="tableinfo grid12col">
+	{% if queryIndex == 0 -%}
+	<a href="#" class="left pagebutton inactive"><span></span>prev</a>
+	{%- else -%}
 	<a href="#" class="left pagebutton"><span></span>prev</a>
+	{%- endif %}
+	{% if count_to_end == 0 -%}
+	<a href="#" class="right pagebutton inactive"><span></span>next</a>
+	{%- else -%}
 	<a href="#" class="right pagebutton"><span></span>next</a>
+	{%- endif %}
 </div>
 {% endblock %}
