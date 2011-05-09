@@ -679,10 +679,6 @@ a.noBorder:hover {
 	width: 280px;
 }
 
-.formSet.grid8col .grid4col {
-	width: 185px;
-}
-
 .js #toOverflow, #tableoverflow {
 	visibility: hidden;
 }
