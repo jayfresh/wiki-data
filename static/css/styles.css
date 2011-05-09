@@ -378,7 +378,7 @@ a.noBorder:hover {
 	position: relative;
 	top: -3px;
 	left: 10px;
-
+	float: right;
 }
 
 
