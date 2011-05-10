@@ -626,7 +626,6 @@ a.noBorder:hover {
 .formSet {
 	padding: 10px;
 	font-size: 0.8em;
-	overflow:hidden;
 	zoom:1;
 }
 
