@@ -535,13 +535,17 @@ a#searchButton:hover #testBorder {
 	border-top-color: #FFFFFF;
 }
 
-#recordForm #submitButton {
+#loginForm {
+	position: relative;
+}
+
+#recordForm #submitButton, #loginForm #submitButton {
 	position: relative;
 	float: right;
 	margin-right: -10px;
 	margin-top: 10px;
 }
-#recordForm #testBorder {
+#recordForm #testBorder, #loginForm #testBorder {
 	position: relative;
 	float: right;
 	margin-top: 25px;
@@ -569,7 +573,7 @@ a#searchButton:hover #testBorder {
     width: 0;
 }
 
-#recordForm #testBorder, .requestInformation #testBorder {
+#recordForm #testBorder, .requestInformation #testBorder, #loginForm #testBorder {
 	border-bottom-color: #FFF;
 	border-top-color: #FFF;
 }
