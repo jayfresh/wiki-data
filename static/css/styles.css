@@ -525,9 +525,9 @@ a.noBorder:hover {
 }
 #searchBox a#searchButton:hover #testBorder, a#searchButton:hover #testBorder {
 	cursor: pointer;
-	border-bottom-color: #e0e0e0;
+	border-bottom-color: #E0E0E0;
     border-left-color: #FF4B15;
-    border-top-color: #e0e0e0;
+    border-top-color: #E0E0E0;
 }
 
 a#searchButton:hover #testBorder {
