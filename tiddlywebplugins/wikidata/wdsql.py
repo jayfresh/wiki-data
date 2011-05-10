@@ -75,7 +75,7 @@ class Store(MappingSQLStore):
                 query_string = '"' + query_string.rstrip('"').lstrip('"') + '"'
             else:
                 query_string = query_string.rstrip('"').lstrip('"')
-            if not query_string.isdigit():
+            if not _is_avid(query_string):
                 terms = query_string.split()
                 prefix = bound = suffix = ''
                 if type == 'all':
@@ -92,7 +92,7 @@ class Store(MappingSQLStore):
         query = self.session.query(getattr(sTiddler, self.id_column))
         have_query = False
 
-        if query_string.isdigit():
+        if _is_avid(query_string):
             query = query.filter(getattr(sTiddler, self.id_column)
                     == query_string)
             branches = True
@@ -174,3 +174,12 @@ class Store(MappingSQLStore):
             query = query.filter(getattr(sTiddler, field) == terms[0])
             have_query = True
         return query, have_query
+
+
+def _is_avid(query_string):
+    """
+    An avid is defined as a string of digits between
+    7 and 10 characters long. Otherwise we think of it as
+    a company name.
+    """
+    return query_string.isdigit() and (7 <= len(query_string) <= 10)
