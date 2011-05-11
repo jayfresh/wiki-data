@@ -1034,7 +1034,9 @@ table.companyRecord tr.current td.field {
 	font-size: 0.8em;
 }
 
-
+.pageLinks .requestInformation {
+	width: 120px; /* to stop the submit button floating all the way to the right in IE7 */
+}
 
 /*=================================== Footer Bar */
 
