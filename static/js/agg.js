@@ -2481,6 +2481,7 @@ function makeModalAndSetValidator(idSelector) {
 			$personal_info.find('input').each(function() {
 				$('<input type="hidden" name="'+$(this).attr('name')+'" value="'+$(this).val()+'" />').appendTo($origForm);
 			});
+			return; // DEBUG
 			$origForm.get(0).submit();
 		});
 
