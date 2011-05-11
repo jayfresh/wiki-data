@@ -40,7 +40,7 @@ def emailAvox(query, domain='wiki-data.com'):
         #for field, _ in recordFields.recordFields: # is this syntax valid?
         for field, label, tooltip in recordFields.recordFields:
             try:
-                body += field+': '+query[field][0]+'\n'
+                body += label+': '+query[field][0]+'\n'
             except KeyError:
                 pass
     elif requestType == 'suggest_new':
@@ -62,7 +62,7 @@ Record info
 """ % (name, email, country, company, source)
         for field, label, tooltip in recordFields.recordFields:
             try:
-                body += field + ': ' + query[field][0] + '\n'
+                body += label + ': ' + query[field][0] + '\n'
             except KeyError:
                 pass
     else:
