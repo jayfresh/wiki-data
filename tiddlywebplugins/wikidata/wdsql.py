@@ -70,6 +70,9 @@ class Store(MappingSQLStore):
 
         query_string, fields = query_dict_to_search_tuple(
                 self.environ.get('tiddlyweb.query', {}))
+
+        query_string = query_string.replace("'", r"\'")
+
         if version == 2:
             if query_string.startswith('""'):
                 query_string = '"' + query_string.rstrip('"').lstrip('"') + '"'
