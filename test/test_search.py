@@ -154,3 +154,22 @@ def test_avid():
     set_query_string('v=2;q=2159295')
     tiddlers = list(store.search(''))
     assert len(tiddlers) == 1
+
+def test_apostrophe():
+    set_query_string("v=2;q=moody's")
+
+    tiddlers = list(store.search(''))
+    assert tiddlers
+
+    tiddler = store.get(tiddlers[0])
+    assert tiddler.fields['legal_name'] == "Moody's Investors Service, Inc."
+
+def test_quote():
+    set_query_string('v=2;q=moody"s')
+
+    tiddlers = list(store.search(''))
+    assert tiddlers
+
+    tiddler = store.get(tiddlers[0])
+    assert tiddler.fields['legal_name'] == "Moody's Investors Service, Inc."
+
