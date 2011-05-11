@@ -96,7 +96,7 @@
 		</div>
 		<div class="grid8col right pageContent companyRecord">
 			<h3>Additional Fields</h3>
-			<div class="grid4col left" id="toOverflow">
+			<div class="grid4col left">
 				<div class="borderbottom equalise1">
 					<h5>Location Information</h5>
 					<table class="companyRecord">
@@ -131,6 +131,8 @@
 						</tbody>
 					</table>
 				</div>
+			</div>
+			<div class="grid4col left marginleft">
 				<div class="borderbottom equalise1">
 					<h5>Registered Address Information</h5>
 					<table class="companyRecord">
@@ -161,10 +163,8 @@
 						</tbody>
 					</table>
 				</div>
-				<input type="hidden" value="suggest_new" name="requestType" />
 			</div>
-			<div class="grid4col left marginleft" id="tableoverflow">
-			</div>
+			<input type="hidden" value="suggest_new" name="requestType" />
 		</div>
 		{% include 'personal_info.html' %}
 	</form>
