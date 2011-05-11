@@ -2354,25 +2354,24 @@ function overflowTable(container,overflowTarget) {
 		if(mode) {
 			$point = $overflowTarget
 				.prepend($container.html())
-				.find(rowSelector).eq(breakingPoint);
+				.find(rowSelector).eq(breakingPoint+1);
 			$point.closest('tr')
 				.prevAll().remove();
 			$point.closest('div')
 				.prevAll().remove();
 			$point = $container
-				.find(rowSelector).eq(breakingPoint-1);
+				.find(rowSelector).eq(breakingPoint);
 			$point.closest('tr')
-				.next()
 				.nextAll().remove();
 			$point.closest('div')
 				.nextAll().remove();
 		} else {
 			$overflowTarget
 				.prepend($container.html())
-				.find(rowSelector).eq(breakingPoint)
+				.find(rowSelector).eq(breakingPoint+1)
 				.prevAll().remove();
 			$container
-				.find(rowSelector).eq(breakingPoint-1)
+				.find(rowSelector).eq(breakingPoint)
 				.nextAll().remove();
 		}
 		
