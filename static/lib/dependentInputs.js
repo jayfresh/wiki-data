@@ -171,7 +171,7 @@ DependentInputs = {
 		};
 	},
 	replaceValues: function(i,values) {
-		// JRL: note - should only create hidden drop-down if there is a $row.valueMap, otherwise it's not needed - the mechanism to update such a thing is currently in the added dependencies - might want to think about bringing that in
+		// JRL: note - TO-DO: should only create hidden drop-down if there is a $row.valueMap, otherwise it's not needed - the mechanism to update such a thing is currently in the added dependencies - might want to think about bringing that in
 		var $row = this.rows[i];
 		// prep the form for throwing away decoy values on submission
 		this.setDecoy();
@@ -189,6 +189,7 @@ DependentInputs = {
 		this.addChangeHandler($row.val,i);
 		$row.val.attr("name","_ignore_"+inputName);
 		$row.val.after($hid);
+		$row.hidden = $hid;
 		$row.val.get(0).className = className;
 		if(currVal) {
 			if($row.valueMap) {
@@ -381,7 +382,7 @@ DependentInputs.addDependency(function($row,changed) {
 		var inpVal = $row.val.val();
 		if($row.valueMap) {
 			var mappedVal = $row.valueMap[inpVal] || "";
-			$row.find('input:hidden').eq(0).val(mappedVal);
+			$row.hidden.val(mappedVal);
 		}
 	}
 });

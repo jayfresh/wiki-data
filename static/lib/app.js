@@ -298,32 +298,37 @@ $(document).ready(function() {
 		});
 		if($('#entity_type').length) {
 			var entityMap = {
-				"Ultimate Parent": "TP",
-				"Subsidiary": "LE",
-				"Branch": "SLE"
-			},
-			values = [];
+					"Ultimate Parent": "TP",
+					"Subsidiary": "LE",
+					"Branch": "SLE"
+				},
+				entityValues = [];
 			for(var i in entityMap) {
-				values.push(i);
+				entityValues.push(i);
 			}
 			DependentInputs.addDependency(function($row,changed) {
 				if(changed==="field" && $row.field.attr("for")==="entity_type") {
 					$row.valueMap = entityMap;
-					return values;
+					return entityValues;
 				}
 			});
 		}
 		if($('#trading_status')) {
-			var tradingStatuses = [
-				"Active",
-				"Inactive",
-				"Dissolved",
-				"In Administration",
-				"Suspended"
-			];
+			var tradingStatuses = {
+					"Active":"Active",
+					"Inactive":"Inactive",
+					"Dissolved":"Dissolved",
+					"In Administration":"In Administration",
+					"Suspended":"Suspended"
+				},
+				statusValues = [];
+			for(var i in tradingStatuses) {
+				statusValues.push(i);
+			}
 			DependentInputs.addDependency(function($row,changed) {
 				if(changed==="field" && $row.field.attr("for")==="trading_status") {
-					return tradingStatuses;
+					$row.valueMap = tradingStatuses;
+					return statusValues;
 				}
 			});
 		}

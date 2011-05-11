@@ -855,7 +855,7 @@ DependentInputs = {
 		};
 	},
 	replaceValues: function(i,values) {
-		// JRL: note - should only create hidden drop-down if there is a $row.valueMap, otherwise it's not needed - the mechanism to update such a thing is currently in the added dependencies - might want to think about bringing that in
+		// JRL: note - TO-DO: should only create hidden drop-down if there is a $row.valueMap, otherwise it's not needed - the mechanism to update such a thing is currently in the added dependencies - might want to think about bringing that in
 		var $row = this.rows[i];
 		// prep the form for throwing away decoy values on submission
 		this.setDecoy();
@@ -873,6 +873,7 @@ DependentInputs = {
 		this.addChangeHandler($row.val,i);
 		$row.val.attr("name","_ignore_"+inputName);
 		$row.val.after($hid);
+		$row.hidden = $hid;
 		$row.val.get(0).className = className;
 		if(currVal) {
 			if($row.valueMap) {
@@ -1065,7 +1066,7 @@ DependentInputs.addDependency(function($row,changed) {
 		var inpVal = $row.val.val();
 		if($row.valueMap) {
 			var mappedVal = $row.valueMap[inpVal] || "";
-			$row.find('input:hidden').eq(0).val(mappedVal);
+			$row.hidden.val(mappedVal);
 		}
 	}
 });
@@ -2533,32 +2534,37 @@ $(document).ready(function() {
 		});
 		if($('#entity_type').length) {
 			var entityMap = {
-				"Ultimate Parent": "TP",
-				"Subsidiary": "LE",
-				"Branch": "SLE"
-			},
-			values = [];
+					"Ultimate Parent": "TP",
+					"Subsidiary": "LE",
+					"Branch": "SLE"
+				},
+				entityValues = [];
 			for(var i in entityMap) {
-				values.push(i);
+				entityValues.push(i);
 			}
 			DependentInputs.addDependency(function($row,changed) {
 				if(changed==="field" && $row.field.attr("for")==="entity_type") {
 					$row.valueMap = entityMap;
-					return values;
+					return entityValues;
 				}
 			});
 		}
 		if($('#trading_status')) {
-			var tradingStatuses = [
-				"Active",
-				"Inactive",
-				"Dissolved",
-				"In Administration",
-				"Suspended"
-			];
+			var tradingStatuses = {
+					"Active":"Active",
+					"Inactive":"Inactive",
+					"Dissolved":"Dissolved",
+					"In Administration":"In Administration",
+					"Suspended":"Suspended"
+				},
+				statusValues = [];
+			for(var i in tradingStatuses) {
+				statusValues.push(i);
+			}
 			DependentInputs.addDependency(function($row,changed) {
 				if(changed==="field" && $row.field.attr("for")==="trading_status") {
-					return tradingStatuses;
+					$row.valueMap = tradingStatuses;
+					return statusValues;
 				}
 			});
 		}
