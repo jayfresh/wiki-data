@@ -12,6 +12,7 @@ dragColumns.js \
 FixedHeader.js \
 records.js \
 jquery.scrollTo-1.4.2-min.js \
+jquery.simplemodal.1.4.1.js \
 GoogleMaps.js \
 GoogleAnalytics.js \
 > agg.js

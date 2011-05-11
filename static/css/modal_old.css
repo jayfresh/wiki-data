@@ -1,0 +1,154 @@
+.overlay-decorator {
+	  background:#000;
+		height:100%;
+	  width:100%;
+	  position:absolute;
+		top:0;
+		left:0;
+	  opacity:0.8;
+		z-index:2000;
+		/*display:none; */
+	}
+	.overlay-wrap {
+		height:100%;
+		width:100%;
+		display:block;
+		position:absolute;
+		top:0;
+		left:0;
+		z-index:2001;
+		
+		overflow:auto;
+		*overflow-x:hidden;
+		*zoom:1;
+		/* (0.8 * 255).toString(16) = cc */
+		*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc002244,endColorstr=#cc002244);
+		*background:transparent url(pixel.gif);
+	}
+	.overlay {
+		z-index:2001;
+		position:relative;
+		margin:0 auto;
+		display:table;
+		height:100%;
+		vertical-align:middle;
+		width:300px;
+		z-index:9999;
+		
+		*width:100%;
+		*text-align:center;
+		*position:static;
+		*display:block;
+	}
+	.dialog-wrap {
+		display:table-cell;
+		vertical-align:middle;
+		
+		*width:300px;
+		*text-align:left;
+		*zoom:1;
+		*display:inline;
+	}
+	
+	.dialog-decorator {
+		display:none;
+		
+		*vertical-align:middle;
+		*zoom:1;
+		*display:inline;
+		*height:100%;
+		*width:0;
+		*background:red;
+	}
+	
+	#body {
+		overflow:auto;
+		height:100%;
+		width:100%;
+		padding:0;
+		margin:0;
+	}
+	#doc {
+		margin:0 0 0 30%;
+		padding:0;
+	}
+	#modal {
+		display:none;
+	}
+	.modal #modal {
+		display:block;
+	}
+
+/* Personal info section on top of modal background */
+
+#personal_info {
+	display: none;
+}
+
+.modal #personal_info {
+	display: block;
+}
+
+#personal_info {
+	background-color: #EEE;
+	padding: 10px;
+	color: #565656;
+	width: 320px;
+}
+
+#personal_info h2 {
+	text-transform: capitalize;
+	margin-top: 0px;
+	border-bottom: 10px solid #d5d5d5;
+}
+
+#personal_info p, #personal_info label, #personal_info input {
+	font-size: 0.9em;
+}
+
+#personal_info input, #personal_info select {
+	border: 1px solid #999;
+	padding: 2px;
+	margin: 5px 0px 10px;
+	float: left;
+	width: 160px;
+}
+
+#personal_info label {
+	float: left;
+	width: 150px;
+}
+
+#personal_info label.error {
+	float: right;
+}
+
+#personal_info input.error, #personal_info select.error {
+	color: inherit;
+}
+
+#personal_info .right {
+	float: right;
+}
+
+#personal_info button, #personal_info #submitButtonClone {
+	background-color: #3c3c3c;
+	color: white;
+	border: none;
+	-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	padding: 3px;
+	width: auto;
+	font-family: "Ubuntu", Arial;
+	margin: 0px 0px;
+	letter-spacing: 0.05em;
+}
+
+#personal_info button:hover, #personal_info #challenge:hover {
+	background-color: #191919;
+}
+
+#recaptcha {
+	margin: 10px 0;
+}

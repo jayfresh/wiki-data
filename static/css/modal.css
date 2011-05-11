@@ -1,92 +1,49 @@
-.overlay-decorator {
-	  background:#000;
-		height:100%;
-	  width:100%;
-	  position:absolute;
-		top:0;
-		left:0;
-	  opacity:0.8;
-		z-index:2000;
-		/*display:none; */
-	}
-	.overlay-wrap {
-		height:100%;
-		width:100%;
-		display:block;
-		position:absolute;
-		top:0;
-		left:0;
-		z-index:2001;
-		
-		overflow:auto;
-		*overflow-x:hidden;
-		*zoom:1;
-		/* (0.8 * 255).toString(16) = cc */
-		*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc002244,endColorstr=#cc002244);
-		*background:transparent url(pixel.gif);
-	}
-	.overlay {
-		z-index:2001;
-		position:relative;
-		margin:0 auto;
-		display:table;
-		height:100%;
-		vertical-align:middle;
-		width:300px;
-		z-index:9999;
-		
-		*width:100%;
-		*text-align:center;
-		*position:static;
-		*display:block;
-	}
-	.dialog-wrap {
-		display:table-cell;
-		vertical-align:middle;
-		
-		*width:300px;
-		*text-align:left;
-		*zoom:1;
-		*display:inline;
-	}
-	
-	.dialog-decorator {
-		display:none;
-		
-		*vertical-align:middle;
-		*zoom:1;
-		*display:inline;
-		*height:100%;
-		*width:0;
-		*background:red;
-	}
-	
-	#body {
-		overflow:auto;
-		height:100%;
-		width:100%;
-		padding:0;
-		margin:0;
-	}
-	#doc {
-		margin:0 0 0 30%;
-		padding:0;
-	}
-	#modal {
-		display:none;
-	}
-	.modal #modal {
-		display:block;
-	}
+/*
+ * SimpleModal Basic Modal Dialog
+ * http://www.ericmmartin.com/projects/simplemodal/
+ * http://code.google.com/p/simplemodal/
+ *
+ * Copyright (c) 2010 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * Revision: $Id: basic.css 257 2010-07-27 23:06:56Z emartin24 $
+ */
+
+#basic-modal-content {display:none;}
+
+/* Overlay */
+#simplemodal-overlay {background-color:#000; cursor:wait;}
+
+/* Container */
+#simplemodal-container {height:360px; width:600px; color:#bbb; background-color:#333; border:4px solid #444; padding:12px;}
+#simplemodal-container .simplemodal-data {padding:8px;}
+#simplemodal-container code {background:#141414; border-left:3px solid #65B43D; color:#bbb; display:block; font-size:12px; margin-bottom:12px; padding:4px 6px 6px;}
+#simplemodal-container a {color:#ddd;}
+#simplemodal-container a.modalCloseImg {background:url(../img/basic/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
+#simplemodal-container h3 {color:#84b8d9;}
+
+/* end SimpleModal */
+
+/* additions for the wiki-data site */
+
+#simplemodal-container {
+	width: 340px;
+	height: auto;
+	padding: 0;
+}
+#simplemodal-container .simplemodal-data {
+	padding: 0px;
+}
+#simplemodal-container a.modalCloseImg {
+	display: none;
+}
 
 /* Personal info section on top of modal background */
 
 #personal_info {
 	display: none;
-}
-
-.modal #personal_info {
-	display: block;
 }
 
 #personal_info {

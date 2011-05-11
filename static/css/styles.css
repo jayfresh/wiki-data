@@ -55,7 +55,7 @@ a:hover {
 	color: #8facff;
 }
 
-.error {
+.error, .captcha_error {
 	color: #ff2828;
 }
 

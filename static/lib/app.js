@@ -152,6 +152,7 @@ function makeCaptcha() {
 		});
 	}
 }
+/*
 function makeModalAndSetValidator(idSelector) {
 	var $origForm = $('#recordForm'); // shouldn't be a problem until you want to use more than one form on a page
 	$('body').prepend('<div id="modal" class="jbasewrap"><div class="overlay-decorator"></div><div class="overlay-wrap"><div class="overlay"><div class="dialog-decorator"></div><div class="dialog-wrap"><div class="dialog" id="dialog"><div class="content"><form id="tempForm"></form></div></div></div></div></div></div>');
@@ -176,7 +177,7 @@ function makeModalAndSetValidator(idSelector) {
 	$('<br class="clearboth" />').appendTo($(idSelector));
 	$('#submitButton').click(function(e) {
 		e.preventDefault();
-		/* add operational state validation before validating form */
+		// add operational state validation before validating form
 		var trigger_countries = ['United States'];
 		$origForm.validate({
 			rules: {
@@ -200,6 +201,73 @@ function makeModalAndSetValidator(idSelector) {
 		$('#modal .overlay-decorator, #modal .overlay-wrap').css('top',$(window).scrollTop());
 		$('html').addClass('modal');
 		makeCaptcha();
+	});
+}*/
+function makeModalAndSetValidator(idSelector) {
+	var $origForm = $('#recordForm'), // shouldn't be a problem until you want to use more than one form on a page
+		containerID = 'simplemodal-container',
+		modal_html = '<form id="tempForm"></form>',
+		$personal_info = $(idSelector),
+		modal;
+
+	$('<button>Return to form</button>')
+		.appendTo($personal_info)
+		.addClass($('#submitButton').get(0).className+" left");
+		
+	$('#submitButton')
+		.clone()
+		.attr('id','submitButtonClone')
+		.addClass('right')
+		.appendTo($personal_info);
+	
+	$('<br class="clearboth" />').appendTo($personal_info);
+
+	$('#submitButton').click(function(e) {
+		e.preventDefault();
+		modal = $(modal_html).modal({
+			position: ['50px']
+		});
+		$('#'+containerID).addClass('jbasewrap');
+		$personal_info.appendTo($('#'+containerID+' #tempForm')).show();
+		$('#tempForm').validate();
+
+		$personal_info.find('button')
+			.click(function(e) {
+				e.preventDefault();
+				modal.close();
+			});
+			
+		$('#submitButtonClone').click(function(e) {
+			e.preventDefault();
+			if(!$('#tempForm').valid()) {
+				return;
+			}
+			$personal_info.find('input').each(function() {
+				$('<input type="hidden" name="'+$(this).attr('name')+'" value="'+$(this).val()+'" />').appendTo($origForm);
+			});
+			$origForm.get(0).submit();
+		});
+
+		makeCaptcha();
+	});
+	
+	// add operational state validation to form
+	var trigger_countries = ['United States'];
+	$origForm.validate({
+		rules: {
+			_ignore_operational_state: {
+				required: {
+					depends: function(element) {
+						var $r = $.map(DependentInputs.rows, function($row) {
+							if($row.field.val()==="Operational Country") {
+								return $row;
+							}
+						})[0];
+						return $.inArray($r.val.val(),trigger_countries) >= 0 ? true : false;
+					}
+				}
+			}
+		}
 	});
 }
 
