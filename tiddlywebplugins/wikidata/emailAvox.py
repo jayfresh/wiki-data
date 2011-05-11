@@ -26,11 +26,12 @@ def emailAvox(query, domain='wiki-data.com'):
     elif requestType == 'challenge':
         avid = query['avid'][0]
         legal_name = query['legal_name'][0]
+        original_legal_name = query['original_legal_name'][0]
         source = query['source'][0]
         to = ['foundanerror.'+domainStem+'@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Challenge record'
         body = 'SPECIFIC REQUEST re: correction\n' \
-            'for '+legal_name+' (AVID = '+avid+')\n' \
+            'for '+original_legal_name+' (AVID = '+avid+')\n' \
             'Name: '+name+'\n' \
             'Email address: '+email+'\n' \
             'Country: '+country+'\n' \
