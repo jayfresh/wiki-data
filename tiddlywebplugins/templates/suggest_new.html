@@ -38,7 +38,8 @@
 {% set query = commonVars.query %}
 <div class="grid12col container">
 	{% if query['success'] and query['success'][0] == '1' %}
-	<p>Thanks! We'll be in touch shortly.</p>
+	<p>Thank you for registering a new legal entity with Wiki-Data. Avox will process your registration and supply you with an AVID for the legal entity. This will be sent to your email address.</p>
+	<p>Please <a href="/">click here</a> to return to the Search Page.</p>
 	{% else %}
 	<form id="recordForm" method="post" action="/verify">
 		<div class="grid4col left marginright mandatory">

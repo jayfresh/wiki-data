@@ -4,7 +4,8 @@
 {% set query = commonVars.query %}
 <div class="grid12col container">
 	{% if commonVars.query['success'] and commonVars.query['success'][0] == '1' %}
-	<p>Thanks! We'll be in touch shortly.</p>
+	<p>Thank you for requesting more information about {{tiddler.fields.legal_name}}. Avox will supply you with a summary of the additional details that are available for the legal entity. This will be sent to your email address.</p>
+	<p>Please <a href="/bags/avox/tiddlers/{{tiddler.title}}">click here</a> to return to the Company record for {{tiddler.fields['legal_name']}}.</p>
 	{% else %}
 	<form method="post" action="/verify" id="recordForm">	
 		<div class="grid4col marginright left">
