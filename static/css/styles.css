@@ -587,6 +587,11 @@ a#searchButton:hover #testBorder {
 	right: 0;
 }
 
+#recordForm .requestInformation #testBorder {
+	margin-top: 0;
+	top: 12px;
+}
+
 #searchBox #advancedSearchContainer {
 	width: 334px;
 	margin: 10px 0px 5px;
