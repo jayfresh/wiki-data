@@ -2461,9 +2461,11 @@ function makeModalAndSetValidator(idSelector) {
 	$('#submitButton').click(function(e) {
 		e.preventDefault();
 		modal = $(modal_html).modal({
-			//position: ['50px']
+			position: ['20px'],
 			autoResize: true
 		});
+		var pos = ($(window).height() - $('#simplemodal-container').height()) / 2;
+		console.log(pos,$(window).height(),$('#simplemodal-container').height());
 		$('#'+containerID).addClass('jbasewrap');
 		$personal_info.appendTo($('#'+containerID+' #tempForm')).show();
 		$('#tempForm').validate();
