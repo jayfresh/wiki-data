@@ -53,6 +53,10 @@
 						<td class="field">Company website:</td>
 						<td><a href="{{ tiddler.fields.company_website }}">{{ tiddler.fields.company_website }}</a></td>
 					</tr>
+					<tr>
+						<td class="field">Country of Incorporation:</td>
+						<td class="registered_country">{{ tiddler.fields['registered_country'] }}</td>
+					</tr>
 					{% endif %}
 				</tbody>
 			</table>
@@ -103,10 +107,6 @@
 								{%- if tiddler.fields.operational_postcode %}<span class="postal-code">{{ tiddler.fields.operational_postcode }}</span>
 								{%- endif -%}
 							</td>
-						</tr>
-						<tr>
-							<td class="field">Country of Incorporation:</td>
-							<td class="registered_country">{{ tiddler.fields['registered_country'] }}</td>
 						</tr>
 					</tbody>
 				</table>
