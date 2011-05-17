@@ -1,5 +1,6 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
+{% set tooltips = commonVars.tooltips %}
 {% set operational_fields = [
 ('operational_po_box', 'Operational PO Box'),
 ('operational_floor', 'Operational Floor'),
@@ -54,7 +55,7 @@
 					<input id="legal_name" name="legal_name" class="grid3col required" type="text" />
 					<a class="help">
 						<span class="heading"><span class="point"></span><span class="text">Legal Name</span></span>
-						<span class="helpText">help text for Legal Name</span>
+						<span class="helpText">{{ tooltips.legal_name }}</span>
 					</a>
 					{%- if query['formError'] and '"legal_name"' in query['formError'][0] -%}
 					<label for="legal_name" generated="true" class="error">This field is required.</label>
@@ -63,10 +64,6 @@
 				<div>
 					<label for="operational_country" class="grid3col marginright">Operational Country</label>
 					<input class="grid3col required" id="operational_country" type="text" name="operational_country" />
-					<a class="help">
-						<span class="heading"><span class="point"></span><span class="text">Operational Country</span></span>
-						<span class="helpText">help text for Operational Country</span>
-					</a>
 					{%- if query['formError'] and '"operational_country"' in query['formError'][0] -%}
 					<label for="operational_country" generated="true" class="error">This field is required.</label>
 					{%- endif -%}
@@ -76,7 +73,7 @@
 					<input id="operational_state" name="operational_state" class="grid3col" type="text" />
 					<a class="help">
 						<span class="heading"><span class="point"></span><span class="text">Operational State</span></span>
-						<span class="helpText">help text for Operational State</span>
+						<span class="helpText">{{ tooltips.operational_state }}</span>
 					</a>
 					{%- if query['formError'] and '"operational_state"' in query['formError'][0] -%}
 					<label for="operational_state" generated="true" class="error">This field is required.</label>
@@ -99,7 +96,10 @@
 			<h3>Additional Fields</h3>
 			<div class="grid4col left">
 				<div class="borderbottom equalise1">
-					<h5>Location Information</h5>
+					<h5>Location Information <a class="help">
+						<span class="heading"><span class="point"></span><span class="text">Location Information</span></span>
+						<span class="helpText">Operational address information</span>
+					</a></h5>
 					<table class="companyRecord">
 						<tbody>
 						{% for field, label in operational_fields %}
@@ -122,11 +122,11 @@
 						{% for field, label in hierarchy_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" /></td>
-								{% else %}
-								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
-								{%- endif -%}
+								<td><input class="reduced" type="text" name="{{field}}" id="{{field}}" />
+								<a class="help">
+									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
+									<span class="helpText">{{ tooltips[field] }}</span>
+								</a></td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -135,17 +135,26 @@
 			</div>
 			<div class="grid4col left marginleft">
 				<div class="borderbottom equalise1">
-					<h5>Registered Address Information</h5>
+					<h5>Registered Address Information <a class="help">
+						<span class="heading"><span class="point"></span><span class="text">Registered Address</span></span>
+						<span class="helpText">The registered address published by the registration authority for the country (or US state) of incorporation for the entity</span>
+					</a></h5>
 					<table class="companyRecord">
 						<tbody>
 						{% for field, label in registered_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" /></td>
-								{% else %}
-								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
+								<td {% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%} class="{{field}}"{%- endif -%}>
+								{%- if field in ['registered_state', 'registered_country'] -%}
+								<input class="reduced" type="text" name="{{field}}" id="{{field}}" />
+								<a class="help">
+									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
+									<span class="helpText">{{ tooltips[field] }}</span>
+								</a>
+								{%- else -%}
+								<input type="text" name="{{field}}" id="{{field}}" />
 								{%- endif -%}
+								</td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -158,7 +167,17 @@
 						{% for field, label in entity_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
+								<td>
+								{%- if field in ['trading_status', 'registration_number__jurisdiction_'] -%}
+								<input class="reduced" type="text" name="{{field}}" id="{{field}}" />
+								<a class="help">
+									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
+									<span class="helpText">{{ tooltips[field] }}</span>
+								</a>
+								{%- else -%}
+								<input type="text" name="{{field}}" id="{{field}}" />
+								{%- endif -%}
+								</td>
 							</tr>
 						{% endfor %}
 						</tbody>

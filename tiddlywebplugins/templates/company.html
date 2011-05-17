@@ -1,5 +1,6 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
+{% set tooltips = commonVars.tooltips %}
 <div class="grid12col container">
 	<div class="grid4col marginright left pageLinks notFixed">
 		<h2>Company Record</h2>
@@ -20,22 +21,34 @@
 					<tbody>
 						<tr>
 							<td class="field">Legal Name:</td>
-							<td>{{ tiddler.fields.legal_name }}</td>
+							<td>{{ tiddler.fields.legal_name }} <a class="help">
+								<span class="heading"><span class="point"></span><span class="text">Legal Name</span></span>
+								<span class="helpText">{{ tooltips.legal_name }}</span>
+							</a></td>
 						</tr>
 						<tr>
 							<td class="field">AVID:</td>
-							<td>{{ tiddler.title}}</td>
+							<td>{{ tiddler.title}} <a class="help">
+								<span class="heading"><span class="point"></span><span class="text">AVID</span></span>
+								<span class="helpText">{{ tooltips.avid }}</span>
+							</a></td>
 						</tr>
 						{% if tiddler.fields['previous_name_s_'] %}
 						<tr>
 							<td class="field">Previous Name(s):</td>
-							<td>{{ tiddler.fields['previous_name_s_'] }}</td>
+							<td>{{ tiddler.fields['previous_name_s_'] }} <a class="help">
+								<span class="heading"><span class="point"></span><span class="text">Previous Name(s)</span></span>
+								<span class="helpText">{{ tooltips.previous_name_s }}</span>
+							</a></td>
 						</tr>
 						{% endif %}
 						{% if tiddler.fields['trades_as_name_s_'] %}
 						<tr>
 							<td class="field">Trades As Name(s):</td>
-							<td>{{ tiddler.fields['trades_as_name_s_'] }}</td>
+							<td>{{ tiddler.fields['trades_as_name_s_'] }} <a class="help">
+								<span class="heading"><span class="point"></span><span class="text">Trades As Name(s)</span></span>
+								<span class="helpText">{{ tooltips.trades_as_name_s_ }}</span>
+							</a></td>
 						</tr>
 						{% endif %}
 					</tbody>
@@ -46,7 +59,10 @@
 				<tbody>
 					<tr>
 						<td class="field">Trading Status:</td>
-						<td>{{ tiddler.fields.trading_status }}</td>
+						<td>{{ tiddler.fields.trading_status }} <a class="help">
+							<span class="heading"><span class="point"></span><span class="text">Trading Status</span></span>
+							<span class="helpText">{{ tooltips.trading_status }}</span>
+						</a></td>
 					</tr>
 					{% if tiddler.fields.company_website %}
 					<tr>
@@ -55,7 +71,10 @@
 					</tr>
 					<tr>
 						<td class="field">Country of Incorporation:</td>
-						<td class="registered_country">{{ tiddler.fields['registered_country'] }}</td>
+						<td class="registered_country">{{ tiddler.fields['registered_country'] }} <a class="help">
+							<span class="heading"><span class="point"></span><span class="text">Country of Incorporation</span></span>
+							<span class="helpText">{{ tooltips.registered_country }}</span>
+						</a></td>
 					</tr>
 					{% endif %}
 				</tbody>
@@ -116,7 +135,10 @@
 				<tbody>
 					<tr>
 						<td class="field">Entity Type:</td>
-						<td class="entity_type">{{ tiddler.fields['entity_type'] }}</td>
+						<td class="entity_type">{{ tiddler.fields['entity_type'] }}  <a class="help">
+							<span class="heading"><span class="point"></span><span class="text">Entity Type</span></span>
+							<span class="helpText">{{ tooltips.entity_type }}</span>
+						</a></td>
 					</tr>
 				</tbody>
 			</table>

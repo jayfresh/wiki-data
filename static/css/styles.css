@@ -208,7 +208,7 @@ a.noBorder:hover {
 .help {
 	width: 14px;
 	height: 14px;
-	display: block;
+	display: inline-block;
 	background-color: #fff8e6;
 	border: 1px solid #d5d5d5;	
 	-moz-border-radius: 2px; 
@@ -292,6 +292,7 @@ a.noBorder:hover {
 	font-size: 11px;
 	line-height: 19px;
 	margin: -2px 0px 0px 10px;
+	white-space: nowrap;
 	text-shadow: 1px 1px 1px #333333;
 	filter: dropshadow(color=#333333, offx=1, offy=1);
 	-moz-border-radius-topright: 3px;
@@ -394,7 +395,6 @@ a.noBorder:hover {
 
 
 .pageContent {
-	overflow: hidden;
 	border-bottom: 10px solid #d5d5d5;
 	margin-bottom: 20px;
 }
@@ -1029,6 +1029,14 @@ table.companyRecord input, table.companyRecord select {
 
 table.companyRecord select {
 	width: 170px;
+}
+
+table.companyRecord input.reduced {
+	width: 142px;
+}
+
+table.companyRecord select.reduced {
+	width: 148px;
 }
 
 table.companyRecord tr.current {
