@@ -228,8 +228,6 @@ function makeModalAndSetValidator(idSelector) {
 			position: ['20px'],
 			autoResize: true
 		});
-		var pos = ($(window).height() - $('#simplemodal-container').height()) / 2;
-		console.log(pos,$(window).height(),$('#simplemodal-container').height());
 		$('#'+containerID).addClass('jbasewrap');
 		$personal_info.appendTo($('#'+containerID+' #tempForm')).show();
 		$('#tempForm').validate();
