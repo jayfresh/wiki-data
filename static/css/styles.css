@@ -1036,11 +1036,11 @@ table.companyRecord select {
 }
 
 table.companyRecord input.reduced {
-	width: 142px;
+	width: 140px;
 }
 
 table.companyRecord select.reduced {
-	width: 148px;
+	width: 146px;
 }
 
 table.companyRecord tr.current {
