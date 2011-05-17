@@ -337,7 +337,7 @@ $(document).ready(function() {
 		// now check for other returned fields
 		var $field_match;
 		$.each(params, function(i, param) {
-			$field_match = $('input[name='+i+']');
+			$field_match = $('input[name='+i+'], textarea[name='+i+']');
 			if($field_match.length) {
 				$field_match.val(param);
 			}
