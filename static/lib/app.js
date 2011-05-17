@@ -334,6 +334,14 @@ $(document).ready(function() {
 				}
 			}
 		}
+		// now check for other returned fields
+		var $field_match;
+		$.each(params, function(i, param) {
+			$field_match = $('input[name='+i+']');
+			if($field_match.length) {
+				$field_match.val(param);
+			}
+		});
 	}
 	if($('.operational_country, .operational_state, .registered_country, .registered_state').length) {
 		var replaceCode = function(elem,code) {

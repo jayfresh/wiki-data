@@ -2,6 +2,8 @@ import time
 import logging
 import socket
 
+from urllib import quote as url_quote
+
 import tiddlywebplugins.logout
 import tiddlywebplugins.wikidata.magicuser
 import tiddlywebplugins.jsonp
@@ -202,14 +204,21 @@ def verify(environ, start_response):
     # JRL: I think the checking for captcha key is unneccessary because notSpam would be False if that key was present
     if notSpam == False or validForm == False or emailSuccess == 0 or (responseVars.has_key('captcha') and responseVars['captcha'] == 0):
         responseVars['success'] = 0
+        
     else:
         responseVars['success'] = 1
+    
+    # create string containing sent variables
+    queryVars = ''
+    for parameter in query:
+        queryVars = queryVars + '&' + parameter + '=' + url_quote(query[parameter][0],'')
     
     redirect = redirect + '?success='+str(responseVars['success'])
     if responseVars.has_key('captcha'):
         redirect = redirect + '&captcha='+str(responseVars['captcha'])
     if responseVars.has_key('formError'):
         redirect = redirect +'&formError='+responseVars['formError']
+    redirect = redirect + str(queryVars)
 
     start_response('302 Found', [
             ('Content-Type', 'text/html'),
