@@ -38,7 +38,9 @@
 					<li><a href="/pages/api.html">API</a></li>
 					<li>
 						{%- if usersign.name != "GUEST" -%}
-						<a href="/logout">Logout <span>{{usersign.name}}</span></a>
+						<form method="POST" action="/logout">
+							<button id="logout">Logout</button>
+						</form>
 							{% if "ADMIN" in usersign.roles %}
 					</li>
 					<li>
