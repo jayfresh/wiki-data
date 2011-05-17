@@ -325,6 +325,10 @@ a.noBorder:hover {
 	border-right: 10px solid #767676;
 }
 
+h5 .help {
+	font-weight: normal;
+}
+
 /*=================================== Content Pages */
 
 

@@ -1,5 +1,6 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
+{% set tooltips = commonVars.tooltips %}
 {% set name_fields = [
 ('legal_name', 'Legal Name'),
 ('previous_name_s_', 'Previous Name(s)'),
@@ -58,7 +59,11 @@
 							{% for field, label in name_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								<td><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
+								<td><input class="reduced" type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" />
+								<a class="help">
+									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
+									<span class="helpText">{{ tooltips[field] }}</span>
+								</a></td>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -71,7 +76,17 @@
 						{% for field, label in entity_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								<td><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
+								<td>
+								{%- if field in ['trading_status', 'registered_country'] -%}
+								<input class="reduced" type="text" name="{{field}}" id="{{field}}" />
+								<a class="help">
+									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
+									<span class="helpText">{{ tooltips[field] }}</span>
+								</a>
+								{%- else -%}
+								<input type="text" name="{{field}}" id="{{field}}" />
+								{%- endif -%}
+								</td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -84,11 +99,16 @@
 						{% for field, label in operational_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
-								{% else %}
-								<td><input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" /></td>
-								{%- endif -%}
+								<td {%- if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] %} class="{{field}}" {%- endif -%} >
+								{%- if field in ['operational_state'] -%}
+								<input class="reduced" type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" />
+								<a class="help">
+									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
+									<span class="helpText">{{ tooltips[field] }}</span>
+								</a>
+								{%- else -%}
+								<input type="text" name="{{field}}" id="{{field}}" value="{{tiddler.fields[field]}}" />
+								{%- endif -%}</td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -100,7 +120,11 @@
 						<tbody>
 							<tr>
 								<td class="field"><label for="entity_type">Entity Type:</label></td>
-								<td><input type="text" name="entity_type" id="entity_type" value="{{tiddler.fields['entity_type']}}" /></td>
+								<td><input class="reduced" type="text" name="entity_type" id="entity_type" value="{{tiddler.fields['entity_type']}}" />
+								<a class="help">
+									<span class="heading"><span class="point"></span><span class="text">Entity Type</span></span>
+									<span class="helpText">{{ tooltips.entity_type }}</span>
+								</a></td>
 							</tr>
 						</tbody>
 					</table>

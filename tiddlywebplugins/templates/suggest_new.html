@@ -105,11 +105,7 @@
 						{% for field, label in operational_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								{% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%}
-								<td class="{{field}}"><input type="text" name="{{field}}" id="{{field}}" /></td>
-								{% else %}
-								<td><input type="text" name="{{field}}" id="{{field}}" /></td>
-								{%- endif -%}
+								<td {%- if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] %} class="{{field}}" {%- endif -%} ><input type="text" name="{{field}}" id="{{field}}" /></td>
 							</tr>
 						{% endfor %}
 						</tbody>
@@ -144,7 +140,7 @@
 						{% for field, label in registered_fields %}
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
-								<td {% if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] -%} class="{{field}}"{%- endif -%}>
+								<td {%- if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] %} class="{{field}}" {%- endif -%} >
 								{%- if field in ['registered_state', 'registered_country'] -%}
 								<input class="reduced" type="text" name="{{field}}" id="{{field}}" />
 								<a class="help">
