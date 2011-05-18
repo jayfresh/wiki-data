@@ -14,13 +14,13 @@
 				<span id="testBorder"></span><input id="submitButton" value="Login" type="submit" />
 			</a>
 			<br class="clearboth" />
-			{% if error -%}
-			<div class="error">Oops. Your username or password didn't match our records, please try again.</div>
-			{%- endif %}
-			{% if commonVars.usersign.expired_user -%}
-			<div class="error">{{commonVars.usersign.expired_user}} - {% include 'login_form_support_line.html' %}</div>
-			{%- endif %}
 		</form>
+		{% if error -%}
+		<div class="error">Oops. Your username or password didn't match our records, please try again.</div>
+		{%- endif %}
+		{% if commonVars.usersign.expired_user -%}
+		<div class="error">{{commonVars.usersign.expired_user}} - {% include 'login_form_support_line.html' %}</div>
+		{%- endif %}
 	</div>
 </div>
 {% endblock %}

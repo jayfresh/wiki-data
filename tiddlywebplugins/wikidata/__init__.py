@@ -229,7 +229,7 @@ def verify(environ, start_response):
     return []
 
 @require_role('ADMIN')
-def update_user_form(environ, start_response, message=None):
+def update_user_form(environ, start_response, message=None, success=False):
     if message is None:
         message = ''
     logging.debug('in update_user_form, message: '+message)
@@ -283,7 +283,7 @@ def update_user_form(environ, start_response, message=None):
     
     logging.debug('rendering with message:'+message)
     return template.render(commonVars=templating.common_vars(environ),
-            message=message, form=form_starter)
+            message=message, success=success, form=form_starter)
 
 @require_role('ADMIN')
 def update_user(environ, start_response):
@@ -333,8 +333,9 @@ def update_user(environ, start_response):
     # XXX need to go somewhere useful?
     #raise HTTP303(server_base_url(environ))
     message = "Update successful"
+    success = True
     logging.debug('going to update_user_form with message: '+message)
-    return update_user_form(environ, start_response, message)
+    return update_user_form(environ, start_response, message, success)
 
 
 @require_role('ADMIN')

@@ -1,69 +1,28 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
-<div id="static">
-	<div id="searchtitle" class="darkgreen">
-		<div class="wrap">
-			<h2>Update a User</h2>
-		</div>
+<div class="grid12col container">
+	<h2>Update an account</h2>
+	<div class="formSet grid4col">
+		<form method="POST" id="updateForm">
+			<label for="name">Name:</label>
+			<input type="text" name="name" id="name" value="{{ form.name }}" />
+			<label for="name">Email:</label>
+			<input type="text" name="email" id="email" value="{{ form.email }}" />
+			<label for="name">Country:</label>
+			<input type="text" name="country" id="country" value="{{ form.country }}" />
+			<label for="name">Company:</label>
+			<input type="text" name="company" id="company" value="{{ form.company }}" />
+			<label for="expiry">Expiration (days):</label>
+			<input name="expiry" id="expiry" type="text" value="{{ form.expiry }}" />
+			<label for="password">Password (only fill to reset):</label>
+			<input name="password" id="password" type="text" value="" />
+			<br class="clearboth" />
+			<a id="searchButton">
+				<span id="testBorder"></span><input id="submitButton" value="Update account" type="submit" />
+			</a>
+			<br class="clearboth" />
+		</form>
+		<p {% if success==False %}class="error"{% endif %}>{{ message }}</p>
 	</div>
-	<div class="wrap">
-		<div class="miniwrap bluebox lightblueborder">
-                <p>{{ message }}</p>
-                <form method="POST" id="updateform">
-                    <div>
-                            <label
-                                for="name">Name:</label>&nbsp;<input
-                            type="text"
-                            name="name" id="name"
-                            value="{{ form.name }}"
-                            size="40" />
-                    </div>
-                    <div>
-                            <label
-                                for="email">Email:</label>&nbsp;<input
-                            type="hidden" id="email"
-                            name="email" value="{{ form.email }}" />
-                            {{ form.email }}
-                    </div>
-                    <div>
-                            <label
-                                for="country">Country:</label>&nbsp;<input
-                            type="text"
-                            id="country" value="{{ form.country }}"
-                            name="country" size="40" />
-                    </div>
-                    <div>
-                            <label for="company">Company
-                                (optional):</label>&nbsp;<input
-                            type="text"
-                            id="company" value="{{ form.company }}"
-                            name="company" size="40" />
-                    </div>
-                    <div>
-                        <label for="tier">Tier:</label>&nbsp;<select
-                        id="tier" name="tier">
-                        	<option value="tier1" {% if form.tier == 'tier1' %}selected="true"{% endif %}>Tier 1 - Guest</option>
-                        	<option value="tier2" {% if form.tier == 'tier2' %}selected="true"{% endif %}>Tier 2 - Subscriber</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="expiry">Expiration (days):</label>&nbsp;<input
-                        name="expiry" type="text" value="{{ form.expiry }}"
-                        size="3" />
-                    </div>
-                    <div>
-                        <label for="password">Password (only fill to
-                            reset):</label>&nbsp;<input
-                        name="password" type="text" value=""
-                        size="40" />
-                    </div>
-                    <div>
-                            <input type="submit" id="submit"
-                            class="darkgreen lightborder whitetext
-                            caps margintop" value="Update account" />
-                    </div>
-				</form>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock %}

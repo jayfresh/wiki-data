@@ -549,17 +549,17 @@ a#searchButton:hover #testBorder {
 	border-top-color: #FFFFFF;
 }
 
-#loginForm {
+#loginForm, #updateForm {
 	position: relative;
 }
 
-#recordForm #submitButton, #loginForm #submitButton {
+#recordForm #submitButton, #loginForm #submitButton, #updateForm #submitButton {
 	position: relative;
 	float: right;
 	margin-right: -10px;
 	margin-top: 10px;
 }
-#recordForm #testBorder, #loginForm #testBorder {
+#recordForm #testBorder, #loginForm #testBorder, #updateForm #testBorder {
 	position: relative;
 	float: right;
 	margin-top: 25px;
@@ -587,7 +587,7 @@ a#searchButton:hover #testBorder {
     width: 0;
 }
 
-#recordForm #testBorder, .requestInformation #testBorder, #loginForm #testBorder {
+#recordForm #testBorder, .requestInformation #testBorder, #loginForm #testBorder, #updateForm #testBorder {
 	border-bottom-color: #FFF;
 	border-top-color: #FFF;
 }

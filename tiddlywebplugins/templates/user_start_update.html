@@ -1,27 +1,16 @@
 {% extends "wikidatabase.html" %}
 {% block body %}
-<div id="static">
-	<div id="searchtitle" class="darkgreen">
-		<div class="wrap">
-			<h2>Update a User</h2>
-		</div>
+<div class="grid12col container">
+	<h2>Update an account</h2>
+	<div class="formSet grid4col">
+		<form method="GET" id="updateForm">
+			<label for="username">Login ID (email address):</label>
+			<input type="text" name="username" id="username" />
+			<br class="clearboth" />
+			<a id="searchButton">
+				<span id="testBorder"></span><input id="submitButton" value="Update account" type="submit" />
+			</a>
+		</form>
 	</div>
-	<div class="wrap">
-		<div class="miniwrap bluebox lightblueborder">
-                <form method="GET" id="updateform">
-                    <div>
-                            <label
-                                for="username">Email:</label>&nbsp;<input
-                            type="text" id="username" size="50"
-                            name="username" value="" />
-                    </div>
-                    <div>
-                            <input type="submit" id="submit"
-                            class="darkgreen lightborder whitetext
-                            caps margintop" value="Update account" />
-                    </div>
-				</form>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock %}
