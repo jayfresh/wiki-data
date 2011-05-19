@@ -1,6 +1,4 @@
-<img src="/static/test_images/count2.png" alt="2" />
-<img src="/static/test_images/count6.png" alt="6" />
-<img src="/static/test_images/count6.png" alt="6" />
-<img src="/static/test_images/count2.png" alt="2" />
-<img src="/static/test_images/count6.png" alt="6" />
-<img src="/static/test_images/count2.png" alt="2" />
+{% set counter = '374837' %}
+{% for i in counter %}
+<img src="/static/test_images/count{{ i }}.png" alt="{{ i }}" />
+{% endfor %}
