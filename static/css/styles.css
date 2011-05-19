@@ -205,7 +205,7 @@ a.noBorder:hover {
 	background-color: white;
 }
 
-a.help, a.help:link {
+a.help {
 	width: 14px;
 	height: 14px;
 	display: inline-block;
@@ -226,8 +226,8 @@ a.help, a.help:link {
 	text-transform: none; /* in case this is in a .companyRecord td.field */
 }
 
-a.help:visited {
-
+a.help:link, a.help:visited {
+	zoom: 1;
 }
 
 a.help:focus, a.help:hover {
