@@ -226,18 +226,10 @@ a.help {
 	text-transform: none; /* in case this is in a .companyRecord td.field */
 }
 
-a.help:link, a.help:visited {
-	zoom: 1;
-}
-
 a.help:focus, a.help:hover {
 	background-color: white;
 	cursor: pointer;
 	z-index: 2;
-}
-
-a.help:active {
-
 }
 
 .help:hover span.heading, 

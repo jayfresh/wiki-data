@@ -53,7 +53,7 @@
 				<div>
 					<label for="legal_name" class="grid3col marginright">Legal Name</label>
 					<input id="legal_name" name="legal_name" class="grid3col required" type="text" />
-					<a class="help">
+					<a href="#" class="help">
 						<span class="heading"><span class="point"></span><span class="text">Legal Name</span></span>
 						<span class="helpText">{{ tooltips.legal_name }}</span>
 					</a>
@@ -71,7 +71,7 @@
 				<div>
 					<label for="operational_state" class="grid3col marginright">Operational State</label>
 					<input id="operational_state" name="operational_state" class="grid3col" type="text" />
-					<a class="help">
+					<a href="#" class="help">
 						<span class="heading"><span class="point"></span><span class="text">Operational State</span></span>
 						<span class="helpText">{{ tooltips.operational_state }}</span>
 					</a>
@@ -96,7 +96,7 @@
 			<h3>Additional Fields</h3>
 			<div class="grid4col left">
 				<div class="borderbottom equalise1">
-					<h5>Location Information <a class="help">
+					<h5>Location Information <a href="#" class="help">
 						<span class="heading"><span class="point"></span><span class="text">Location Information</span></span>
 						<span class="helpText">Operational address information</span>
 					</a></h5>
@@ -119,7 +119,7 @@
 							<tr>
 								<td class="field"><label for="{{field}}">{{label}}</label></td>
 								<td><input class="reduced" type="text" name="{{field}}" id="{{field}}" />
-								<a class="help">
+								<a href="#" class="help">
 									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
 									<span class="helpText">{{ tooltips[field] }}</span>
 								</a></td>
@@ -131,7 +131,7 @@
 			</div>
 			<div class="grid4col left marginleft">
 				<div class="borderbottom equalise1">
-					<h5>Registered Address Information <a class="help">
+					<h5>Registered Address Information <a href="#" class="help">
 						<span class="heading"><span class="point"></span><span class="text">Registered Address</span></span>
 						<span class="helpText">The registered address published by the registration authority for the country (or US state) of incorporation for the entity</span>
 					</a></h5>
@@ -143,7 +143,7 @@
 								<td {%- if field in ['operational_country', 'operational_state', 'registered_country', 'registered_state'] %} class="{{field}}" {%- endif -%} >
 								{%- if field in ['registered_state', 'registered_country'] -%}
 								<input class="reduced" type="text" name="{{field}}" id="{{field}}" />
-								<a class="help">
+								<a href="#" class="help">
 									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
 									<span class="helpText">{{ tooltips[field] }}</span>
 								</a>
@@ -166,7 +166,7 @@
 								<td>
 								{%- if field in ['trading_status', 'registration_number__jurisdiction_'] -%}
 								<input class="reduced" type="text" name="{{field}}" id="{{field}}" />
-								<a class="help">
+								<a href="#" class="help">
 									<span class="heading"><span class="point"></span><span class="text">{{label}}</span></span>
 									<span class="helpText">{{ tooltips[field] }}</span>
 								</a>
