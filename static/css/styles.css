@@ -999,7 +999,7 @@ table.companyRecord {
 	border: none;
 }
 
-.companyRecord .borderbottom, .requestInformation .borderbottom {
+.borderbottom {
 	border-bottom: 1px solid #d5d5d5;
 	margin-bottom: 20px;
 }
@@ -1007,8 +1007,12 @@ table.companyRecord {
 table.companyRecord td {
 	/* border-bottom: 1px solid #d5d5d5; */
 	color: #3c3c3c;
-	width: 155px;
+	width: 165px;
 	padding: 5px 0px;
+}
+
+div.companyRecord table.companyRecord td {
+	width: 140px;
 }
 
 table.companyRecord {
@@ -1022,7 +1026,11 @@ table.companyRecord td.field {
     letter-spacing: 0.03em;
     padding-right: 5px;
     text-transform: uppercase;
-    width: 135px;
+    width: 120px;
+}
+
+div.companyRecord table.companyRecord td.field {
+	width: 135px;
 }
 
 .pageContent.companyRecord h5, .pageContent.requestInformation h5 {
