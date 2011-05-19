@@ -205,7 +205,7 @@ a.noBorder:hover {
 	background-color: white;
 }
 
-.help {
+a.help, a.help:link {
 	width: 14px;
 	height: 14px;
 	display: inline-block;
@@ -226,11 +226,18 @@ a.noBorder:hover {
 	text-transform: none; /* in case this is in a .companyRecord td.field */
 }
 
+a.help:visited {
 
-a.help:hover {
+}
+
+a.help:focus, a.help:hover {
 	background-color: white;
 	cursor: pointer;
 	z-index: 2;
+}
+
+a.help:active {
+
 }
 
 .help:hover span.heading, 
