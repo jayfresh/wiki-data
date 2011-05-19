@@ -223,6 +223,7 @@ a.noBorder:hover {
 	margin: 2px 0px 0px 5px;
 	position: relative;
 	z-index: 0;
+	text-transform: none; /* in case this is in a .companyRecord td.field */
 }
 
 
