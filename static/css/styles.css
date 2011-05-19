@@ -364,7 +364,7 @@ h5 .help {
 .pageLinks ul a {
 	background-color: #767676;
 	color: white;
-	padding: 3px 10px 0px 10px;
+	padding: 3px 20px 0px 10px;
 	height: 17px;
 	line-height: 12px;;
 	display: inline-block;
@@ -392,12 +392,8 @@ h5 .help {
 	border-left: 10px solid #767676;
 	border-bottom: 10px solid #fff;
 	position: absolute;
-	right: -8px;
+	right: 0px;
 	top: 0;
-	/*position: relative;
-	top: -3px;
-	left: 10px;
-	float: right;*/
 }
 
 
