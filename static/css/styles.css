@@ -364,7 +364,7 @@ h5 .help {
 .pageLinks ul a {
 	background-color: #767676;
 	color: white;
-	padding: 3px 3px 0px 10px;
+	padding: 3px 10px 0px 10px;
 	height: 17px;
 	line-height: 12px;;
 	display: inline-block;
@@ -511,13 +511,22 @@ h5 .help {
 	background-color: #3c3c3c;
 }
 
-#submitButton, #searchBox #submitButton {
+
+/* default #searchButton look */
+
+#searchButton {
+	position: relative;
+	float: right;
+	margin-top: 10px;
+	right: 10px;
+}
+
+#submitButton {
 	width: 110px;
 	background-color: #FF6E42;
 	color: #FFF;
 	text-shadow: 1px 1px 1px #333333;
 	filter: dropshadow(color=#333333, offx=1, offy=1);
-	border: none;
 	height: 20px;
 	padding-bottom: 3px;
 	-moz-border-radius-topleft: 3px;
@@ -529,45 +538,67 @@ h5 .help {
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 3px;
 	border: none;
-	position: absolute;
-    right: 10px;
-    top: 2px;
 }
 
-#searchBox input#submitButton:hover {
+#searchButton #submitButton {
+	float: none;
+	border: none;
+}
+
+#searchButton span {
+	border-bottom: 10px solid #FFF;
+    border-left: 10px solid #FF6E42;
+    border-top: 10px solid #FFF;
+    font-size: 0;
+    line-height: 0;
+    margin-right: 0;
+	position: absolute;
+    right: -10px;
+    top: 0;
+    width: 0;
+}
+
+#searchButton:hover span {
+	border-bottom-color: #FFFFFF;
+	border-top-color: #FFFFFF;
+}
+
+/* specific to #search box */
+
+#searchBox #searchButton {
+	position: absolute;
+	right: 10px;
+	top: 2px;
+}
+
+#searchBox #submitButton:hover {
        background-color: #FF4B15;
+}
+
+#searchBox #searchButton span {
+	border-bottom-color: #E0E0E0;
+	border-top-color: #E0E0E0;
 }
 
 #searchBox a#searchButton:hover input#submitButton, a#searchButton:hover input#submitButton {
        background-color: #FF4B15;
 }
-#searchBox a#searchButton:hover #testBorder, a#searchButton:hover #testBorder {
+#searchBox a#searchButton:hover span, a#searchButton:hover span {
 	cursor: pointer;
 	border-bottom-color: #E0E0E0;
     border-left-color: #FF4B15;
     border-top-color: #E0E0E0;
 }
 
-a#searchButton:hover #testBorder {
-	border-bottom-color: #FFFFFF;
-	border-top-color: #FFFFFF;
+/* specific to request information page */
+
+#recordForm .requestInformation #submitButton {
+	font-weight: bold;
+	font-size: 0.8em;
 }
 
-#loginForm, #updateForm {
-	position: relative;
-}
+/* end of #searchButton styles */
 
-#recordForm #submitButton, #loginForm #submitButton, #updateForm #submitButton {
-	position: relative;
-	float: right;
-	margin-right: -10px;
-	margin-top: 10px;
-}
-#recordForm #testBorder, #loginForm #testBorder, #updateForm #testBorder {
-	position: relative;
-	float: right;
-	margin-top: 25px;
-}
 
 #searchBox .submitBox {
 	width: 260px;
@@ -577,37 +608,8 @@ a#searchButton:hover #testBorder {
     z-index: 1;
 }
 
-#testBorder {
-	border-bottom: 10px solid #e0e0e0;
-    border-left: 10px solid #FF6E42;
-    border-top: 10px solid #e0e0e0;
-    font-size: 0;
-    line-height: 0;
-    margin-right: 0;
-    margin-top: 15px;
-    position: absolute;
-    right: 0;
-    top: -13px;
-    width: 0;
-}
-
-#recordForm #testBorder, .requestInformation #testBorder, #loginForm #testBorder, #updateForm #testBorder {
-	border-bottom-color: #FFF;
-	border-top-color: #FFF;
-}
-
-#recordForm .requestInformation #submitButton {
-	font-weight: bold;
-	font-size: 0.8em;
-	text-align: left;
-	padding-left: 10px;
-	margin-right: 0;
-	right: 0;
-}
-
-#recordForm .requestInformation #testBorder {
-	margin-top: 0;
-	top: 12px;
+#loginForm, #updateForm {
+	position: relative;
 }
 
 #searchBox #advancedSearchContainer {
@@ -737,6 +739,7 @@ a#searchButton:hover #testBorder {
 	height: 16px;
 	line-height: 1.2em;
 	width: 40px;
+	position: relative;
 }
 
 .tableinfo a.left:hover, 
@@ -761,7 +764,9 @@ a#searchButton:hover #testBorder {
 	border-top: 8px solid #fff;
 	border-bottom: 8px solid #fff;
 	border-right: 8px solid #767676;
-	float: left;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 .tableinfo a.right span, 
@@ -771,7 +776,13 @@ a#searchButton:hover #testBorder {
 	border-top: 8px solid #fff;
 	border-left: 8px solid #767676;
 	border-bottom: 8px solid #fff;
-	float: right;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#resultsTable a.pointed span {
+	right: -8px;
 }
 
 .tableinfo a.inactive, .tableinfo a.inactive:hover {
@@ -961,11 +972,11 @@ table#resultsTable tr.even {
 }
 
 #resultsTable a.pointed {
-	float: right;
-	width: 25px;
+	width: 18px;
 	padding-left: 5px;
 	line-height: 1.3em;
-	top: 7px;
+	left: 18px;
+	display: block;
 }
 
 /*=================================== Default Tables */

@@ -1,9 +1,9 @@
 <div class="tableinfo top grid12col">
 	<span id="pageDistance">{{pageDistance}}</span>
 	{%- if queryIndex == 0 -%}
-	<a href="#" class="left pagebutton inactive"><span></span>prev</a>
+	<a href="#" class="left pagebutton inactive">prev<span></span></a>
 	{%- else -%}
-	<a href="#" class="left pagebutton"><span></span>prev</a>
+	<a href="#" class="left pagebutton">prev<span></span></a>
 	{%- endif -%}
 	<span class="left">
 	{%- if resultcount == 0 -%}
@@ -19,9 +19,9 @@
 		</span> - <a href="#" class="addFilter">add a filter</a>?</span>
 	{%- endif -%}
 	{%- if count_to_end == 0 -%}
-	<a href="#" class="right pagebutton inactive"><span></span>next</a>
+	<a href="#" class="right pagebutton inactive">next<span></span></a>
 	{%- else -%}
-	<a href="#" class="right pagebutton"><span></span>next</a>			
+	<a href="#" class="right pagebutton">next<span></span></a>			
 	{%- endif -%}
 	<a id="columnPicker" class="right onlyjs">Hide/Show Columns
 		<span class="columns">

@@ -38,22 +38,22 @@
 			<td>{{tiddler.fields[field]}}</td>
 			{% endif %}
 		{% endfor %}
-			<td><a class="pointed" href="/bags/avox/tiddlers/{{ tiddler.title }}.challenge"><span></span>Go</a></td>
-			<td><a class="pointed" href="/bags/avox/tiddlers/{{ tiddler.title }}.request"><span></span>Go</a></td>
+			<td><a class="pointed" href="/bags/avox/tiddlers/{{ tiddler.title }}.challenge">Go<span></span></a></td>
+			<td><a class="pointed" href="/bags/avox/tiddlers/{{ tiddler.title }}.request">Go<span></span></a></td>
 		</tr>
 	{% endfor %}
 	</tbody>
 </table>
 <div class="tableinfo grid12col">
 	{% if queryIndex == 0 -%}
-	<a href="#" class="left pagebutton inactive"><span></span>prev</a>
+	<a href="#" class="left pagebutton inactive">prev<span></span></a>
 	{%- else -%}
-	<a href="#" class="left pagebutton"><span></span>prev</a>
+	<a href="#" class="left pagebutton">prev<span></span></a>
 	{%- endif %}
 	{% if count_to_end == 0 -%}
-	<a href="#" class="right pagebutton inactive"><span></span>next</a>
+	<a href="#" class="right pagebutton inactive">next<span></span></a>
 	{%- else -%}
-	<a href="#" class="right pagebutton"><span></span>next</a>
+	<a href="#" class="right pagebutton">next<span></span></a>
 	{%- endif %}
 </div>
 {% endblock %}
