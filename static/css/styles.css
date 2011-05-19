@@ -373,6 +373,7 @@ h5 .help {
 	letter-spacing: 0.06em;	
 	text-shadow: 1px 1px 1px #333333;
 	filter: dropshadow(color=#333333, offx=1, offy=1);
+	position: relative;
 
 	-moz-border-radius-topleft: 3px;
 	-moz-border-radius-topright: 0px;
@@ -390,10 +391,13 @@ h5 .help {
 	border-top: 10px solid #fff;
 	border-left: 10px solid #767676;
 	border-bottom: 10px solid #fff;
-	position: relative;
+	position: absolute;
+	right: -8px;
+	top: 0;
+	/*position: relative;
 	top: -3px;
 	left: 10px;
-	float: right;
+	float: right;*/
 }
 
 
