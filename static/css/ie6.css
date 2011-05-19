@@ -9,3 +9,7 @@
 .grid4col.mandatory {
 	width: 300px;
 }
+
+.pageLinks ul li span { /* to handle that IE6 sometimes exposes 1px of the container to the right, even though this is positioned right:0 */
+	right: -1px;
+}
