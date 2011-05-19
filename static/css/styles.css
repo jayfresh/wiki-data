@@ -227,7 +227,7 @@ a.noBorder:hover {
 }
 
 
-.help:hover {
+a.help:hover {
 	background-color: white;
 	cursor: pointer;
 	z-index: 2;
