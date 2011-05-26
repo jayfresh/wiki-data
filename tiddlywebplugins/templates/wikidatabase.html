@@ -39,7 +39,7 @@
 					<li>
 						{%- if usersign.name != "GUEST" -%}
 						<form method="POST" action="/logout">
-							<button id="logout">Logout</button>
+							<button type="submit" id="logout">Logout</button>
 						</form>
 							{% if "ADMIN" in usersign.roles %}
 					</li>
