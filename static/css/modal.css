@@ -40,6 +40,10 @@
 	display: none;
 }
 
+#simplemodal-container .simplemodal-wrap {
+	overflow: auto;
+}
+
 /* Personal info section on top of modal background */
 
 #personal_info {

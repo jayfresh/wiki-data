@@ -537,7 +537,6 @@
 				mxow = s.o.maxWidth ? s.getVal(s.o.maxWidth, 'w') : null,
 				mh = mxoh && mxoh < w[0] ? mxoh : w[0],
 				mw = mxow && mxow < w[1] ? mxow : w[1];
-
 			// moh = min option height
 			var moh = s.o.minHeight ? s.getVal(s.o.minHeight, 'h') : 'auto';
 			if (!ch) {
@@ -551,7 +550,6 @@
 			else {
 				ch = s.o.autoResize && ch > mh ? mh : ch < moh ? moh : ch;
 			}
-
 			// mow = min option width
 			var mow = s.o.minWidth ? s.getVal(s.o.minWidth, 'w') : 'auto';
 			if (!cw) {
@@ -565,7 +563,6 @@
 			else {
 				cw = s.o.autoResize && cw > mw ? mw : cw < mow ? mow : cw;
 			}
-
 			s.d.container.css({height: ch, width: cw});
 			s.d.wrap.css({overflow: (dh > ch || dw > cw) ? 'auto' : 'visible'});
 			s.o.autoPosition && s.setPosition();

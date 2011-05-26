@@ -2384,7 +2384,10 @@ function makeCaptcha() {
 	if($('#recaptcha').length) {
 		Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
 			theme: 'red',
-			callback: Recaptcha.focus_response_field
+			callback: function() {
+				$.modal.setContainerDimensions();
+				Recaptcha.focus_response_field();
+			}
 		});
 	}
 }
@@ -2460,9 +2463,13 @@ function makeModalAndSetValidator(idSelector) {
 
 	$('#submitButton').click(function(e) {
 		e.preventDefault();
+		var winHeight = $(window).height(),
+			maxHeight = winHeight-57; // 57px is the size of an asynchronously loaded ReCAPTCHA block; 560px is the height of the #personal_info div (well, 557px)
 		modal = $(modal_html).modal({
 			position: ['20px'],
-			autoResize: true
+			autoResize: true,
+			minHeight: maxHeight,
+			maxHeight: maxHeight
 		});
 		$('#'+containerID).addClass('jbasewrap');
 		$personal_info.appendTo($('#'+containerID+' #tempForm')).show();
@@ -2483,9 +2490,9 @@ function makeModalAndSetValidator(idSelector) {
 				$('<input type="hidden" name="'+$(this).attr('name')+'" value="'+$(this).val()+'" />').appendTo($origForm);
 			});
 			$origForm.get(0).submit();
-		});
-
+		});	
 		makeCaptcha();
+		modal.setContainerDimensions();
 	});
 	
 	// add operational state validation to form
@@ -8383,7 +8390,6 @@ $(document).ready(function() {
 				mxow = s.o.maxWidth ? s.getVal(s.o.maxWidth, 'w') : null,
 				mh = mxoh && mxoh < w[0] ? mxoh : w[0],
 				mw = mxow && mxow < w[1] ? mxow : w[1];
-
 			// moh = min option height
 			var moh = s.o.minHeight ? s.getVal(s.o.minHeight, 'h') : 'auto';
 			if (!ch) {
@@ -8397,7 +8403,6 @@ $(document).ready(function() {
 			else {
 				ch = s.o.autoResize && ch > mh ? mh : ch < moh ? moh : ch;
 			}
-
 			// mow = min option width
 			var mow = s.o.minWidth ? s.getVal(s.o.minWidth, 'w') : 'auto';
 			if (!cw) {
@@ -8411,7 +8416,6 @@ $(document).ready(function() {
 			else {
 				cw = s.o.autoResize && cw > mw ? mw : cw < mow ? mow : cw;
 			}
-
 			s.d.container.css({height: ch, width: cw});
 			s.d.wrap.css({overflow: (dh > ch || dw > cw) ? 'auto' : 'visible'});
 			s.o.autoPosition && s.setPosition();
