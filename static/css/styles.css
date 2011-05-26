@@ -109,7 +109,7 @@ a.noBorder:hover {
 	color: #fff;
 	border: 0;
 	background: 0;
-	font-weight: inherit;
+	font-weight: bold; /* was inherit, but IE7 doesn't inherit this */
 	padding: 0;
 	margin: 0;
 	font-size: inherit;
