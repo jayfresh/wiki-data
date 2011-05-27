@@ -393,7 +393,7 @@
 				s.o.autoResize ? s.setContainerDimensions() : s.o.autoPosition && s.setPosition();
 
 				if (ie6 || ieQuirks) {
-					//s.fixIE(); // JRL: trying not to move the dialog
+					s.fixIE();
 				}
 				else if (s.o.modal) {
 					// update the iframe & overlay
@@ -418,7 +418,8 @@
 			var s = this, p = s.o.position;
 
 			// simulate fixed position - adapted from BlockUI
-			$.each([s.d.iframe || null, !s.o.modal ? null : s.d.overlay, s.d.container], function (i, el) {
+			//$.each([s.d.iframe || null, !s.o.modal ? null : s.d.overlay, s.d.container], function (i, el) {
+			$.each([!s.o.modal ? null : s.d.overlay], function (i, el) {
 				if (el) {
 					var bch = 'document.body.clientHeight', bcw = 'document.body.clientWidth',
 						bsh = 'document.body.scrollHeight', bsl = 'document.body.scrollLeft',
