@@ -8201,7 +8201,7 @@ $(document).ready(function() {
 
 			// fix issues with IE
 			if (ie6 || ieQuirks) {
-				s.fixIE();
+				//s.fixIE(); // JRL: trying not to move the dialog
 			}
 		},
 		/*
@@ -8244,7 +8244,7 @@ $(document).ready(function() {
 				s.o.autoResize ? s.setContainerDimensions() : s.o.autoPosition && s.setPosition();
 
 				if (ie6 || ieQuirks) {
-					s.fixIE();
+					//s.fixIE(); // JRL: trying not to move the dialog
 				}
 				else if (s.o.modal) {
 					// update the iframe & overlay
