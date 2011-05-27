@@ -149,7 +149,6 @@ function makeCaptcha() {
 		Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
 			theme: 'red',
 			callback: function() {
-				$.modal.setContainerDimensions();
 				Recaptcha.focus_response_field();
 			}
 		});
@@ -231,11 +230,8 @@ function makeModalAndSetValidator(idSelector) {
 			maxHeight = winHeight-57; // 57px is the size of an asynchronously loaded ReCAPTCHA block; 560px is the height of the #personal_info div (well, 557px)
 		modal = $(modal_html).modal({
 			position: ['20px'],
-			containerCss: {
-				position: 'absolute'
-			}
-			/*autoResize: true,
-			minHeight: maxHeight,
+			autoResize: true
+			/*minHeight: maxHeight,
 			maxHeight: maxHeight*/
 		});
 		$('#'+containerID).addClass('jbasewrap');
@@ -259,7 +255,6 @@ function makeModalAndSetValidator(idSelector) {
 			$origForm.get(0).submit();
 		});	
 		makeCaptcha();
-		modal.setContainerDimensions();
 	});
 	
 	// add operational state validation to form
