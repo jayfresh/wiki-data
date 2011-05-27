@@ -8201,7 +8201,7 @@ $(document).ready(function() {
 
 			// fix issues with IE
 			if (ie6 || ieQuirks) {
-				//s.fixIE(); // JRL: trying not to move the dialog
+				s.fixIE();
 			}
 		},
 		/*
