@@ -231,9 +231,12 @@ function makeModalAndSetValidator(idSelector) {
 			maxHeight = winHeight-57; // 57px is the size of an asynchronously loaded ReCAPTCHA block; 560px is the height of the #personal_info div (well, 557px)
 		modal = $(modal_html).modal({
 			position: ['20px'],
-			autoResize: true,
+			containerCss: {
+				position: 'absolute'
+			}
+			/*autoResize: true,
 			minHeight: maxHeight,
-			maxHeight: maxHeight
+			maxHeight: maxHeight*/
 		});
 		$('#'+containerID).addClass('jbasewrap');
 		$personal_info.appendTo($('#'+containerID+' #tempForm')).show();

@@ -32,16 +32,13 @@
 	width: 340px;
 	height: auto;
 	padding: 0;
+	position: absolute;
 }
 #simplemodal-container .simplemodal-data {
 	padding: 0px;
 }
 #simplemodal-container a.modalCloseImg {
 	display: none;
-}
-
-#simplemodal-container .simplemodal-wrap {
-	overflow: auto;
 }
 
 /* Personal info section on top of modal background */

@@ -320,7 +320,7 @@
 				.addClass('simplemodal-container')
 				.css($.extend(s.o.containerCss, {
 					display: 'none',
-					position: 'fixed',
+					position: 'absolute', // JRL: changed from fixed
 					zIndex: s.o.zIndex + 2
 				}))
 				.append(s.o.close && s.o.closeHTML
