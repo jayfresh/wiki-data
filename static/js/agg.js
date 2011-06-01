@@ -7641,6 +7641,9 @@ $(document).ready(function() {
 				if(!columns[col].bVisible) {
 					oTable.fnSetColumnVis(col, true);
 				}
+				if($.browser.msie && $.browser.version.indexOf('8')!==-1) {
+					$('a.pointed').css('top',0);
+				}
 				//oTable.fixedHeader.fnUpdate();
 			}
 			function toggleColumn(col) {
