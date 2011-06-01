@@ -110,11 +110,6 @@ $(document).ready(function() {
 				if(!columns[col].bVisible) {
 					oTable.fnSetColumnVis(col, true);
 				}
-				if($.browser.msie && $.browser.version.indexOf('8')!==-1) { // IE8 fix to redraw arrows so their bodies realign with their tips
-					alert('wiggle');
-					$('a.pointed').css('display','none');
-					$('a.pointed').css('display','block');
-				}
 				//oTable.fixedHeader.fnUpdate();
 			}
 			function toggleColumn(col) {
@@ -122,6 +117,10 @@ $(document).ready(function() {
 					oTable.fnSetColumnVis(col, false);
 				} else {
 					oTable.fnSetColumnVis(col, true);
+				}
+				if($.browser.msie && $.browser.version.indexOf('8')!==-1) { // IE8 fix to redraw arrows so their bodies realign with their tips
+					$('a.pointed').css('display','none');
+					$('a.pointed').css('display','block');
 				}
 				//oTable.fixedHeader.fnUpdate();
 			}
