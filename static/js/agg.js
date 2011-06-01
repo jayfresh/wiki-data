@@ -7641,7 +7641,7 @@ $(document).ready(function() {
 				if(!columns[col].bVisible) {
 					oTable.fnSetColumnVis(col, true);
 				}
-				if($.browser.msie && $.browser.version.indexOf('8')!==-1) {
+				if($.browser.msie && $.browser.version.indexOf('8')!==-1) { // IE8 fix to redraw arrows so their bodies realign with their tips
 					$('a.pointed').css('top',0);
 				}
 				//oTable.fixedHeader.fnUpdate();
