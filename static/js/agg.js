@@ -7642,8 +7642,9 @@ $(document).ready(function() {
 					oTable.fnSetColumnVis(col, true);
 				}
 				if($.browser.msie && $.browser.version.indexOf('8')!==-1) { // IE8 fix to redraw arrows so their bodies realign with their tips
-					$('a.pointed').css('top',1);
-					$('a.pointed').css('top',0);
+					alert('wiggle');
+					$('a.pointed').css('display','none');
+					$('a.pointed').css('display','block');
 				}
 				//oTable.fixedHeader.fnUpdate();
 			}
