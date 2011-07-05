@@ -110,8 +110,10 @@ class Store(MappingSQLStore):
                     % (search_fields, query_string))
                 if version == 2:
                     expression = literal_column("((MATCH(%s) AGAINST('%s')) + "
+                        "(10 * (MATCH(legal_name) AGAINST('\"%s\"' "
+                        "in boolean mode))) +"
                         "(1.3 * MATCH(legal_name) AGAINST('%s')))"
-                        % (search_fields, query_string,
+                        % (search_fields, query_string, query_string,
                             query_string)).label('relevance')
                     query = query.add_columns(expression).order_by('relevance desc')
             else:
