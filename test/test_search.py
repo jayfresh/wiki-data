@@ -40,7 +40,7 @@ def test_store():
     make sure the data in the db, for testing, is okay.
     """
     assert 'wdsql' in '%s' % store.storage
-    assert session.query(sTiddler).count() == 3000
+    assert session.query(sTiddler).count() == 2081
     tiddler = Tiddler('2159077', 'avox')
     tiddler = store.get(tiddler)
     assert tiddler.fields['legal_name'] == 'Allianz Vie SA'
@@ -141,6 +141,14 @@ def test_type():
     assert anames != enames
     assert enames != pnames
     assert anames != pnames
+
+def test_lei():
+    set_query_string('v=2;q=abcdefghijklmnopqr18')
+
+    tiddlers = list(store.search(''))
+    assert len(tiddlers) == 1
+    tiddler = store.get(tiddlers[0])
+    assert tiddler.fields['legal_name'] == 'The National Mutual Life Association Of Australasia Limited'
 
 def test_avid():
     set_query_string('v=2;q=2164305')

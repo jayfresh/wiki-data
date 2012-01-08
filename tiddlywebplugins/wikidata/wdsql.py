@@ -78,7 +78,7 @@ class Store(MappingSQLStore):
                 query_string = '"' + query_string.rstrip('"').lstrip('"') + '"'
             else:
                 query_string = query_string.rstrip('"').lstrip('"')
-            if not _is_avid(query_string):
+            if not (_is_avid(query_string) or _is_lei(query_string)):
                 terms = query_string.split()
                 prefix = bound = suffix = ''
                 if type == 'all':
@@ -98,6 +98,10 @@ class Store(MappingSQLStore):
         if _is_avid(query_string):
             query = query.filter(getattr(sTiddler, self.id_column)
                     == query_string)
+            branches = True
+            have_query = True
+        elif _is_lei(query_string):
+            query = query.filter(sTiddler.lei == query_string)
             branches = True
             have_query = True
         elif query_string:
@@ -179,6 +183,16 @@ class Store(MappingSQLStore):
             query = query.filter(getattr(sTiddler, field) == terms[0])
             have_query = True
         return query, have_query
+
+
+def _is_lei(query_string):
+    """
+    A (p)lei "a is 20 character code (not 12) with the first 18 characters
+    being alphanumeric and the last two being check digits".
+    """
+    return (query_string.isalnum() and 
+            len(query_string) == 20 and
+            query_string[-2:].isdigit())
 
 
 def _is_avid(query_string):
