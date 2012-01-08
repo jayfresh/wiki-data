@@ -21,9 +21,9 @@ EXTRACTDIR=/home/avox/dataextracts
 TODAY=`date +%Y%m%d`
 
 ## calculate extract
-FULLSTUB="wiki_full$TODAY.txt"
+FULLSTUB="mad_full_extract_$TODAY.txt"
 FULLEXTRACTFILE="${1:-$FULLSTUB}"
-DELTAEXTRACTFILE="wiki_delta$TODAY.txt"
+DELTAEXTRACTFILE="mad_delta_extract_$TODAY.txt"
 EXTRACTFILE="nofile$TODAY.txt"
 
 echo $FULLEXTRACTFILE
@@ -41,7 +41,7 @@ EXTRACTFILE=$( (sftp wiki_mad_admin@193.29.79.42:$FULLEXTRACTFILE >/dev/null \
 chmod 644 $EXTRACTDIR/$EXTRACTFILE
 
 # If this is a full file, delete all the existing entries.
-echo $EXTRACTFILE | grep 'wiki_full' && echo "delete from $DATATABLE;" \
+echo $EXTRACTFILE | grep 'mad_full' && echo "delete from $DATATABLE;" \
     | mysql -u $DATAUSER $DATABASE
 
 cd $DATADIR
