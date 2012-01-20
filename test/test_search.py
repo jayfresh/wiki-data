@@ -150,6 +150,13 @@ def test_lei():
     tiddler = store.get(tiddlers[0])
     assert tiddler.fields['legal_name'] == 'The National Mutual Life Association Of Australasia Limited'
 
+def test_all_lei():
+    set_query_string('v=2;q=;lei=all')
+    tiddlers = list(store.search(''))
+    assert len(tiddlers) == 1
+    tiddler = store.get(tiddlers[0])
+    assert tiddler.fields['legal_name'] == 'The National Mutual Life Association Of Australasia Limited'
+
 def test_avid():
     set_query_string('v=2;q=2164305')
 
