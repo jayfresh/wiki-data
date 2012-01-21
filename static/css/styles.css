@@ -452,7 +452,7 @@ h5 .help {
 }
 
 #searchBox .leftLabel {
-	width: 135px;
+	width: 165px;
 }
 
 #searchBox.homepage {
@@ -641,7 +641,7 @@ a#searchButton:hover span {
 #searchBox .advSearchLineValue {
 	left: 185px;
     position: absolute;
-    width: 140px;
+    width: 170px;
 }
 
 #searchBox #advancedSearchContainer button {
