@@ -54,31 +54,33 @@
 					</tbody>
 				</table>
 			</div>
-			<h5>Entity Information</h5>
-			<table class="companyRecord">
-				<tbody>
-					<tr>
-						<td class="field">Trading Status: <a href="#" class="help">
-							<span class="heading"><span class="point"></span><span class="text">Trading Status</span></span>
-							<span class="helpText">{{ tooltips.trading_status }}</span>
-						</a></td>
-						<td>{{ tiddler.fields.trading_status }}</td>
-					</tr>
-					{% if tiddler.fields.company_website %}
-					<tr>
-						<td class="field">Company website:</td>
-						<td><a href="http://{{ tiddler.fields.company_website }}" target="_blank">{{ tiddler.fields.company_website }}</a></td>
-					</tr>
-					<tr>
-						<td class="field">Country of Incorporation: <a href="#" class="help">
-							<span class="heading"><span class="point"></span><span class="text">Country of Incorporation</span></span>
-							<span class="helpText">{{ tooltips.registered_country }}</span>
-						</a></td>
-						<td class="registered_country">{{ tiddler.fields['registered_country'] }}</td>
-					</tr>
-					{% endif %}
-				</tbody>
-			</table>
+			<div class="borderbottom">
+				<h5>Entity Information</h5>
+				<table class="companyRecord">
+					<tbody>
+						<tr>
+							<td class="field">Trading Status: <a href="#" class="help">
+								<span class="heading"><span class="point"></span><span class="text">Trading Status</span></span>
+								<span class="helpText">{{ tooltips.trading_status }}</span>
+							</a></td>
+							<td>{{ tiddler.fields.trading_status }}</td>
+						</tr>
+						{% if tiddler.fields.company_website %}
+						<tr>
+							<td class="field">Company website:</td>
+							<td><a href="http://{{ tiddler.fields.company_website }}" target="_blank">{{ tiddler.fields.company_website }}</a></td>
+						</tr>
+						<tr>
+							<td class="field">Country of Incorporation: <a href="#" class="help">
+								<span class="heading"><span class="point"></span><span class="text">Country of Incorporation</span></span>
+								<span class="helpText">{{ tooltips.registered_country }}</span>
+							</a></td>
+							<td class="registered_country">{{ tiddler.fields['registered_country'] }}</td>
+						</tr>
+						{% endif %}
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<div class="grid4col left marginleft">
 			<div class="equalise1 borderbottom">
@@ -129,16 +131,36 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>	
-			<h5>Hierarchy Information</h5>
+			</div>
+			<div class="borderbottom">
+				<h5>Hierarchy Information</h5>
+				<table class="companyRecord">
+					<tbody>
+						<tr>
+							<td class="field">Entity Type: <a href="#" class="help">
+								<span class="heading"><span class="point"></span><span class="text">Entity Type</span></span>
+								<span class="helpText">{{ tooltips.entity_type }}</span>
+							</a></td>
+							<td class="entity_type">{{ tiddler.fields['entity_type'] }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="grid4col left">	
+			<h5>Identifiers</h5>
 			<table class="companyRecord">
 				<tbody>
 					<tr>
-						<td class="field">Entity Type: <a href="#" class="help">
-							<span class="heading"><span class="point"></span><span class="text">Entity Type</span></span>
-							<span class="helpText">{{ tooltips.entity_type }}</span>
+						<td class="field">Provisional Legal Entity Identifier: <a href="#" class="help">
+							<span class="heading"><span class="point"></span><span class="text">Provisional Legal Entity Identifier</span></span>
+							<span class="helpText">{{ tooltips.lei }}</span>
 						</a></td>
-						<td class="entity_type">{{ tiddler.fields['entity_type'] }}</td>
+						{% if tiddler.fields['lei'] -%}
+						<td class="lei">{{ tiddler.fields['lei'] }}</td>
+						{%- else -%}
+						<td class="lei">not published</td>
+						{%- endif %}
 					</tr>
 				</tbody>
 			</table>

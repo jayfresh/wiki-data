@@ -74,6 +74,23 @@ $(document).ready(function() {
 			window.gMaps.reg_address = makeAddressText('#reg_address_div');
 		}
 		*/
+		
+		// make help text headers and content the same width
+		$companyDiv.find('.help').each(function() {
+			var $header = $(this).find('span.heading span.text').css('width','auto'),
+				$helpText = $(this).find('span.helpText'),
+				headerWidth = $header.width(),
+				helpTextWidth = $helpText.width(),
+				widthAdjustment = 8; // this is to offset difference in header and helptext relative positions
+			if(headerWidth<helpTextWidth) {
+				$header.width(helpTextWidth+widthAdjustment+'px');
+			}
+			if(helpTextWidth<headerWidth) {
+				$helpText.width(headerWidth-widthAdjustment+'px');
+			}
+				
+		});
+		
 		$companyDiv.css('visibility', 'visible');
 	}
 });
