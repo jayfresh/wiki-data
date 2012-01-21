@@ -74,7 +74,7 @@ recordFields = [
 ('ultimate_parent_name', 'Ultimate Parent Name', 'Legal name of Ultimate Parent'),
 #('ultimate_parent_notes', 'Ultimate Parent Notes', 'Analyst notes about the Ultimate Parent relationship'),
 #('general_notes', 'General Notes', 'General notes about this data record - free format text'),
-('lei', 'Provisional Legal Entity Identifier', 'A unique code assigned to each entity')
+('lei', 'Provisional Legal Entity Identifier', 'The provisional legal entity identifier is a unique ID provided to global entities.  The 20 character alphanumeric code contains a two numeric character check digit')
 ];
 
 def getFields(environ):
