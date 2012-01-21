@@ -10,8 +10,10 @@
 	<form method="post" action="/verify" id="recordForm">	
 		<div class="grid4col marginright left">
 			<div class="pageLinks notFixed">
-				<h2>Request Analysis</h2>
-				<p class="nomargin">This is a list of the extra data fields you are requesting for AVID {{tiddler.title}}. Click Submit to confirm your request.</p>
+				<h2>Request Detailed Analysis</h2>
+				<p>This is a list of the extra data fields you are requesting for AVID {{tiddler.title}}. Click Submit to confirm your request.</p>
+				<p>Avox will generate a new report for the selected entity and send it to your registered email address.</p>
+				<p class="nomargin">You can submit your first request for detailed analysis free of charge.</p>
 				<div class="requestInformation left">
 					<a id="searchButton">
 						<input id="submitButton" value="Submit Request" type="submit" /><span></span>
@@ -19,6 +21,7 @@
 				</div>
 				<br class="clearboth" />
 				<ul>
+					<li><a href="http://dl.dropbox.com/u/331606/avox/25858952_Macquarie%20Bank%20Limited.pdf" target="_blank">View sample report<span></span></a></li>
 					<li><a href="/bags/avox/tiddlers/{{tiddler.title}}">View published record<span></span></a></li>
 				</ul>
 			</div>
