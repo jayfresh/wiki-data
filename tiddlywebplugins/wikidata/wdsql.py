@@ -74,6 +74,21 @@ class Store(MappingSQLStore):
         query_string = query_string.replace("'", r"\'")
 
         if version == 2:
+            if 'lei' in fields and fields['lei'][0] == 'all':
+                # XXX extract to method
+                query = self.session.query(getattr(sTiddler, self.id_column))
+                query = (query.filter(sTiddler.lei != None)
+                        .filter(sTiddler.lei != ''))
+
+                stiddlers = self.run_query(query, branches, full_access,
+                        slice_index)
+
+                bag_name = self.environ['tiddlyweb.config']['mappingsql.bag']
+
+                for stiddler in stiddlers:
+                    yield Tiddler(unicode(getattr(stiddler, self.id_column)),
+                        bag_name)
+                return
             if query_string.startswith('""'):
                 query_string = '"' + query_string.rstrip('"').lstrip('"') + '"'
             else:
