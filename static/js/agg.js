@@ -2695,19 +2695,24 @@ $(document).ready(function() {
 	if($('form.miniVerify').length) {
 		var q = window.location.search,
 			params = parseQueryString(q),
-			errors,
+			formErrors,
+			emailError,
 			errorMessage = "";
 		if(!params.success) {
-			errors = params.formErrors;
-			if(errors) {
-				if(errors.indexOf('recaptcha_response_field')!==-1) {
+			formErrors = params.formErrors;
+			if(formErrors) {
+				if(formErrors.indexOf('recaptcha_response_field')!==-1) {
 					errorMessage = " An incorrect ReCAPTCHA was submitted.";
 				}
 				alert('There was an error with your form, please try again.'+errorMessage);
-				$(params).each(function(key, value) {
-					$('form #key').val(value);
-				});
-			}			
+			}
+			emailError = params.emailError;
+			if(emailError) {
+				alert('There was an error sending your message, please try again in a few minutes.');
+			}
+			$(params).each(function(key, value) {
+				$('form #key').val(value);
+			});
 		}
 	}
 	$('form.miniVerify').validate({

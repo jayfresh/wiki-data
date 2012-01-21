@@ -7,7 +7,10 @@ def emailAvox(query, domain='wiki-data.com'):
     requestType = query['requestType'][0]
     name = query['name'][0]
     email = query['email'][0]
-    country = query['country'][0]
+    try:
+        country = query['country'][0]
+    except:
+        country = "not set"
     company = query['company'][0]
     if requestType == 'request':
         avid = query['avid'][0]
@@ -66,6 +69,23 @@ Record info
                 body += label + ': ' + query[field][0] + '\n'
             except KeyError:
                 pass
+    elif requestType == 'wdds':
+        telephone = query['telephone'][0]
+        comments = query['comments'][0]
+        to = 'jnthnlstr@googlemail.com'
+        # to = ['wiki-data@avox.info', 'jnthnlstr@googlemail.com'] TO-DO: restore this line after testing
+        subject = 'Wiki-Data Download Service request'
+        body = """Submittor info
+--------------
+Name: %s
+Email address: %s
+Company: %s
+Telephone: %s
+
+Comments:
+%s
+--------------
+""" % (name, email, company, telephone, comments)
     else:
         to = 'jnthnlstr@googlemail.com'
         subject = 'Unknown contact type'

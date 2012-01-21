@@ -163,8 +163,12 @@ def verify_simple(environ, start_response):
             # params.append(key+'='+value)
         redirect = redirect + '?formErrors='+','.join(formErrors)+'&'.join(params)
     else:
-        # do the email bit
-        redirect = redirect + '?success=1'
+        try:
+            emailAvox(query)
+            redirect = redirect + '?success=1'
+        except Exception as exc:
+            logging.debug(exc)
+            redirect = redirect + '?emailError=1'
 
     start_response('302 Found', [
             ('Content-Type', 'text/html'),
