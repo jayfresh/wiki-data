@@ -59,7 +59,7 @@ a:hover {
 	color: #ff2828;
 }
 
-a.noBorder:hover {
+a.noBorder:hover, a#searchButton:hover {
 	border-bottom: none;
 }
 
