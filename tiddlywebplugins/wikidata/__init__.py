@@ -128,7 +128,52 @@ country: %s
         logging.debug('failed to send: %s:%s:%s', to_address, subject, body)
     raise HTTP303(server_base_url(environ) + '/pages/registered.html')
 
+def verify_simple(environ, start_response):
+    logging.debug(environ['tiddlyweb.query'])
+    domain = get_domain(environ['HTTP_HOST'])
+    try:
+        redirect = environ['tiddlyweb.query']['recaptcha_redirect'][0]
+    except (KeyError, IndexError):
+        redirect = environ['HTTP_REFERER'].split('?', 1)[0]
+    query = environ['tiddlyweb.query']
+
+    formErrors = []
+    name = query['name'][0]
+    if name == '':
+        formErrors.append('name')
+    email = query['email'][0]
+    if email == '':
+        formErrors.append('email')
     
+    challenge_field = environ['tiddlyweb.query']['recaptcha_challenge_field'][0]
+    # logging.debug('challenge_field: '+challenge_field)
+    response_field = environ['tiddlyweb.query']['recaptcha_response_field'][0]
+    # logging.debug('response_field: '+response_field)
+    private_key = "6Ld8HAgAAAAAAAyOgYXbOtqAD1yuTaOuwP8lpzX0"
+    ip_addr = environ['REMOTE_ADDR']
+    # logging.debug('ip_addr: '+ip_addr)
+    resp = captcha.submit(challenge_field, response_field, private_key, ip_addr)
+    if not resp.is_valid:
+        formErrors.append('recaptcha_response_field')
+    
+    if formErrors:
+        params = []
+        # JRL: this throws 'too many values to unpack' error
+        # for key, value in query:
+            # params.append(key+'='+value)
+        redirect = redirect + '?formErrors='+','.join(formErrors)+'&'.join(params)
+    else:
+        # do the email bit
+        redirect = redirect + '?success=1'
+
+    start_response('302 Found', [
+            ('Content-Type', 'text/html'),
+            ('Location', redirect),
+            ('Pragma', 'no-cache')
+            ])
+    return []
+
+
 def verify(environ, start_response):
 
     logging.debug(environ['tiddlyweb.query'])
@@ -475,6 +520,7 @@ def init(config):
                 GET=test_template_route)
         config['selector'].add('/index.html', GET=index)
         config['selector'].add('/verify', POST=verify)
+        config['selector'].add('/verify_simple', POST=verify_simple)
         config['selector'].add('/lib/fields.js', GET=get_fields_js)
         config['selector'].add('/env', GET=env)
         config['selector'].add('/register', POST=register)

@@ -48,10 +48,10 @@
 			<p>Each week subscribers will also be provided with a completely refreshed file, containing updates to all entities that have changed (corporate updates). It will also contain all new entities that have been added to the wiki-data.com service.</p>
 			<p>The Avox Identifier (AVID) is included in the content and can be used without restriction.</p>
 			<p>To subscribe to this service, please complete the following form or contact us at +44 1978 661 813 during UK business hours.</p>
-			<form action="/verify" method="post">
+			<form action="/verify_simple" method="post" class="miniVerify">
 				<div class="lightbg formSet margintop">
 					<label for="name">Name *</label>
-					<input type="text" name="name" id="name" class="required" />
+					<input type="text" name="name" id="name" class="" />
 					<label for="email">Email Address *</label>
 					<input type="text" name="email" id="email" class="required email" />
 					<label for="company">Company</label>
@@ -66,6 +66,12 @@
 				<a id="searchButton">
 					<input id="submitButton" value="Submit Request" type="submit" /><span></span>
 				</a>
+				<!--<script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29"></script>-->
+				<noscript>
+					<iframe src="http://api.recaptcha.net/noscript?k=6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29" height="300" width="500" frameborder="0"></iframe><br />
+					<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+					<input type='hidden' name='recaptcha_response_field' value='manual_challenge' />
+				</noscript>
 			</form>
 		</div>
 	</div>

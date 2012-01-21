@@ -2380,9 +2380,9 @@ function overflowTable(container,overflowTarget) {
 		console.log(ex);
 	}*/
 }
-function makeCaptcha() {
-	if($('#recaptcha').length) {
-		Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $('#recaptcha').get(0), {
+function makeCaptcha(elem) {
+	if($(elem).length) {
+		Recaptcha.create("6Ld8HAgAAAAAAEIb34cZepZmJ0RlfeP6CmtoMO29", $(elem).get(0), {
 			theme: 'red',
 			callback: function() {
 				Recaptcha.focus_response_field();
@@ -2438,7 +2438,7 @@ function makeModalAndSetValidator(idSelector) {
 		}
 		$('#modal .overlay-decorator, #modal .overlay-wrap').css('top',$(window).scrollTop());
 		$('html').addClass('modal');
-		makeCaptcha();
+		makeCaptcha('#recaptcha');
 	});
 }*/
 function makeModalAndSetValidator(idSelector) {
@@ -2490,7 +2490,7 @@ function makeModalAndSetValidator(idSelector) {
 			});
 			$origForm.get(0).submit();
 		});	
-		makeCaptcha();
+		makeCaptcha('#recaptcha');
 	});
 	
 	// add operational state validation to form
@@ -2690,6 +2690,52 @@ $(document).ready(function() {
 		});
 	}
 	$('.equalise1').equalize();
+	
+	// add the CAPTCHA modal box for miniVerify forms (which don't have personal info on them)
+	if($('form.miniVerify').length) {
+		var q = window.location.search,
+			params = parseQueryString(q),
+			errors,
+			errorMessage = "";
+		if(!params.success) {
+			errors = params.formErrors;
+			if(errors) {
+				if(errors.indexOf('recaptcha_response_field')!==-1) {
+					errorMessage = " An incorrect ReCAPTCHA was submitted.";
+				}
+				alert('There was an error with your form, please try again.'+errorMessage);
+				$(params).each(function(key, value) {
+					$('form #key').val(value);
+				});
+			}			
+		}
+	}
+	$('form.miniVerify').validate({
+		submitHandler: function(form) {
+			var modal_html = '<form id="personal_info"><div id="recaptcha"></div></form>',
+				modal = $(modal_html).modal({
+					position: ['20px']
+					/*autoResize: true
+					minHeight: maxHeight,
+					maxHeight: maxHeight*/
+				});
+			$('#simplemodal-container').addClass('jbasewrap');
+			makeCaptcha('#recaptcha');
+			$(form).find('#submitButton')
+				.clone()
+				.attr('id','submitButtonClone')
+				.addClass('right')
+				.appendTo('#personal_info');
+			$('#submitButtonClone').click(function(e) {
+				e.preventDefault();
+				$('#personal_info').find('input').each(function() {
+					$('<input type="hidden" name="'+$(this).attr('name')+'" value="'+$(this).val()+'" />').appendTo(form);
+				});
+				form.submit();
+			});
+		}
+	});
+	
 	// now show hidden things
 	// TO-DO: see whether the onlyjs things are even hidden
 	$('.onlyjs').css('visibility','visible');
