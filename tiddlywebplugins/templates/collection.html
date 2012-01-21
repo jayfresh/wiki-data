@@ -34,6 +34,8 @@
 			<td class="entityName"><a href="/bags/avox/tiddlers/{{tiddler.title}}.html">{{tiddler.fields[field]}}</a></td>
 			{% elif field == 'company_website' %}
 			<td><a href="{{tiddler.fields[field]}}">{{tiddler.fields[field]}}</a></td>
+			{% elif field == 'lei' %}
+			<td class="center">{{tiddler.fields[field]}}</td>
 			{% else %}
 			<td>{{tiddler.fields[field]}}</td>
 			{% endif %}

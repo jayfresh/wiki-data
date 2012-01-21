@@ -968,6 +968,10 @@ table#resultsTable tr td.entityName {
 	width: 140px
 }
 
+table#resultsTable tr td.center {
+	text-align: center;
+}
+
 table#resultsTable tr.even {
 	background-color: #e0e0e0;
 }

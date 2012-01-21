@@ -7540,7 +7540,8 @@ var defaultView = [
 	"operational_city",
 	"operational_state",
 	"operational_country",
-	"entity_type"
+	"entity_type",
+	"lei"
 ];
 var entity_name_map = {
 	"TP": "Ultimate Parent",
@@ -7580,6 +7581,10 @@ var aoColumnsRenderMap = {
 	},
 	"entity_type": function(data) {
 		return entity_name_map[data.aData[data.iDataColumn]] || "";
+	},
+	"lei": function(data) {
+		console.log(data,arguments);
+		return data.aData[data.iDataColumn] ? "Y" : "";
 	}
 };
 $(document).ready(function() {

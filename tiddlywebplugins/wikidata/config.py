@@ -35,7 +35,8 @@ config = {
              'operational_state',
              'operational_country',
              'operational_postcode',
-             'entity_type'
+             'entity_type',
+             'lei'
         ],
         'mappingsql.default_search_fields': [
              'legal_name',
