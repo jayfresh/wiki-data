@@ -7651,8 +7651,8 @@ var aoColumnsRenderMap = {
 		return entity_name_map[data.aData[data.iDataColumn]] || "";
 	},
 	"lei": function(data) {
-		console.log(data,arguments);
-		return data.aData[data.iDataColumn] ? "Y" : "";
+		var hasLei = data.aData[data.iDataColumn] && data.aData[data.iDataColumn]!=="None";
+		return hasLei ? "Y" : "";
 	}
 };
 $(document).ready(function() {
