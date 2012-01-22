@@ -73,7 +73,7 @@ Record info
         telephone = query['telephone'][0]
         comments = query['comments'][0]        
         to = ['wiki-data@avox.info', 'jnthnlstr@googlemail.com']
-        subject = 'Wiki-Data Download Service request'
+        subject = 'Wiki-Data File Download Service request'
         body = """Submittor info
 --------------
 Name: %s
