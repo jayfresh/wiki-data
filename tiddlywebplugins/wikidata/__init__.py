@@ -158,10 +158,9 @@ def verify_simple(environ, start_response):
     
     if formErrors:
         params = []
-        # JRL: this throws 'too many values to unpack' error
-        # for key, value in query:
-            # params.append(key+'='+value)
-        redirect = redirect + '?formErrors='+','.join(formErrors)+'&'.join(params)
+        for key, value in query.iteritems():
+            params.append(key+'='+url_quote(value[0]))
+        redirect = str(redirect + '?formErrors='+','.join(formErrors)+'&'+'&'.join(params)) # JRL: not sure why I need to wrap this in str(), but if I don't, I get WSGI response header value %r is not a byte string
     else:
         try:
             emailAvox(query)

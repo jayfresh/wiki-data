@@ -71,9 +71,8 @@ Record info
                 pass
     elif requestType == 'wdds':
         telephone = query['telephone'][0]
-        comments = query['comments'][0]
-        to = 'jnthnlstr@googlemail.com'
-        # to = ['wiki-data@avox.info', 'jnthnlstr@googlemail.com'] TO-DO: restore this line after testing
+        comments = query['comments'][0]        
+        to = ['wiki-data@avox.info', 'jnthnlstr@googlemail.com']
         subject = 'Wiki-Data Download Service request'
         body = """Submittor info
 --------------
