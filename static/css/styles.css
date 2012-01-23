@@ -432,6 +432,7 @@ h5 .help {
 	-webkit-column-gap: 20px;
 	column-count: 2;
 	column-gap: 20px;
+	padding-bottom: 5px;
 }
 
 /*=================================== Search box */
