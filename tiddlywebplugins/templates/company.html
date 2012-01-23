@@ -81,6 +81,24 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="borderbottom">
+				<h5>Identifiers</h5>
+				<table class="companyRecord">
+					<tbody>
+						<tr>
+							<td class="field"><a href="/pages/about.html#lei">provisional legal entity identifier</a>: <a href="#" class="help">
+								<span class="heading"><span class="point"></span><span class="text">provisional legal entity identifier</span></span>
+								<span class="helpText">{{ tooltips.lei }}</span>
+							</a></td>
+							{% if tiddler.fields['lei'] -%}
+							<td class="lei">{{ tiddler.fields['lei'] }}</td>
+							{%- else -%}
+							<td class="lei">not published</td>
+							{%- endif %}
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<div class="grid4col left marginleft">
 			<div class="equalise1 borderbottom">
@@ -146,24 +164,6 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-		<div class="grid4col left">	
-			<h5>Identifiers</h5>
-			<table class="companyRecord">
-				<tbody>
-					<tr>
-						<td class="field"><a href="/pages/about.html#lei">provisional legal entity identifier</a>: <a href="#" class="help">
-							<span class="heading"><span class="point"></span><span class="text">provisional legal entity identifier</span></span>
-							<span class="helpText">{{ tooltips.lei }}</span>
-						</a></td>
-						{% if tiddler.fields['lei'] -%}
-						<td class="lei">{{ tiddler.fields['lei'] }}</td>
-						{%- else -%}
-						<td class="lei">not published</td>
-						{%- endif %}
-					</tr>
-				</tbody>
-			</table>
 		</div>
 	</div>
 </div>
