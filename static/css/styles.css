@@ -619,6 +619,7 @@ a#searchButton:hover span {
 #searchBox #footnote {
 	text-align: left;
 	width: 100%;
+	font-size: 0.79em;
 }
 
 #searchBox #footnote a {
