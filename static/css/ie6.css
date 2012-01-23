@@ -1,3 +1,7 @@
+#searchBox {
+	padding: 7px; /* so it doesn't get pushed down by long pagelinks arrows */
+}
+
 .formSet label.grid3col {
 	width: 185px;
 }

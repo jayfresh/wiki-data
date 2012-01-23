@@ -446,7 +446,9 @@ h5 .help {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	min-height: 100px; /* NB: needs IE6 fix */
+	min-height: 100px;
+	height: auto !important; /* IE6 min-height fix */
+	height: 100px;
 }
 
 #searchBox .marginbottom {
