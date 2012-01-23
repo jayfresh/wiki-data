@@ -2,6 +2,7 @@
 var oTable;
 var defaultView = [
 	"avid",
+	"lei",
 	"legal_name",
 	"trading_status",
 	"registered_country",
@@ -9,8 +10,7 @@ var defaultView = [
 	"operational_city",
 	"operational_state",
 	"operational_country",
-	"entity_type",
-	"lei"
+	"entity_type"
 ];
 var entity_name_map = {
 	"TP": "Ultimate Parent",
