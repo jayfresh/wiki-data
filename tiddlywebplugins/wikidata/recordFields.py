@@ -3,6 +3,7 @@ import logging
 # expand this for MAD
 recordFields = [
 ('avid', 'AVID', 'A unique code assigned to each entity on the Avox Core Database'),
+('lei', 'provisional legal entity identifier', 'The provisional legal entity identifier is a unique ID provided to global entities.  The 20 character alphanumeric code contains a two numeric character check digit'),
 #('avox_match_status', 'Avox Match Status', 'Match, Enrich, Collide against Client data'),
 #('avox_entity_class', 'Avox Entity Class', 'Classification of entity. EG Corp, Bank etc.'),
 #('avox_entity_type', 'Avox Entity Type', 'Type of entity within hierarchy, e.g. Ultimate Parent'),
@@ -73,8 +74,7 @@ recordFields = [
 ('ultimate_parent_avid', 'Ultimate Parent AVID', 'AVID of Ultimate Parent'),
 ('ultimate_parent_name', 'Ultimate Parent Name', 'Legal name of Ultimate Parent'),
 #('ultimate_parent_notes', 'Ultimate Parent Notes', 'Analyst notes about the Ultimate Parent relationship'),
-#('general_notes', 'General Notes', 'General notes about this data record - free format text'),
-('lei', 'provisional legal entity identifier', 'The provisional legal entity identifier is a unique ID provided to global entities.  The 20 character alphanumeric code contains a two numeric character check digit')
+#('general_notes', 'General Notes', 'General notes about this data record - free format text')
 ];
 
 def getFields(environ):
