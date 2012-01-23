@@ -1,9 +1,9 @@
 <form id="searchBox" class="grid8col lightbg left" action="/search" method="get">
-	<label for="query" class="leftLabel marginright">Company Name / AVID / PLEI</label>
+	<label for="query" class="leftLabel marginright">Company Name / AVID *</label>
 	<input id="query" name="q" type="text" />
 	<a href="#" class="help">
 		<span class="heading"><span class="point"></span><span class="text">Search Terms</span></span>
-		<span class="helpText">Type here to search by AVID, Legal Name, Previous Name(s) and Trades As Name(s)</span>
+		<span class="helpText">Type here to search by AVID, Legal Name, Previous Name(s), Trades As Name(s) and provisional legal entity identifier</span>
 	</a>
 	<label for="branches" class="small marginleft">Include branches</label>
 	<input id="branches" name="branches" type="checkbox" checked="checked" />
@@ -21,13 +21,16 @@
 			<span class="heading"><span class="point"></span><span class="text">Match</span></span>
 			<span class="helpText">Choose how to match results to your search strings</span>
 		</a>
+		<span class="clearboth" id="footnote">
+			* You can also search using a <a href="/pages/about.html#lei">provisional legal entity identifier</a>
+		</span>
 		<a id="searchButton">
 			<input id="submitButton" value="Search Wiki-Data" type="submit" /><span></span>
 		</a>
 	</div>
 	<div id="advancedSearchContainer">
 	</div>
-	<div class="onlyjs clearboth">
+	<div class="onlyjs clearboth marginbottom">
 		<span class="leftLabel marginright">Add a Filter</span>
 		<span>
 			<button>+</button>

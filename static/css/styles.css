@@ -349,7 +349,7 @@ h5 .help {
 
 .pageLinks ul li {
 	margin-top: 10px;
-
+	white-space: nowrap;
 }
 
 .pageLinks ul a:hover { 
@@ -446,6 +446,10 @@ h5 .help {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+}
+
+#searchBox .marginbottom {
+	margin-bottom: 36px;
 }
 
 #searchBox input#query{
@@ -607,6 +611,14 @@ a#searchButton:hover span {
     position: absolute;
     right: 10px;
     z-index: 1;
+}
+
+#searchBox #footnote {
+	text-align: left;
+}
+
+#searchBox #footnote a {
+	float: none;
 }
 
 #loginForm, #updateForm {
@@ -1037,6 +1049,10 @@ table.companyRecord td.field {
     padding-right: 5px;
     text-transform: uppercase;
     width: 120px;
+}
+
+table.companyRecord td.lowercase {
+	text-transform: lowercase;
 }
 
 div.companyRecord table.companyRecord td.field {

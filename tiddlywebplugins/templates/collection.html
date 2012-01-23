@@ -17,7 +17,11 @@
 	<thead>
 		<tr>
 		{% for field, label, tooltip in fields %}
+			{% if field == 'lei' %}
+			<th title="A 'Y' indicates a provisional legal entity identifier is available. Click on the Avox record to view. {{tooltip}}">{{label}}</th>
+			{% else %}
 			<th title="{{tooltip}}">{{label}}</th>
+			{% endif %}
 		{% endfor %}
 			<th class="noOrder" title="Challenge this record">Challenge Record</th>
 			<th class="noOrder" title="Request more fields for this record">Request Detailed Analysis</th>
