@@ -20,3 +20,6 @@ Prod:
 > git push origin master
 > script/update_remote_prod
 > script/deploy_prod dist/<filename created by make dist>
+
+To run the automated update of the database on the production server:
+> sudo /home/avox/bin/import2mysql.sh

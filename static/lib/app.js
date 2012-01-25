@@ -477,6 +477,8 @@ $(document).ready(function() {
 			$(params).each(function(key, value) {
 				$('form #key').val(value);
 			});
+		} else {
+			alert('Thanks for submitting your request.');
 		}
 	}
 	$('form.miniVerify').validate({
